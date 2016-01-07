@@ -1,0 +1,38 @@
+{
+  "name": "musical-octopotato backend",
+  "version": "0.0.1",
+  "description": "",
+  "author": "Polytech Nice-Sophia SI - Programmable Web 2015-2016 - groupe 12",
+  "contributors": [
+    {
+      "name": "Ying Jiang",
+      "email": "ying.jiang@etu.unice.fr"
+    },
+    {
+      "name": "Fernando Garrigos",
+      "email": "jonafepa@gmail.com"
+    },
+    {
+      "name": "Tom Veniat",
+      "email": "tom.veniat@etu.unice.fr"
+    },
+    {
+      "name": "Marc Karassev",
+      "email": "marc.karassev@yahoo.fr"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MarK9992/musical-octopotato.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MarK9992/musical-octopotato/issues"
+  },
+  "dependencies": {
+    "express": "^4.13.3",
+    "mongodb": "^2.1.3"
+  },
+  "devDependencies": {},
+  "private": true,
+  "license": "no license"
+}
