@@ -3,26 +3,39 @@ var assert = require('assert');
 var ObjectId = require('mongodb').ObjectID;
 
 var url = 'mongodb://localhost:27017/musical-octopotato';
-var database;
+var database = null;
 
 function connect(callback) {
 	MongoClient.connect(url, function(err, db) {
-    if (err) {
-      callback(err);  
-    }
-    else {
-      console.log("Connected correctly to server.");
-      database = db;
-  	  callback(null);
-    }
+	    if (err) {
+	    	console.log(err);
+	    }
+	    else {
+	      	console.log("Connected to mongodb.");
+	      	database = db;
+	  	  	callback();
+	    }
 	});
 }
 
 function disconnect() {
   database.close();
+  console.log("Closed connection to mongodb.");
 }
 
-// exports
+function getDatabase() {
+	if (database == null) {
+		connect(function() {
+			return database;
+		});
+	}
+	else {
+		return database;
+	}
+}
+
+// Exports
 
 exports.connect = connect;
 exports.disconnect = disconnect;
+exports.getDatabase = getDatabase;
