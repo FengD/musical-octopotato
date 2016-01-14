@@ -18,6 +18,14 @@ function fromJSON(json) {
 	return new User(json.uid, json.pwd);
 }
 
+function toJSON(user) {
+	var json = {};
+
+	if (user.uid) json.uid = user.uid;
+	if (user.pwd) json.pwd = user.pwd;
+	return json;
+}
+
 function create(data, callback) {
 	var user = fromJSON(data);
 
@@ -31,20 +39,9 @@ function create(data, callback) {
 }
 
 function get(uid) {
-	if (uid == undefined) {
-		return getAll();
-	}
-	else {
-		return getByUid(uid);
-	}
-}
+	var json = toJSON(new User(uid, undefined));
 
-function getAll() {
-	return mongoConnection.getDatabase().collection(USERS_COLLECTION).find();
-}
-
-function getByUid(uid) {
-	return mongoConnection.getDatabase().collection(USERS_COLLECTION).find({ uid: uid });
+	return mongoConnection.getDatabase().collection(USERS_COLLECTION).find(json);
 }
 
 // Exports
