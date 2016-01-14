@@ -1,10 +1,37 @@
-<div class="header">
-	<div class="logo">LOGO</div>
-	<div class="search">
-		<label>recherche </label><input type="text">
-	</div>
-	<div class="login">login</div>
-</div>
+<template id="header">
+	<style>
+		._header{
+			line-height: 80px;
+			height: 80px;
+			width: 100%;
+			background-color: black;
+			color: white;
+			text-align: center;
+		}
+
+		.logo{
+			float: left;
+			margin-left: 20px;
+		}
+
+		.login{
+			float: right;
+			margin-right: 20px;
+		}
+
+		div{
+			display: inline-block;
+		}
+	</style>
+
+    <div class="_header">
+		<div class="logo">LOGO</div>
+		<div class="search">
+			<label>recherche </label><input type="text">
+		</div>
+		<div class="login">login</div>	
+    </div>
+</template>
 
 <script type="text/javascript" src="../js/header.js"></script>
-<link rel="stylesheet" href="../styles/header.css">
+
