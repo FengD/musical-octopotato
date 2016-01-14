@@ -3,7 +3,7 @@ var express = require("express"),
 	users = require("./users");
 
 usersRouter.get("/", function(req, res) {
-	users.get().toArray(function(err, documents) {
+	users.get(function(err, documents) {
 		if (err) {
 			res.send(err);
 		}
@@ -14,14 +14,14 @@ usersRouter.get("/", function(req, res) {
 });
 
 usersRouter.get("/:uid", function(req, res) {
-	users.get(req.params.uid).toArray(function(err, documents) {
+	users.get(function(err, documents) {
 		if (err) {
 			res.send(err);
 		}
 		else {
 			res.send(documents);
 		}
-	});
+	}, req.params.uid);
 });
 
 usersRouter.post("/", function(req, res) {

@@ -38,10 +38,17 @@ function create(data, callback) {
 	});
 }
 
-function get(uid) {
-	var json = toJSON(new User(uid, undefined));
+function get(callback, uid) {
+	var json = toJSON(new User(uid, undefined)),
+		error = null;
 
-	return mongoConnection.getDatabase().collection(USERS_COLLECTION).find(json);
+	mongoConnection.getDatabase().collection(USERS_COLLECTION).find(json)
+		.toArray(function(err, documents) {
+		if (err) {
+			error = "unable to retrieve users";
+		}
+		callback(error, documents);
+	});
 }
 
 // Exports
