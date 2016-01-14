@@ -1,3 +1,5 @@
+// TODO move to TDD
+
 var assert = require('assert'),
 	users = require("../users"),
 	mongoConnection = require("../mongo_connection");
@@ -47,25 +49,3 @@ describe("users", function() {
 		mongoConnection.disconnect();
 	});
 });
-
-// describe('User', function() {
-//   describe('#save()', function() {
-//     it('should save without error', function(done) {
-//       var user = new User('Luna');
-//       user.save(function(err) {
-//         if (err) throw err;
-//         done();
-//       });
-//     });
-//   });
-// });
-
-// describe('User', function() {
-//   describe('#save()', function() {
-//     it('should save without error', function(done) {
-//       var user = new User('Luna');
-//       user.save(done);
-//     });
-//   });
-// });
-
