@@ -1,0 +1,23 @@
+{
+  "name": "musical-octopotato",
+  "homepage": "https://github.com/MarK9992/musical-octopotato",
+  "authors": [
+    "Ying"
+  ],
+  "description": "",
+  "main": "index.html",
+  "moduleType": [
+    "es6"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "webcomponentsjs": "~0.7.20"
+  }
+}
