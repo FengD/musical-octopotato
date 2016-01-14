@@ -34,6 +34,13 @@ function create(data, callback) {
 		uid: user.uid,
 		pwd: user.pwd
 	}, function(err, result) {
+		if (err) {
+			console.log(err);
+			err = "could not persist user";
+		}
+		else {
+			result = user;
+		}
 		callback(err, result);
 	});
 }
@@ -47,11 +54,15 @@ function get(callback, uid) {
 		if (err) {
 			error = "unable to retrieve users";
 		}
+		documents = documents.map(function(element) {
+			return fromJSON(element);
+		});
 		callback(error, documents);
 	});
 }
 
 // Exports
 
+//exports.User = User;
 exports.create = create;
 exports.get = get;
