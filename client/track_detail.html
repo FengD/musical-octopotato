@@ -3,14 +3,61 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Document</title>
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.min.js"></script>
 	<script type="text/javascript" src="bower_components/webcomponentsjs/webcomponents.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="styles/index.css">
+	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="import" href="components/header.html">
+</head>
 
-</head>
-</head>
 <body>
 	<header-component></header-component>
+
+    <div class="track_detail">
+    	<div class="detail">
+	        <div class="track"> 
+	        	    <a class="trackName" href = "track_detail.html">Audiotool Day</a> By <a class="authorName">dove</a>
+	        </div>	
+        	<div class="trackCreated">3 weeks ago</div>
+        	<div>
+                    <div class="cover">cover</div>
+                    <div class="waveform">wave</div><br/>
+                    <div class="actionbar">
+                    	<li><button class="glyphicon glyphicon-heart">like</button></li>
+                    	<li><button class="glyphicon glyphicon-share">share</button></li>
+                    	<li><button class="glyphicon glyphicon-edit">remix</button></li>
+                    </div>
+                    <div class="interest">
+                    	    <li class="glyphicon glyphicon-play">420</li>
+                        	<li class="glyphicon glyphicon-heart">36</li>
+                        	<li class="glyphicon glyphicon-comment">78</li>
+                    </div>
+        	</div>
+        </div>	
+    </div>
     
+    <div class="row"> 
+	    	<div class="col-sm-8">
+                   <div class="description">
+			    	  description
+		            </div>
+		            <div class="mycomment">
+		              my comment
+		            </div>		    
+		    </div>
+		    <div class="col-sm-4 trackInfo">
+		    	info of this track
+		    </div>
+     </div>
+
+     <div class="row">
+		     <div class="col-sm-8 commnents">
+		     	all the users comments
+		     </div>		     
+		     <div class="col-sm-4 similar_tracks">
+		     	similar tracks
+		     </div>
+     </div>
 </body>
 </html>

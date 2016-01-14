@@ -18,6 +18,8 @@
     "tests"
   ],
   "dependencies": {
-    "webcomponentsjs": "~0.7.20"
+    "webcomponentsjs": "~0.7.20",
+    "jquery": "~2.2.0",
+    "bootstrap": "~3.3.6"
   }
 }
