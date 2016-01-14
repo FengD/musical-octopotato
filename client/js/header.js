@@ -1,13 +1,19 @@
-var doc = document.currentScript.ownerDocument;
+(function(){
+	var doc = document.currentScript.ownerDocument;
 
-var Header = Object.create(HTMLElement.prototype, {
-  createdCallback: { 
-    value: function() { 
-        this.appendChild(doc.querySelector(".header"));
-    }
-  }
-});
+	var Header = Object.create(HTMLElement.prototype, {
+	  createdCallback: { 
+	    value: function() { 
+	    	console.log(document._currentScript);
+	    	var t = doc.querySelector("#header");
+	    	var clone =  doc.importNode(t.content, true);    	
+	        this.createShadowRoot().appendChild(clone);
 
-document.registerElement('header-component', {
-  prototype: Header
-});
+	    }
+	  }
+	});
+
+	document.registerElement('header-component', {
+	  prototype: Header
+	});
+})();

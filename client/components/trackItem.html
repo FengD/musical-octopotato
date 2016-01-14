@@ -1,0 +1,43 @@
+<template id="item">
+        <style>
+        ._item{
+                width:80%;
+                margin-left: 20px;
+                margin-top:15px;
+                padding:5px;
+                border:1px black solid;
+  
+        }
+        .track, .trackCreated, .cover, .waveform, .actionbar, .interest, .actionbar li, .interest li{
+                display: inline-block;
+
+        }
+        .trackCreated, .waveform, .interest{
+                float:right;
+
+        }
+        .trackName{
+                text-decoration: none;
+        }
+        </style>
+        <div class="_item">
+                <div class="track"> <a class="trackName" href = "track_detail.html">Audiotool Day</a> By <a class="authorName">dove</a></div>	
+        	<div class="trackCreated">3 weeks ago</div>
+        	<div>
+                        <div class="cover">cover</div>
+                        <div class="waveform">wave</div><br/>
+                        <div class="actionbar">
+                        	<li>like</li>
+                        	<li>share</li>
+                        	<li>remix</li>
+                        </div>
+                        <div class="interest">
+                        	<li>listened</li>
+                        	<li>like</li>
+                        	<li>comment</li>
+                        </div>
+        	</div>
+        </div>
+</template>
+<script type="text/javascript" src="../js/trackItem.js"></script>
+
