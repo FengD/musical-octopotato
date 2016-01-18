@@ -4,13 +4,33 @@ var assert = require('assert'),
 	users = require("../users"),
 	mongoConnection = require("../mongo_connection");
 
-var bobby = new users.User("Bobby", "Lafrite");
+var bobby = new users.User("Bobby", "Lafrite"),
+	bobbyJson = {
+		uid: "Bobby",
+		pwd: "Lafrite"
+	};
 
 suite("users", function() {
 
 	suiteSetup(function(done) {
 		mongoConnection.connect(function() {
 			done();
+		});
+	});
+
+	suite("#fromJSON()", function() {
+
+		test("should create a user equal to Bobby", function() {
+			assert.deepEqual(bobby, users.fromJSON(bobbyJson));
+		});
+
+		test("should create a user not equal to Bobby", function() {
+			var notBobbyJson = {
+				uid: "notBobby",
+				pwd: "Lafrite"
+			};
+
+			assert.notDeepEqual(bobby, users.fromJSON(notBobbyJson));
 		});
 	});
 
