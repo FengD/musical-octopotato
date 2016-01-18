@@ -30,3 +30,7 @@ process.on("SIGINT", function() {
 		console.log("listening to", port);
 	});
 })();
+
+// Exports
+
+module.exports = exports = app;

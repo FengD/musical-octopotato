@@ -35,7 +35,8 @@
   },
   "devDependencies": {
     "async": "^1.5.2",
-    "mocha": "^2.3.4"
+    "mocha": "^2.3.4",
+    "supertest": "^1.1.0"
   },
   "private": true,
   "license": "no license"
