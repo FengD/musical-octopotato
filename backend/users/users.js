@@ -34,24 +34,50 @@ function create(data, callback) {
 		uid: user.uid,
 		pwd: user.pwd
 	}, function(err, result) {
+		if (err) {
+			console.log(err);
+			err = "could not persist user";
+		}
+		else {
+			result = user;
+		}
 		callback(err, result);
 	});
 }
 
 function get(callback, uid) {
-	var json = toJSON(new User(uid, undefined)),
-		error = null;
+	var json = toJSON(new User(uid, undefined));
 
 	mongoConnection.getDatabase().collection(USERS_COLLECTION).find(json)
 		.toArray(function(err, documents) {
 		if (err) {
-			error = "unable to retrieve users";
+			console.log(err);
+			err = "unable to retrieve users";
 		}
-		callback(error, documents);
+		documents = documents.map(function(element) {
+			return fromJSON(element);
+		});
+		callback(err, documents);
+	});
+}
+
+function remove(uid, callback) {
+	mongoConnection.getDatabase().collection(USERS_COLLECTION).deleteOne({
+		_id: uid
+	}, null, function(err, result) {
+		if (err) {
+			console.log(err);
+			err = "unable to remove user";
+		}
+		callback(err, result);
 	});
 }
 
 // Exports
 
+exports.User = User;
+exports.toJSON = toJSON;
+exports.fromJSON = fromJSON;
 exports.create = create;
 exports.get = get;
+exports.remove = remove;
