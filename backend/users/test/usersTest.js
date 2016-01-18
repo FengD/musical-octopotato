@@ -1,6 +1,7 @@
 // TODO move to TDD
 
 var assert = require('assert'),
+	async = require("async"),
 	users = require("../users"),
 	mongoConnection = require("../mongo_connection");
 
@@ -68,10 +69,6 @@ suite("users", function() {
 		});
 	});
 
-	suite("#get()", function() {
-
-	});
-
 	suite("#remove()", function() {
 
 		test("should remove Bobby without error", function(done) {
@@ -93,6 +90,84 @@ suite("users", function() {
 				}, result.result);
 			});
 			done();
+		});
+	});
+
+	suite("#get()", function() {
+
+		var joey = new users.User("Joey", "Starr"),
+		 	nadine = new users.User("Nadine", "Morano");
+		var createdUsers = [bobby, joey, nadine];
+
+		suiteSetup(function(done) {
+			async.parallel([
+				function(callback) {
+					users.create(users.toJSON(bobby), function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					users.create(users.toJSON(joey), function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					users.create(users.toJSON(nadine), function(err, result) {
+						callback(err, result);
+					});
+				}
+			], function(err, results) {
+				assert.equal(null, err);
+				done();
+			});
+		});
+
+		// test("should get all users", function(done) {
+		// 	users.get(function(err, data) {
+		// 		assert(err == null);
+		// 		assert(data)
+		// 	}, {});
+		// });
+		
+		test("should get Bobby by its uid", function(done) {
+			users.get(function(err, data) {
+				assert.equal(null, err);
+				assert.equal(1, data.length);
+				assert.deepEqual([bobby], data);
+				done();
+			}, bobbyJson.uid);
+		});
+		
+		test("should get no result with nonexistant uid", function(done) {
+			users.get(function(err, data) {
+				assert.equal(null, err);
+				assert.equal(0, data.length);
+				assert.deepEqual([], data);
+				done();
+			}, "nonExistantUid");
+		});
+		
+		suiteTeardown(function(done) {
+			async.parallel([
+				function(callback) {
+					users.remove(bobby.uid, function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					users.remove(joey.uid, function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					users.remove(nadine.uid, function(err, result) {
+						callback(err, result);
+					});
+				}
+			], function(err, results) {
+				assert.equal(null, err);
+				done();
+			});
 		});
 	});
 
