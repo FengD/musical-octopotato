@@ -1,0 +1,15 @@
+{
+  "name": "uploads",
+  "version": "0.0.1",
+  "description": "service to upload files",
+  "main": "uploads.js",
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Garrigos Fernando",
+  "license": "ISC"
+}
