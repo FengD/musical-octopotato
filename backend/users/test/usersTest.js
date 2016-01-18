@@ -6,17 +6,17 @@ var assert = require('assert'),
 
 var bobby = new users.User("Bobby", "Lafrite");
 
-describe("users", function() {
+suite("users", function() {
 
-	before(function(done) {
+	suiteSetup(function(done) {
 		mongoConnection.connect(function() {
 			done();
 		});
 	});
 
-	describe("#create()", function() {
+	suite("#create()", function() {
 
-		it("should create Bobby without error", function(done) {
+		test("should create Bobby without error", function(done) {
 			users.create(users.toJSON(bobby), function(err, result) {
 				if (err) {
 					console.log(err);
@@ -28,9 +28,9 @@ describe("users", function() {
 		});
 	});
 
-	describe("#remove()", function() {
+	suite("#remove()", function() {
 
-		it("should remove Bobby without error", function(done) {
+		test("should remove Bobby without error", function(done) {
 			users.remove(bobby.uid, function(err, result) {
 				if (err) {
 					console.log(err);
@@ -45,7 +45,7 @@ describe("users", function() {
 		});
 	});
 
-	after(function() {
+	suiteTeardown(function() {
 		mongoConnection.disconnect();
 	});
 });
