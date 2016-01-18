@@ -20,11 +20,11 @@ suite("users", function() {
 
 	suite("#fromJSON()", function() {
 
-		test("should create a user equal to Bobby", function() {
+		test("should produce a user equal to Bobby", function() {
 			assert.deepEqual(bobby, users.fromJSON(bobbyJson));
 		});
 
-		test("should create a user not equal to Bobby", function() {
+		test("should produce a user not equal to Bobby", function() {
 			var notBobbyJson = {
 				uid: "notBobby",
 				pwd: "Lafrite"
@@ -32,6 +32,19 @@ suite("users", function() {
 
 			assert.notDeepEqual(bobby, users.fromJSON(notBobbyJson));
 		});
+	});
+
+	suite("#toJSON()", function() {
+
+		test("should produce a JSON equal to BobbyJson", function() {
+			assert.deepEqual(bobbyJson, users.toJSON(bobby));
+		});
+
+		test("should produce a JSON not equal to BobbyJson", function() {
+			var notBobby = new users.User("notBobby", "Lafrite");
+
+			assert.notDeepEqual(bobby, users.toJSON(notBobby));
+		})
 	});
 
 	suite("#create()", function() {
