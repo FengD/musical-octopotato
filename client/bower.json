@@ -18,6 +18,7 @@
     "tests"
   ],
   "dependencies": {
-    "webcomponentsjs": "~0.7.20"
+    "webcomponentsjs": "~0.7.20",
+    "paper-audio-player": "~0.2.1"
   }
 }
