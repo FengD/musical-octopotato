@@ -122,12 +122,18 @@ suite("users", function() {
 			});
 		});
 
-		// test("should get all users", function(done) {
-		// 	users.get(function(err, data) {
-		// 		assert(err == null);
-		// 		assert(data)
-		// 	}, {});
-		// });
+		test("should get all users", function(done) {
+			users.get(function(err, data) {
+				assert.equal(null, err);
+				assert(data.length >= 3);
+				for (var i = 0; i < createdUsers.length; i++) {
+					assert(data.find(function(element, index, array) {
+						return element.uid == createdUsers[i].uid;
+					}));
+				}
+				done();
+			});
+		});
 		
 		test("should get Bobby by its uid", function(done) {
 			users.get(function(err, data) {
