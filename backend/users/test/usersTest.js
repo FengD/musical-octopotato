@@ -43,6 +43,13 @@ suite("users", function() {
 
 		test("should remove Bobby without error", function(done) {
 			users.remove(bobby.uid, function(err, result) {
+				assert.ifError(err);
+			});
+			done();
+		});
+
+		test("should reremove Bobby with error", function(done) {
+			users.remove(bobby.uid, function(err, result) {
 				if (err) {
 					console.log(err);
 					throw err;
