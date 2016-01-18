@@ -1,0 +1,16 @@
+{
+  "name": "mp3-files",
+  "version": "1.0.1",
+  "description": "service to upload files ",
+  "main": "serverFileUpload.js",
+  "dependencies": {
+    "express": "^4.13.3",
+    "multer": "^1.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Garrigos Fernando",
+  "license": "ISC"
+}
