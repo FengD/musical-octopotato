@@ -26,6 +26,17 @@ suite("users", function() {
 			});
 			done();
 		});
+
+		test("should send error when recreating Bobby", function(done) {
+			users.create(users.toJSON(bobby), function(err, result) {
+				assert.ifError(err);
+			});
+			done();
+		});
+	});
+
+	suite("#get()", function() {
+
 	});
 
 	suite("#remove()", function() {
