@@ -1,0 +1,23 @@
+{
+  "name": "clientAngular",
+  "homepage": "https://github.com/MarK9992/musical-octopotato",
+  "authors": [
+    "Ying"
+  ],
+  "description": "",
+  "main": "index.html",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "font-awesome": "fontawesome#~4.5.0",
+    "angular-route": "~1.4.8"
+  }
+}

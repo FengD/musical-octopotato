@@ -1,0 +1,59 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+.header{
+  line-height: 50px;
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center;
+
+  .logo{
+    float: left;
+    margin-left: 20px;
+  }
+
+  .login{
+    float: right;
+    margin-right: 20px;
+  }
+
+  div{
+    display: inline-block;
+  }
+}
+
+.trackItemPreviews{
+  margin-top: 20px;
+  width: 100%;
+
+  .trackItemPreview{
+    width: 700px;
+    margin: 0 auto 20px auto;
+    border: solid black 1px;
+    height: 100px;
+
+    .leftItems, .rightItems{
+      display: inline-block;
+      width: calc(50% - 4px);
+      vertical-align: middle;
+    }
+
+    .leftItems{
+      img{
+        height: 50px;
+      }
+
+      .title{
+        text-transform: capitalize;
+      }
+    }
+
+    .rightItems{
+      text-align: right;
+    }
+  }
+}
