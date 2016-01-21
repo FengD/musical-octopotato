@@ -1,11 +1,10 @@
 (function(){
 	var doc = document.currentScript.ownerDocument;
 
-	var Header = Object.create(HTMLElement.prototype, {
+	var Login = Object.create(HTMLElement.prototype, {
 	  createdCallback: { 
 	    value: function() { 
-	    	console.log(document._currentScript);
-	    	var t = doc.querySelector("#header");
+	    	var t = doc.querySelector("#login");
 	    	var clone =  doc.importNode(t.content, true);    	
 	        this.createShadowRoot().appendChild(clone);
 
@@ -13,10 +12,11 @@
 	  }
 	});
 
-	document.registerElement('header-component', {
-	  prototype: Header
+	document.registerElement('login-component', {
+	  prototype: Login
 	});
 
+	 
 })();
 
 
