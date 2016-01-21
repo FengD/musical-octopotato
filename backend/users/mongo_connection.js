@@ -13,11 +13,12 @@ function connect(callback) {
 	MongoClient.connect(url, function(err, db) {
 	    if (err) {
 	    	logger.error(err);
+	    	callback(err)
 	    }
 	    else {
 	      	logger.info("Connected to mongodb.");
 	      	database = db;
-	  	  	callback();
+	  	  	callback(null);
 	    }
 	});
 }

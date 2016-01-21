@@ -40,6 +40,22 @@ usersRouter.post("/", function(req, res) {
 	});
 });
 
+usersRouter.init = function init(callback) {
+	users.init(function (err) {
+		if (err) {
+			logger.warn(err);
+		}
+		else {
+			logger.info("router initialized");
+		}
+		callback(err);
+	});
+}
+
+usersRouter.clean = function clean() {
+	users.clean();
+}
+
 // Exports
 
 module.exports = exports = usersRouter;

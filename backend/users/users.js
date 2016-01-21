@@ -78,6 +78,22 @@ function remove(uid, callback) {
 	});
 }
 
+function init(callback) {
+	mongoConnection.connect(function(err) {
+		if (err) {
+			logger.warn(err);
+		}
+		else {
+			logger.info("users initialized");
+		}
+		callback(err);
+	});
+}
+
+function clean() {
+	mongoConnection.disconnect();
+}
+
 // Exports
 
 exports.User = User;
@@ -86,3 +102,5 @@ exports.fromJSON = fromJSON;
 exports.create = create;
 exports.get = get;
 exports.remove = remove;
+exports.init = init;
+exports.clean = clean;

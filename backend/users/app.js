@@ -5,7 +5,6 @@
 var express = require("express"),
 	bodyParser = require("body-parser"),
 	usersRouter = require("./users_router"),
-	mongoConnection = require("./mongo_connection"),
 	logger = require("./logger"),
 	app = express(),
 	port = 8080;
@@ -17,7 +16,7 @@ app.use("/users", usersRouter);
 
 function cleanBeforeExit() {
 	logger.info("exiting...");
-	mongoConnection.disconnect();
+	usersRouter.clean();
 }
 
 process.on("beforeExit", function() {
@@ -30,13 +29,17 @@ process.on("SIGINT", function() {
 });
 
 (function init() {
-	mongoConnection.connect(function() {
-		app.listen(port);
-		logger.info("listening to", port);
+	usersRouter.init(function (err) {
+		if (err) {
+			logger.error(err);
+		}
+		else {
+			app.listen(port);
+			logger.info("listening to", port);
+		}
 	});
 })();
 
 // Exports
 
-exports.app = app;
-exports.logger = logger;
+module.exports = exports = app;

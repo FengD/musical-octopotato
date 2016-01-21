@@ -5,7 +5,6 @@
 var assert = require('assert'),
 	async = require("async"),
 	users = require("../users"),
-	mongoConnection = require("../mongo_connection"),
 	logger = require("../logger");
 
 var bobby = new users.User("Bobby", "Lafrite"),
@@ -17,7 +16,7 @@ var bobby = new users.User("Bobby", "Lafrite"),
 suite("users", function() {
 
 	suiteSetup(function(done) {
-		mongoConnection.connect(function() {
+		users.init(function() {
 			done();
 		});
 	});
@@ -181,6 +180,6 @@ suite("users", function() {
 	});
 
 	suiteTeardown(function() {
-		mongoConnection.disconnect();
+		users.clean();
 	});
 });
