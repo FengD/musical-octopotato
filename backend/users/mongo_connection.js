@@ -1,26 +1,31 @@
-var MongoClient = require('mongodb').MongoClient;
-var assert = require('assert');
-var ObjectId = require('mongodb').ObjectID;
+/**
+ * @author Marc Karassev
+ */
 
-var url = 'mongodb://localhost:27017/musical-octopotato';
-var database = null;
+var MongoClient = require('mongodb').MongoClient,
+	assert = require('assert'),
+	ObjectId = require('mongodb').ObjectID,
+	logger = require("./logger"),
+	url = 'mongodb://localhost:27017/musical-octopotato',
+	database = null;
 
 function connect(callback) {
 	MongoClient.connect(url, function(err, db) {
 	    if (err) {
-	    	console.log(err);
+	    	logger.error(err);
+	    	callback(err)
 	    }
 	    else {
-	      	console.log("Connected to mongodb.");
+	      	logger.info("Connected to mongodb.");
 	      	database = db;
-	  	  	callback();
+	  	  	callback(null);
 	    }
 	});
 }
 
 function disconnect() {
   database.close();
-  console.log("Closed connection to mongodb.");
+  logger.info("Closed connection to mongodb.");
 }
 
 function getDatabase() {

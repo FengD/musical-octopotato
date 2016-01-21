@@ -1,6 +1,11 @@
+/**
+ * @author Marc Karassev
+ */
+
 var express = require("express"),
 	usersRouter = express.Router(),
-	users = require("./users");
+	users = require("./users"),
+	logger = require("./logger");
 
 usersRouter.get("/", function(req, res) {
 	users.get(function(err, documents) {
@@ -34,6 +39,22 @@ usersRouter.post("/", function(req, res) {
 		}
 	});
 });
+
+usersRouter.init = function init(callback) {
+	users.init(function (err) {
+		if (err) {
+			logger.warn(err);
+		}
+		else {
+			logger.info("router initialized");
+		}
+		callback(err);
+	});
+}
+
+usersRouter.clean = function clean() {
+	users.clean();
+}
 
 // Exports
 

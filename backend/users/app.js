@@ -1,8 +1,12 @@
+/**
+ * @author Marc Karassev
+ */
+
 var express = require("express"),
 	bodyParser = require("body-parser"),
+	usersRouter = require("./users_router"),
+	logger = require("./logger"),
 	app = express(),
-	mongoConnection = require("./mongo_connection"),
-	usersRouter = require("./users_router");
 	port = 8080;
 
 app.use(bodyParser.urlencoded({ extended: false })); 
@@ -11,8 +15,8 @@ app.use(bodyParser.json());
 app.use("/users", usersRouter);
 
 function cleanBeforeExit() {
-	console.log("exiting...");
-	mongoConnection.disconnect();
+	logger.info("exiting...");
+	usersRouter.clean();
 }
 
 process.on("beforeExit", function() {
@@ -25,9 +29,14 @@ process.on("SIGINT", function() {
 });
 
 (function init() {
-	mongoConnection.connect(function() {
-		app.listen(port);
-		console.log("listening to", port);
+	usersRouter.init(function (err) {
+		if (err) {
+			logger.error(err);
+		}
+		else {
+			app.listen(port);
+			logger.info("listening to", port);
+		}
 	});
 })();
 

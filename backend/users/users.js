@@ -1,6 +1,11 @@
+/**
+ * @author Marc Karassev
+ */
+
 "use strict";
 
 var mongoConnection = require("./mongo_connection"),
+	logger = require("./logger"),
 	USERS_COLLECTION = "users";
 
 class User {
@@ -35,7 +40,7 @@ function create(data, callback) {
 		pwd: user.pwd
 	}, function(err, result) {
 		if (err) {
-			console.log(err);
+			logger.warn(err);
 			err = "could not persist user";
 		}
 		else {
@@ -51,7 +56,7 @@ function get(callback, uid) {
 	mongoConnection.getDatabase().collection(USERS_COLLECTION).find(json)
 		.toArray(function(err, documents) {
 		if (err) {
-			console.log(err);
+			logger.warn(err);
 			err = "unable to retrieve users";
 		}
 		documents = documents.map(function(element) {
@@ -66,11 +71,27 @@ function remove(uid, callback) {
 		_id: uid
 	}, null, function(err, result) {
 		if (err) {
-			console.log(err);
+			logger.warn(err);
 			err = "unable to remove user";
 		}
 		callback(err, result);
 	});
+}
+
+function init(callback) {
+	mongoConnection.connect(function(err) {
+		if (err) {
+			logger.warn(err);
+		}
+		else {
+			logger.info("users initialized");
+		}
+		callback(err);
+	});
+}
+
+function clean() {
+	mongoConnection.disconnect();
 }
 
 // Exports
@@ -81,3 +102,5 @@ exports.fromJSON = fromJSON;
 exports.create = create;
 exports.get = get;
 exports.remove = remove;
+exports.init = init;
+exports.clean = clean;

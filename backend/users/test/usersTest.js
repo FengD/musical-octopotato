@@ -1,9 +1,11 @@
-// TODO move to TDD
+/**
+ * @author Marc Karassev
+ */
 
 var assert = require('assert'),
 	async = require("async"),
 	users = require("../users"),
-	mongoConnection = require("../mongo_connection");
+	logger = require("../logger");
 
 var bobby = new users.User("Bobby", "Lafrite"),
 	bobbyJson = {
@@ -14,7 +16,7 @@ var bobby = new users.User("Bobby", "Lafrite"),
 suite("users", function() {
 
 	suiteSetup(function(done) {
-		mongoConnection.connect(function() {
+		users.init(function() {
 			done();
 		});
 	});
@@ -53,7 +55,7 @@ suite("users", function() {
 		test("should create Bobby without error", function(done) {
 			users.create(users.toJSON(bobby), function(err, result) {
 				if (err) {
-					console.log(err);
+					logger.error(err);
 					throw err;
 				}
 				assert.deepEqual(bobby, result);
@@ -81,7 +83,7 @@ suite("users", function() {
 		test("should reremove Bobby with error", function(done) {
 			users.remove(bobby.uid, function(err, result) {
 				if (err) {
-					console.log(err);
+					logger.error(err);
 					throw err;
 				}
 				assert.deepEqual({
@@ -178,6 +180,6 @@ suite("users", function() {
 	});
 
 	suiteTeardown(function() {
-		mongoConnection.disconnect();
+		users.clean();
 	});
 });
