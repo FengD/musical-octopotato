@@ -20,6 +20,12 @@ class User {
 }
 
 function fromJSON(json) {
+	if (!(json.uid && json.pwd)) {
+		var err = new Error("invalid json");
+
+		err.invalidJson = true;
+		throw err;
+	}
 	return new User(json.uid, json.pwd);
 }
 
@@ -32,22 +38,28 @@ function toJSON(user) {
 }
 
 function create(data, callback) {
-	var user = fromJSON(data);
-
-	mongoConnection.getDatabase().collection(USERS_COLLECTION).insertOne({
-		_id: user.uid,
-		uid: user.uid,
-		pwd: user.pwd
-	}, function(err, result) {
-		if (err) {
-			logger.warn(err);
-			err = "could not persist user";
-		}
-		else {
-			result = user;
-		}
-		callback(err, result);
-	});
+	try {
+		var user = fromJSON(data);
+		mongoConnection.getDatabase().collection(USERS_COLLECTION).insertOne({
+			_id: user.uid,
+			uid: user.uid,
+			pwd: user.pwd
+		}, function(err, result) {
+			if (err) {
+				logger.warn(err);
+				if (err.code == 11000)
+					err.duplicate = true;
+			}
+			else {
+				result = user;
+			}
+			callback(err, result);
+		});
+	}
+	catch(err) {
+		logger.warn(err);
+		callback(err, null);
+	}
 }
 
 function get(callback, uid) {
@@ -59,9 +71,11 @@ function get(callback, uid) {
 			logger.warn(err);
 			err = "unable to retrieve users";
 		}
-		documents = documents.map(function(element) {
-			return fromJSON(element);
-		});
+		else {
+			documents = documents.map(function(element) {
+				return fromJSON(element);
+			});
+		}
 		callback(err, documents);
 	});
 }
@@ -72,9 +86,15 @@ function remove(uid, callback) {
 	}, null, function(err, result) {
 		if (err) {
 			logger.warn(err);
-			err = "unable to remove user";
+			callback(err, result);
 		}
-		callback(err, result);
+		result = JSON.parse(result);
+		if (result.n == 0) {
+			err = new Error("nonexistent user");
+			err.nonexistentUser = true;
+			callback(err, null);
+		}
+		else callback(err, result);
 	});
 }
 

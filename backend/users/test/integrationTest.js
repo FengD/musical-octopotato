@@ -42,8 +42,7 @@ suite("users service", function() {
 		test("should create Tony", function(done) {
 			request(userService)
 				.post("/users")
-				.field("uid", tony.uid)
-				.field("pwd", tony.pwd)
+				.send(tony)
 				.expect(200)
 				.end(function (err, res) {
 					if (err) {
@@ -54,103 +53,106 @@ suite("users service", function() {
 				});
 		});
 
-		// test("should create René", function(done) {
-		// 	request(userService)
-		// 		.post("/users")
-		// 		.body(rene)
-		// 		.expect(200)
-		// 		.end(function (err, res) {
-		// 			if (err) {
-		// 				logger.error(err);
-		// 				throw err;
-		// 			}
-		// 			done();
-		// 		});
-		// });
+		test("should create René", function(done) {
+			request(userService)
+				.post("/users")
+				.send(rene)
+				.expect(200)
+				.end(function (err, res) {
+					if (err) {
+						logger.error(err);
+						throw err;
+					}
+					done();
+				});
+		});
 
-		// test("should fail recreating Tony", function(done) {
-		// 	request(userService)
-		// 		.post("/users")
-		// 		.body(tony)
-		// 		.expect(400)
-		// 		.end(function (err, res) {
-		// 			if (err) {
-		// 				logger.error(err);
-		// 				throw err;
-		// 			}
-		// 			done();
-		// 		});
-		// });
+		test("should fail recreating Tony", function(done) {
+			request(userService)
+				.post("/users")
+				.send(tony)
+				.expect(400)
+				.end(function (err, res) {
+					if (err) {
+						logger.error(err);
+						throw err;
+					}
+					done();
+				});
+		});
 
-		// test("should fail creating bad formatted Tony", function(done) {
-		// 	request(userService)
-		// 		.post("/users")
-		// 		.body(tony)
-		// 		.expect(400)
-		// 		.end(function (err, res) {
-		// 			if (err) {
-		// 				logger.error(err);
-		// 				throw err;
-		// 			}
-		// 			done();
-		// 		});
-		// });
+		test("should fail creating bad formatted Tony", function(done) {
+			request(userService)
+				.post("/users")
+				.send({
+					uid: "tony",
+					pwwd: "lafouine"
+				})
+				.expect(400)
+				.end(function (err, res) {
+					if (err) {
+						logger.error(err);
+						throw err;
+					}
+					done();
+				});
+		});
 	});
 
-	// suite("user removal", function () {
+	suite("user removal", function () {
 
-	// 	test("should remove Tony", function(done) {
-	// 		request(userService)
-	// 			.delete("/users/" + tony.uid)
-	// 			.expect(200)
-	// 			.end(function (err, res) {
-	// 				if (err) {
-	// 					logger.error(err);
-	// 					throw err;
-	// 				}
-	// 				done();
-	// 			});
-	// 	});
+		test("should remove Tony", function(done) {
+			request(userService)
+				.delete("/users/" + tony.uid)
+				.expect(200)
+				.end(function (err, res) {
+					if (err) {
+						logger.error(err);
+						throw err;
+					}
+					done();
+				});
+		});
 
-	// 	test("should remove René", function(done) {
-	// 		request(userService)
-	// 			.delete("/users/" + rene.uid)
-	// 			.expect(200)
-	// 			.end(function (err, res) {
-	// 				if (err) {
-	// 					logger.error(err);
-	// 					throw err;
-	// 				}
-	// 				done();
-	// 			});
-	// 	});
+		test("should remove René", function(done) {
+			request(userService)
+				.delete("/users/" + rene.uid)
+				.expect(200)
+				.end(function (err, res) {
+					if (err) {
+						logger.error(err);
+						throw err;
+					}
+					done();
+				});
+		});
 
-	// 	test("should fail reremoving Tony", function(done) {
-	// 		request(userService)
-	// 			.delete("/users/" + tony.uid)
-	// 			.expect(400)
-	// 			.end(function (err, res) {
-	// 				if (err) {
-	// 					logger.error(err);
-	// 					throw err;
-	// 				}
-	// 				done();
-	// 			});
-	// 	});
+		test("should fail reremoving Tony", function(done) {
+			request(userService)
+				.delete("/users/" + tony.uid)
+				.expect(400)
+				.end(function (err, res) {
+					if (err) {
+						logger.error(err);
+						throw err;
+					}
+					done();
+				});
+		});
 
-	// 	test("should fail removing nonexistant uid", function(done) {
-	// 		request(userService)
-	// 			.delete("/users/nonexistant")
-	// 			.expect(400)
-	// 			.end(function (err, res) {
-	// 				if (err) {
-	// 					logger.error(err);
-	// 					throw err;
-	// 				}
-	// 				done();
-	// 			});
-	// 	});
-	// });
+		test("should fail removing nonexistant uid", function(done) {
+			request(userService)
+				.delete("/users/nonexistant")
+				.expect(400)
+				.end(function (err, res) {
+					if (err) {
+						logger.error(err);
+						throw err;
+					}
+					done();
+				});
+		});
+	});
 
-	// TODO
+	// TODO get tests
 });

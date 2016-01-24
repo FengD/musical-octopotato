@@ -10,7 +10,6 @@ var express = require("express"),
 usersRouter.get("/", function(req, res) {
 	users.get(function(err, documents) {
 		if (err) {
-			logger.warn(err);
 			res.status(500).send(err);
 		}
 		else {
@@ -22,7 +21,6 @@ usersRouter.get("/", function(req, res) {
 usersRouter.get("/:uid", function(req, res) {
 	users.get(function(err, documents) {
 		if (err) {
-			logger.warn(err);
 			res.status(500).send(err);
 		}
 		else {
@@ -34,8 +32,12 @@ usersRouter.get("/:uid", function(req, res) {
 usersRouter.post("/", function(req, res) {
 	users.create(req.body, function(err, result) {
 		if (err) {
-			logger.warn(err);
-			res.status(500).send(err); // TODO status code
+			if (err.duplicate || err.invalidJson) {
+				res.status(400).send(err);
+			}
+			else {
+				res.status(500).send(err);
+			}
 		}
 		else {
 			res.send(result);
@@ -46,8 +48,12 @@ usersRouter.post("/", function(req, res) {
 usersRouter.delete("/:uid", function (req, res) {
 	users.remove(req.params.uid, function (err, result) {
 		if (err) {
-			logger.warn(err);
-			res.status(500).send(err);
+			if (err.nonexistentUser) {
+				res.status(400).send(err);
+			}
+			else {
+				res.status(500).send(err);
+			}
 		}
 		else {
 			res.send(result);
