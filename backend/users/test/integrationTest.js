@@ -3,6 +3,8 @@
  */
 
 var request = require("supertest"),
+	async = require("async"),
+	assert = require("assert"),
 	userService = require("../app"),
 	logger = require("../logger");
 
@@ -140,9 +142,9 @@ suite("users service", function() {
 				});
 		});
 
-		test("should fail removing nonexistant uid", function(done) {
+		test("should fail removing nonexistent uid", function(done) {
 			request(userService)
-				.delete("/users/nonexistant")
+				.delete("/users/nonexistent")
 				.expect(400)
 				.end(function (err, res) {
 					if (err) {
@@ -154,5 +156,75 @@ suite("users service", function() {
 		});
 	});
 
-	// TODO get tests
+	suite("user retrieval", function () {
+
+		var brenda = { uid: "brenda", pwd:"tuuut" };
+		var createdUsers = [tony, rene, brenda];
+
+		suiteSetup(function (done) {
+			async.each(createdUsers, function iterator (item, callback) {
+				request(userService).post("/users").send(item).end(function (err, result) {
+					callback(err);
+				});
+			}, function join (err) {
+				if (err) {
+					logger.error(err);
+					throw err;
+				}
+				done();
+			});
+		});
+
+		suiteTeardown(function (done) {
+			async.each(createdUsers, function iterator (item, callback) {
+				request(userService).delete("/users/" + item.uid).end(function (err, result) {
+					callback(err);
+				});
+			}, function join (err) {
+				if (err) {
+					logger.error(err);
+					throw err;
+				}
+				done();
+			});
+		});
+
+		test("should get Tony", function (done) {
+			request(userService)
+				.get("/users/" + tony.uid)
+				.expect(200, [{
+					_uid: tony.uid,
+					_pwd: tony.pwd
+				}], done);
+		});
+
+		test("should get René", function (done) {
+			request(userService)
+				.get("/users/" + rene.uid)
+				.expect(200, [{
+					_uid: rene.uid,
+					_pwd: rene.pwd
+				}], done);
+		});
+
+		test("should fail getting nonexistent user", function (done) {
+			request(userService)
+				.get("/users/nonexistentuid")
+				.expect(400, done);
+		});
+
+		test("should get all users", function (done) {
+			request(userService)
+				.get("/users")
+				.expect(function (res) {
+					assert(res.body.length >= 3);
+					for (var i = 0; i < createdUsers.length; i++) {
+						assert(res.body.find(function(element, index, array) {
+							return element._uid == createdUsers[i].uid;
+						}));
+					}
+				})
+				.expect(200, done);
+		});
+	});
 });

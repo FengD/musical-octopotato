@@ -21,7 +21,12 @@ usersRouter.get("/", function(req, res) {
 usersRouter.get("/:uid", function(req, res) {
 	users.get(function(err, documents) {
 		if (err) {
-			res.status(500).send(err);
+			if (err.nonexistentUser) {
+				res.status(400).send(err);
+			}
+			else {
+				res.status(500).send(err);
+			}
 		}
 		else {
 			res.send(documents);

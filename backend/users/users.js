@@ -69,14 +69,21 @@ function get(callback, uid) {
 		.toArray(function(err, documents) {
 		if (err) {
 			logger.warn(err);
-			err = "unable to retrieve users";
+			callback(err, documents);
 		}
 		else {
-			documents = documents.map(function(element) {
-				return fromJSON(element);
-			});
+			if (documents.length === 0 && uid) {
+				err = new Error("nonexistent user");
+				err.nonexistentUser = true;
+				callback(err, null);
+			}
+			else {
+				documents = documents.map(function(element) {
+					return fromJSON(element);
+				});
+				callback(err, documents);
+			}
 		}
-		callback(err, documents);
 	});
 }
 
@@ -88,13 +95,15 @@ function remove(uid, callback) {
 			logger.warn(err);
 			callback(err, result);
 		}
-		result = JSON.parse(result);
-		if (result.n == 0) {
-			err = new Error("nonexistent user");
-			err.nonexistentUser = true;
-			callback(err, null);
+		else {
+			result = JSON.parse(result);
+			if (result.n == 0) {
+				err = new Error("nonexistent user");
+				err.nonexistentUser = true;
+				callback(err, null);
+			}
+			else callback(err, result);
 		}
-		else callback(err, result);
 	});
 }
 
