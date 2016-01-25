@@ -75,13 +75,6 @@ suite("users", function() {
 
 		test("should remove Bobby without error", function(done) {
 			users.remove(bobby.uid, function(err, result) {
-				assert.ifError(err);
-			});
-			done();
-		});
-
-		test("should reremove Bobby with error", function(done) {
-			users.remove(bobby.uid, function(err, result) {
 				if (err) {
 					logger.error(err);
 					throw err;
@@ -90,6 +83,13 @@ suite("users", function() {
 					ok: 1,
 					n: 1
 				}, result.result);
+			});
+			done();
+		});
+
+		test("should reremove Bobby with error", function(done) {
+			users.remove(bobby.uid, function(err, result) {
+				assert.ifError(err);
 			});
 			done();
 		});
@@ -146,11 +146,10 @@ suite("users", function() {
 			}, bobbyJson.uid);
 		});
 		
-		test("should get no result with nonexistant uid", function(done) {
+		test("should get an error with nonexistant uid", function(done) {
 			users.get(function(err, data) {
-				assert.equal(null, err);
-				assert.equal(0, data.length);
-				assert.deepEqual([], data);
+				assert(err);
+				assert(err.nonexistentUser);
 				done();
 			}, "nonExistantUid");
 		});
