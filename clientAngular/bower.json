@@ -1,14 +1,12 @@
-bower install jquery-leanmodalbower install jquery-leanmodal{
-  "name": "musical-octopotato",
+{
+  "name": "clientAngular",
   "homepage": "https://github.com/MarK9992/musical-octopotato",
   "authors": [
     "Ying"
   ],
   "description": "",
   "main": "index.html",
-  "moduleType": [
-    "es6"
-  ],
+  "moduleType": [],
   "license": "MIT",
   "ignore": [
     "**/.*",
@@ -18,8 +16,8 @@ bower install jquery-leanmodalbower install jquery-leanmodal{
     "tests"
   ],
   "dependencies": {
-    "webcomponentsjs": "~0.7.20",
-    "jquery": "~2.2.0",
-    "bootstrap": "~3.3.6"
+    "angular": "~1.4.8",
+    "font-awesome": "fontawesome#~4.5.0",
+    "angular-route": "~1.4.8"
   }
 }

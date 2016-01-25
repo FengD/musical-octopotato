@@ -1,0 +1,40 @@
+body {
+  margin: 0;
+  padding: 0; }
+
+.header {
+  line-height: 50px;
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  text-align: center; }
+  .header .logo {
+    float: left;
+    margin-left: 20px; }
+  .header .login {
+    float: right;
+    margin-right: 20px; }
+  .header div {
+    display: inline-block; }
+
+.trackItemPreviews {
+  margin-top: 20px;
+  width: 100%; }
+  .trackItemPreviews .trackItemPreview {
+    width: 700px;
+    margin: 0 auto 20px auto;
+    border: solid black 1px;
+    height: 100px; }
+    .trackItemPreviews .trackItemPreview .leftItems, .trackItemPreviews .trackItemPreview .rightItems {
+      display: inline-block;
+      width: calc(50% - 4px);
+      vertical-align: middle; }
+    .trackItemPreviews .trackItemPreview .leftItems img {
+      height: 50px; }
+    .trackItemPreviews .trackItemPreview .leftItems .title {
+      text-transform: capitalize; }
+    .trackItemPreviews .trackItemPreview .rightItems {
+      text-align: right; }
+
+/*# sourceMappingURL=home.css.map */
