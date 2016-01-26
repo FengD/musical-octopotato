@@ -1,5 +1,5 @@
 angular.module('octopotato')
-    .controller('TrackItemCtrl', function($scope){
+    .controller('TrackItemCtrl', ['$scope', function($scope,tracks){
         $scope.trackItemPreviews = [
             {
                 "title": "ut",
@@ -74,4 +74,4 @@ angular.module('octopotato')
                 "comments": 48
             }
         ];
-    });
+    }]);

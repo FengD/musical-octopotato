@@ -1,4 +1,4 @@
-angular.module('octopotato', ['ngRoute'])
+angular.module('octopotato')
     .controller('HomeCtrl', function($scope){
 
 

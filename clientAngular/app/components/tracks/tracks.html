@@ -1,7 +1,7 @@
 <div class="trackItemPreviews" ng-controller="TrackItemCtrl">
     <div class="trackItemPreview" ng-repeat="tip in trackItemPreviews">
         <div class="leftItems">
-            <span class="title" ng-bind="tip.title"></span>
+            <a class="title" ng-bind="tip.title" href="#tracks/{{tip.title}}"></a>
             <span class="author">by {{tip.author}}</span><br/>
             <img src="{{tip.coverPath}}" alt="cover"><br/>
             <button>like</button>
