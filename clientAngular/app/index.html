@@ -9,8 +9,18 @@
     <link rel="stylesheet" href="components/login/lien2.css">
     <link rel="stylesheet" href="./components/tracks/tracks.css">
 </head>
+
+
+
+
+
+
+
+
+
 <body ng-app="octopotato" ng-controller="HomeCtrl">
 
+<!--
     <div class="header">
         <div class="logo">LOGO</div>
         <div class="search">
@@ -22,18 +32,39 @@
         <!-- login -->
         <div class="login">login</div>
     </div>
+-->
+    <header ng-include="'templates/nav.html'"></header>
 
     <div class="content">
         <div ng-view class="ngview"></div>
     </div>
 
+
+    <footer ng-include="'templates/footer.html'"></footer>
+
 </body>
+
+
+
+
+
+
+
+
 
 <script src="../bower_components/angular/angular.min.js"></script>
 <script src="../bower_components/angular-route/angular-route.min.js"></script>
+<<<<<<< HEAD:clientAngular/app/home.html
 <script src="./homeCtrl.js"></script>
 <script src="components/detail/lien1Ctrl.js"></script>
 <script src="components/login/lien2Ctrl.js"></script>
+=======
+
+<script src="scripts/octopotato.js"></script>
+<script src="scripts/controllers/homeCtrl.js"></script>
+<script src="./components/lien1/lien1Ctrl.js"></script>
+<script src="./components/lien2/lien2Ctrl.js"></script>
+>>>>>>> 338caca5d05044695569648b927e6c3f98cc524f:clientAngular/app/index.html
 <script src="./components/tracks/tracksCtrl.js"></script>
-<script src="./homeRoute.js"></script>
+<script src="./scripts/routes.js"></script>
 </html>

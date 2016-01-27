@@ -14,6 +14,6 @@ angular.module('octopotato')
                 controller: 'TrackItemCtrl'
             })
             .otherwise({
-                redirectTo: '/tracks'
+                redirectTo: '/tracks' 
             });
     }]);
