@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="components/detail/lien1.css">
     <link rel="stylesheet" href="components/login/lien2.css">
     <link rel="stylesheet" href="./components/tracks/tracks.css">
+    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
 </head>
 
 
@@ -20,18 +21,6 @@
 
 <body ng-app="octopotato" ng-controller="HomeCtrl">
 
-<!--
-    <div class="header">
-        <div class="logo">LOGO</div>
-        <div class="search">
-            <label>recherche</label><input type="text">
-        </div>
-        <a href="#tracks">tracks</a>
-        <a href="#detail">detail</a>
-        <a href="#login">login</a>
-        <div class="login">login</div>
-    </div>
--->
     <header ng-include="'templates/nav.html'"></header>
 
     <div class="content">
@@ -53,13 +42,14 @@
 
 <script src="../bower_components/angular/angular.min.js"></script>
 <script src="../bower_components/angular-route/angular-route.min.js"></script>
-
-<script src="components/detail/lien1Ctrl.js"></script>
-<script src="components/login/lien2Ctrl.js"></script>
-
+<script src="../bower_components/jquery/dist/jquery.min.js"></script>
+<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 <script src="scripts/octopotato.js"></script>
 <script src="scripts/controllers/homeCtrl.js"></script>
+
+<script src="components/detail/lien1Ctrl.js"></script>
+<script src="components/login/lien2Ctrl.js"></script>
 
 <script src="./components/tracks/tracksCtrl.js"></script>
 <script src="./scripts/routes.js"></script>

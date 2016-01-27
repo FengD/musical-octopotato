@@ -6,14 +6,13 @@ angular.module('octopotato')
                 controller: 'Lien1Ctrl'
             })
             .when('/login', {
-                templateUrl: 'components/login/lien2.html',
-                controller: 'Lien_Ctrl'
+                templateUrl: 'components/login/lien2.html'
             })
             .when('/tracks', {
                 templateUrl: 'components/tracks/tracks.html',
                 controller: 'TrackItemCtrl'
             })
             .otherwise({
-                redirectTo: '/tracks' 
+                redirectTo: '/tracks'
             });
     }]);

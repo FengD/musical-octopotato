@@ -1,18 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <script type="text/javascript" src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
-</head>
-
-<body>
-
-<div class="track_detail">
+<div class="track_detail" ng-controller="Lien1Ctrl">
     <div class="detail">
         <div class="track">
-            <a class="trackName" href = "track_detail.html">Audiotool Day</a> By <a class="authorName">dove</a>
+            <a class="trackName" href = "track_detail.html">{{author}}</a> By <a class="authorName">dove</a>
         </div>
         <div class="trackCreated">3 weeks ago</div>
         <div>
@@ -23,6 +12,7 @@
                 <li><button class="btn btn-info glyphicon glyphicon-share"> share</button></li>
                 <li><a href="" class="btn btn-info glyphicon glyphicon-edit" role="button"> remix</a></li>
             </div>
+            <div>zefzef : {{test}}</div>
             <div class="interest">
                 <li class="glyphicon glyphicon-play">420</li>
                 <li class="glyphicon glyphicon-heart">36</li>
@@ -54,5 +44,3 @@
         similar tracks
     </div>
 </div>
-</body>
-</html>

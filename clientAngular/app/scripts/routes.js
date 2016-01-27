@@ -12,6 +12,9 @@ angular.module('octopotato')
                 templateUrl: './components/lien2/lien2.html',
                 controller: 'Lien2Ctrl'
             })
+            .when('/login', {
+                templateUrl: 'components/login/lien2.html'
+            })
             .when('/tracks', {
                 templateUrl: './components/tracks/tracks.html',
                 controller: 'TrackItemCtrl',
@@ -26,7 +29,7 @@ angular.module('octopotato')
                     }]
                 }
             }).when('/tracks/:id', {
-                templateUrl: './templates/tracks/trackDetail.html',
+                templateUrl: 'components/detail/lien1.html'
             })
             .otherwise({
                 redirectTo: '/'
