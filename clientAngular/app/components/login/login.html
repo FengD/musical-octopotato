@@ -8,17 +8,17 @@
   <div class="login-form row" ng-show="loginForm">
     <form ng-submit="signIn()">
       <div class="row">
-        <input id="usernameReg" type="text" placeholder="Username" name="username">
+        <input type="text" placeholder="Username" ng-model="username" id="usernameReg" />
       </div>
 
-
+<!--
       <div class="row">
-        <input type="email" placeholder="Email" pattern="[^ @]*@[^ @]*" value="" ng-model="email" name="email">
+        <input type="email" placeholder="Email" pattern="[^ @]*@[^ @]*" ng-model="email" />
       </div>
-
+-->
 
       <div class="row">
-        <input type="password" placeholder="Password" name="password">
+        <input type="password" placeholder="Password" ng-model="password" />
       </div>
 
       <div class="row">
