@@ -2,15 +2,36 @@ angular.module('octopotato')
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.
             when('/detail', {
-                templateUrl: 'components/detail/lien1.html',
+                templateUrl: 'components/detail/trackDetail.html',
                 controller: 'Lien1Ctrl'
             })
             .when('/login', {
-                templateUrl: 'components/login/lien2.html'
+                templateUrl: 'components/login/login.html'
             })
             .when('/tracks', {
                 templateUrl: 'components/tracks/tracks.html',
-                controller: 'TrackItemCtrl'
+                controller: 'TrackItemCtrl',
+                resolve: {
+                    tracks: ['$http', function($http){
+                        return $http.get('./api/tracks.json')
+                            .then(function(response){
+                                console.log(response.data);
+                                return response.data;
+                            });
+                    }]
+                }
+            }).when('/tracks/:id', {
+                templateUrl: 'components/detail/trackDetail.html',
+                controller: 'Lien1Ctrl',
+                resolve: {
+                    track: ['$http', '$route', function($http, $route){
+                        return $http.get('./api/track_' + $route.current.params.id + '.json')
+                            .then(function(response){
+                                console.log(response.data);
+                                return response.data;
+                            });
+                    }]
+                }
             })
             .otherwise({
                 redirectTo: '/tracks'
