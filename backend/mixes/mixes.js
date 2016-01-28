@@ -116,15 +116,67 @@ class Mix {
 }
 
 function create(data, callback) {
-	// TODO
+	try {
+		var mix = Mix.fromJSON(data);
+
+		mongoConnection.getDatabase().collection(MIXES_COLLECTION).find({
+			author: mix.author,
+			title: mix.title
+		}).toArray(function (err, documents) {
+			if (err) {
+				logger.warn(err);
+				callback(err, documents)
+			}
+			else if (documents.length != 0) {
+				err = new Error("duplicate mix for author " + mix.author);
+				err.duplicate = true;
+				callback(err, null);
+			}
+			else {
+				mongoConnection.getDatabase().collection(MIXES_COLLECTION).insertOne(Mix.toJSON(mix),
+					function(err, result) {
+					if (err) {
+						logger.warn(err);
+						if (err.code == 11000)
+							err.duplicate = true;
+						callback(err, null);
+					}
+					else {
+						callback(null, result.result);
+					}
+				});
+			}
+		});
+	}
+	catch(err) {
+		logger.warn(err);
+		callback(err, null);
+	}
 }
 
 function get(callback, uid) {
 	// TODO
 }
 
-function remove(uid, callback) {
-	// TODO
+function remove(tilte, author, callback) {
+	mongoConnection.getDatabase().collection(MIXES_COLLECTION).deleteOne({
+		title: tilte,
+		author: author
+	}, null, function(err, result) {
+		if (err) {
+			logger.warn(err);
+			callback(err, result);
+		}
+		else {
+			result = JSON.parse(result);
+			if (result.n == 0) {
+				err = new Error("nonexistent mix");
+				err.nonexistentMix = true;
+				callback(err, null);
+			}
+			else callback(err, result);
+		}
+	});
 }
 
 function init(callback) {

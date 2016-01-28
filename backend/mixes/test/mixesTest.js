@@ -178,11 +178,53 @@ suite("mixes", function() {
 	})
 
 	suite("#create()", function() {
-		// TODO
+
+		test("should create SuperMix without error", function(done) {
+			mixes.create(Mix.toJSON(superMix), function(err, result) {
+				if (err) {
+					logger.error(err);
+					throw err;
+				}
+				assert.deepEqual(superMix,  {
+					ok: 1,
+					n: 1
+				});
+			});
+			done();
+		});
+
+		test("should send error when recreating SuperMix", function(done) {
+			mixes.create(Mix.toJSON(superMix), function(err, result) {
+				assert.ifError(err);
+				assert(err.duplicate);
+			});
+			done();
+		});
 	});
 
 	suite("#remove()", function() {
-		// TODO
+
+		test("should remove SuperMix without error", function(done) {
+			mixes.remove(superMix.title, superMix.author, function(err, result) {
+				if (err) {
+					logger.error(err);
+					throw err;
+				}
+				assert.deepEqual({
+					ok: 1,
+					n: 1
+				}, result);
+			});
+			done();
+		});
+
+		test("should reremove SuperMix with error", function(done) {
+			mixes.remove(superMix.title, superMix.author, function(err, result) {
+				assert.ifError(err);
+				assert(err.nonexistentMix);
+			});
+			done();
+		});
 	});
 
 	suite("#get()", function() {
