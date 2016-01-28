@@ -1,6 +1,6 @@
 'use strict';
 angular.module('octopotato')
-    .controller('Lien_Ctrl',  function ($scope, $http) {
+    .controller('loginCtrl',  function ($scope, $http) {
 
         $scope.init = function () {
         };

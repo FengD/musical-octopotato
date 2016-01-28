@@ -3,7 +3,7 @@ angular.module('octopotato')
         $routeProvider.
             when('/detail', {
                 templateUrl: 'components/detail/trackDetail.html',
-                controller: 'Lien1Ctrl'
+                controller: 'trackDetailCtrl'
             })
             .when('/login', {
                 templateUrl: 'components/login/login.html'
@@ -22,7 +22,7 @@ angular.module('octopotato')
                 }
             }).when('/tracks/:id', {
                 templateUrl: 'components/detail/trackDetail.html',
-                controller: 'Lien1Ctrl',
+                controller: 'trackDetailCtrl',
                 resolve: {
                     track: ['$http', '$route', function($http, $route){
                         return $http.get('./api/track_' + $route.current.params.id + '.json')

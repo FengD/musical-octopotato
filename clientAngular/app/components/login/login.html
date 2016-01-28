@@ -1,4 +1,4 @@
-<div id="login-content" ng-controller="Lien_Ctrl" ng-init = "init();">
+<div id="login-content" ng-controller="loginCtrl" ng-init = "init();">
   <div class="navbar-header1 login">
     <button class="navbar-brand1" id="signUp" ng-hide="register" ng-click="showSignUp()">Sign up</button>
     <button class="navbar-brand2" id="login" ng-hide="login">Log in</button>
@@ -11,11 +11,6 @@
         <input type="text" placeholder="Username" ng-model="username" id="usernameReg" />
       </div>
 
-<!--
-      <div class="row">
-        <input type="email" placeholder="Email" pattern="[^ @]*@[^ @]*" ng-model="email" />
-      </div>
--->
 
       <div class="row">
         <input type="password" placeholder="Password" ng-model="password" />

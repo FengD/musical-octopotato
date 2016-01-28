@@ -15,6 +15,8 @@ body {
   .header .login {
     float: right;
     margin-right: 20px; }
+  .header .search input {
+    width: 300px; }
   .header div {
     display: inline-block; }
 
