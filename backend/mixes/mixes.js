@@ -48,8 +48,25 @@ class Track {
 			json.midFilterFreq, json.lowFilterFreq);
 	}
 
-	static toJSON (mix) {
-		// TODO
+	static toJSON (track) {
+		var json = {};
+
+		if (track.trackPath != undefined) json.trackPath = track.trackPath;
+		else {
+			var err = new Error("not a valid track object");
+
+			err.notValidTrack = true;
+			throw err;
+		}
+		if (track.gain != undefined) json.gain = track.gain;
+		if (track.balance != undefined) json.balance = track.balance;
+		if (track.highFilterLevel != undefined) json.highFilterLevel = track.highFilterLevel;
+		if (track.midFilterLevel != undefined) json.midFilterLevel = track.midFilterLevel;
+		if (track.lowFilterLevel != undefined) json.lowFilterLevel = track.lowFilterLevel;
+		if (track.highFilterFreq != undefined) json.highFilterFreq = track.highFilterFreq;
+		if (track.midFilterFreq != undefined) json.midFilterFreq = track.midFilterFreq;
+		if (track.lowFilterFreq != undefined) json.lowFilterFreq = track.lowFilterFreq;
+		return json;
 	}
 
 }

@@ -90,7 +90,28 @@ suite("mixes", function() {
 		});
 
 		suite("#toJSON()", function() {
-			// TODO
+
+			test("it should produce a JSON equal to track1Json", function () {
+				assert.deepEqual(track1Json, Track.toJSON(track1));
+			});
+
+			test("it should produce a JSON not equal to track1Json", function () {
+				assert.notDeepEqual(track1Json, Track.toJSON(track2));
+			});
+
+			test("it should throw an error", function() {
+				var error = null;
+
+				try {
+					Track.toJSON(superMix);
+				}
+				catch(e) {
+					error = e;
+				}
+				finally {
+					assert(error);
+				}
+			});
 		});
 	});
 
