@@ -1,9 +1,9 @@
-<div class="track_detail" ng-controller="Lien1Ctrl">
+<div class="track_detail" >
     <div class="detail">
         <div class="track">
-            <a class="trackName" href = "track_detail.html">{{author}}</a> By <a class="authorName">dove</a>
+            <a class="trackName" href = "track_detail.html">{{track.title}}</a> By <a class="authorName">{{track.author}}</a>
         </div>
-        <div class="trackCreated">3 weeks ago</div>
+        <div class="trackCreated">{{track.date}}</div>
         <div>
             <div class="cover">cover</div>
             <div class="waveform">wave</div><br/>
