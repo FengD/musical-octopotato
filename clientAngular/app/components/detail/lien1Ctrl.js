@@ -1,5 +1,5 @@
 angular.module('octopotato')
-    .controller('Lien2Ctrl', function($scope){
+    .controller('Lien1Ctrl', function($scope, $routeParams){
         $scope.trackItemPreviews = [
             {
                 "title": "ut",
@@ -74,4 +74,5 @@ angular.module('octopotato')
                 "comments": 48
             }
         ];
+        $scope.author = $routeParams.id;
     });
