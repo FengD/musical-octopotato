@@ -84,7 +84,7 @@ suite("mixes", function() {
 					error = e;
 				}
 				finally {
-					assert(error);
+					assert(error.invalidJson);
 				}
 			});
 		});
@@ -109,7 +109,7 @@ suite("mixes", function() {
 					error = e;
 				}
 				finally {
-					assert(error);
+					assert(error.invalidTrack);
 				}
 			});
 		});
@@ -145,13 +145,35 @@ suite("mixes", function() {
 					error = e;
 				}
 				finally {
-					assert(error);
+					assert(error.invalidJson);
 				}
 			});
 		});
 
 		suite("#toJSON()", function() {
-			// TODO
+
+			test("it should produce a JSON equal to superMixJson", function () {
+				assert.deepEqual(superMixJson, Mix.toJSON(superMix));
+			});
+
+			test("it should produce a JSON not equal to superMixJson", function () {
+				assert.notDeepEqual(superMixJson, Mix.toJSON(new Mix("daOtherSuperMix",
+					"daSuperDJ", [track1, track2])));
+			});
+
+			test("it should throw an error", function () {
+				var error = null;
+
+				try {
+					Mix.toJSON(track1);
+				}
+				catch(e) {
+					error = e;
+				}
+				finally {
+					assert(error.invalidMix);
+				}
+			});
 		});
 	})
 

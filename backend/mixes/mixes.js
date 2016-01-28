@@ -53,9 +53,9 @@ class Track {
 
 		if (track.trackPath != undefined) json.trackPath = track.trackPath;
 		else {
-			var err = new Error("not a valid track object");
+			var err = new Error("invalid Track object");
 
-			err.notValidTrack = true;
+			err.invalidTrack = true;
 			throw err;
 		}
 		if (track.gain != undefined) json.gain = track.gain;
@@ -95,7 +95,23 @@ class Mix {
 	}
 
 	static toJSON (mix) {
-		// TODO
+		var json = {};
+
+		if (mix.title != undefined) json.title = mix.title;
+		else {
+			var error = new Error("invalid Mix object");
+
+			error.invalidMix = true;
+			throw error;
+		}
+		if (mix.author != undefined) json.author = mix.author;
+		if (mix.tracks != undefined) {
+			json.tracks = [];
+			for (var i = 0; i < mix.tracks.length; i++) {
+				json.tracks.push(Track.toJSON(mix.tracks[i]));
+			}
+		}
+		return json;
 	}
 }
 
