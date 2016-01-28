@@ -228,6 +228,101 @@ suite("mixes", function() {
 	});
 
 	suite("#get()", function() {
-		// TODO
+
+		var mix1 = new Mix("mix1", "auth1", [track1]),
+		 	mix2 = new Mix("mix2", "auth1", [track2]);
+		var createdMixes = [superMix, mix1, mix2],
+			auth1Mixes = [mix1, mix2];
+
+		suiteSetup(function(done) {
+			async.parallel([
+				function(callback) {
+					mixes.create(Mix.toJSON(superMix), function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					mixes.create(Mix.toJSON(mix1), function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					mixes.create(Mix.toJSON(mix2), function(err, result) {
+						callback(err, result);
+					});
+				}
+			], function(err, results) {
+				assert.equal(null, err);
+				done();
+			});
+		});
+		
+		suiteTeardown(function(done) {
+			async.parallel([
+				function(callback) {
+					mixes.remove(superMix.title, superMix.author, function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					mixes.remove(mix1.title, mix1.author, function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					mixes.remove(mix2.title, mix2.author, function(err, result) {
+						callback(err, result);
+					});
+				}
+			], function(err, results) {
+				assert.equal(null, err);
+				done();
+			});
+		});
+
+		test("should get all mixes", function(done) {
+			mixes.get(null, null, function(err, data) {
+				assert.equal(null, err);
+				assert(data.length >= 3);
+				for (var i = 0; i < createdMixes.length; i++) {
+					assert(data.find(function(element, index, array) {
+						return element.tilte === createdMixes[i].tilte
+							&& element.author === createdMixes[i].author;
+					}));
+				}
+				done();
+			});
+		});
+		
+		test("should get SuperMix", function(done) {
+			mixes.get(superMix.title, superMix.author, function(err, data) {
+				assert.equal(null, err);
+				assert.equal(1, data.length);
+				assert.deepEqual([superMix], data);
+				done();
+			});
+		});
+		
+		test("should get all auth1 mixes", function(done) {
+			mixes.get(null, "auth1", function(err, data) {
+				assert.equal(null, err);
+				assert(data.length >= 2);
+				for (var i = 0; i < auth1Mixes.length; i++) {
+					assert(data.find(function(element, index, array) {
+						return element.tilte == auth1Mixes[i].tilte
+							&& element.author == auth1Mixes[i].author;
+					}));
+				}
+				done();
+			});
+		});
+		
+		test("should get an error with nonexistent mix", function(done) {
+			mixes.get("nonexistentMix", "nonexistentAuthor", function(err, data) {
+				//assert.ifError(err);
+				assert(err.nonexistentMix);
+				done();
+			});
+		});
 	});
 });

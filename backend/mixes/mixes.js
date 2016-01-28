@@ -154,8 +154,31 @@ function create(data, callback) {
 	}
 }
 
-function get(callback, uid) {
-	// TODO
+function get(title, author, callback) {
+	var json = {};
+
+	if (title) json.title = title;
+	if (author) json.author = author;
+	mongoConnection.getDatabase().collection(MIXES_COLLECTION).find(json)
+		.toArray(function(err, documents) {
+		if (err) {
+			logger.warn(err);
+			callback(err, documents);
+		}
+		else {
+			if (documents.length === 0 && title && author) {
+				err = new Error("nonexistent mix");
+				err.nonexistentMix = true;
+				callback(err, null);
+			}
+			else {
+				documents = documents.map(function(element) {
+					return Mix.fromJSON(element);
+				});
+				callback(err, documents);
+			}
+		}
+	});
 }
 
 function remove(tilte, author, callback) {
