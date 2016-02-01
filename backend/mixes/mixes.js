@@ -73,38 +73,47 @@ class Track {
 
 class Mix {
 
-	constructor (title, author, tracks) {
+	constructor (title, author, date, coverPath, tracks) {
 		this._tilte = title;
 		this._author = author;
+		this._date = date;
+		this._coverPath = coverPath;
 		this._tracks = tracks;
 	}
 
 	get title() { return this._tilte; }
 	get author() { return this._author; }
+	get date() { return this._date; }
+	get coverPath() { return this._coverPath; }
 	get tracks() { return this._tracks; }
 
 	static fromJSON (json) {
-		if (!(json.title && json.author && json.tracks
+		if (!(json.title && json.author && json.date && json.coverPath && json.tracks
 			&& Array.isArray(json.tracks))) {
 			var err = new Error("invalid json");
 
 			err.invalidJson = true;
 			throw err;
 		}
-		return new Mix(json.title, json.author, json.tracks.map(Track.fromJSON));
+		return new Mix(json.title, json.author, json.date, json.coverPath,
+			json.tracks.map(Track.fromJSON));
 	}
 
 	static toJSON (mix) {
 		var json = {};
 
-		if (mix.title != undefined) json.title = mix.title;
+		if (mix.title != undefined && mix.author != undefined) {
+			json.title = mix.title;
+			json.author = mix.author;
+		}
 		else {
 			var error = new Error("invalid Mix object");
 
 			error.invalidMix = true;
 			throw error;
 		}
-		if (mix.author != undefined) json.author = mix.author;
+		if (mix.date) json.date = mix.date;
+		if (mix.coverPath) json.coverPath = mix.coverPath;
 		if (mix.tracks != undefined) {
 			json.tracks = [];
 			for (var i = 0; i < mix.tracks.length; i++) {

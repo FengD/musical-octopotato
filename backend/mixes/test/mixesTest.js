@@ -35,10 +35,14 @@ var track1 = new Track("daPath", 0, 1, 2, 3, 4, 5, 6, 7),
 		lowFilterFreq: 15
 	};
 
-var superMix = new Mix("daSuperMix", "daSuperDJ", [track1, track2]),
+var superDate = new Date();
+
+var superMix = new Mix("daSuperMix", "daSuperDJ", superDate, "/daPath", [track1, track2]),
 	superMixJson = {
 		title: "daSuperMix",
 		author: "daSuperDJ",
+		date: superDate,
+		coverPath: "/daPath",
 		tracks: [track1Json, track2Json]
 	};
 
@@ -127,6 +131,8 @@ suite("mixes", function() {
 				assert.notDeepEqual(superMix, Mix.fromJSON({
 					title: "daOtherSuperMix",
 					author: "daSuperDJ",
+					date: new Date(),
+					coverPath: "/daOtherPath",
 					tracks: [track1Json, track2Json]
 				}));
 			});
@@ -138,6 +144,8 @@ suite("mixes", function() {
 					Mix.fromJSON({
 						titlle: "daOtherSuperMix",
 						author: "daSuperDJ",
+						date: new Date(),
+						coverPath: "/daOtherPath",
 						tracks: [track1Json, track2Json]
 					});
 				}
@@ -229,8 +237,8 @@ suite("mixes", function() {
 
 	suite("#get()", function() {
 
-		var mix1 = new Mix("mix1", "auth1", [track1]),
-		 	mix2 = new Mix("mix2", "auth1", [track2]);
+		var mix1 = new Mix("mix1", "auth1", new Date(), "/path", [track1]),
+		 	mix2 = new Mix("mix2", "auth1", new Date(), "/path", [track2]);
 		var createdMixes = [superMix, mix1, mix2],
 			auth1Mixes = [mix1, mix2];
 
