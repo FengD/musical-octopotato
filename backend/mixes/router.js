@@ -18,7 +18,7 @@ router.get("/", function(req, res) {
 			}
 		}
 		else {
-			res.send(documents);
+			res.send(documents.map(mixes.Mix.toJSON));
 		}
 	});
 });
@@ -34,7 +34,7 @@ router.get("/:author", function(req, res) {
 			}
 		}
 		else {
-			res.send(documents);
+			res.send(documents.map(mixes.Mix.toJSON));
 		}
 	});
 });
@@ -50,7 +50,7 @@ router.get("/:author/:title", function(req, res) {
 			}
 		}
 		else {
-			res.send(documents);
+			res.send(documents.map(mixes.Mix.toJSON));
 		}
 	});
 });

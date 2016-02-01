@@ -228,8 +228,8 @@ suite("mixes service", function () {
 					var results = response.body;
 
 					assert.equal(1, results.length);
-					assert.equal(superMixJson.title, results[0]._title);
-					assert.equal(superMixJson.author, results[0]._author);
+					assert.equal(superMixJson.title, results[0].title);
+					assert.equal(superMixJson.author, results[0].author);
 				})
 				.end(done);
 		});
@@ -242,8 +242,8 @@ suite("mixes service", function () {
 					var results = response.body;
 
 					assert.equal(1, results.length);
-					assert.equal(otherMixJson.title, results[0]._title);
-					assert.equal(otherMixJson.author, results[0]._author);
+					assert.equal(otherMixJson.title, results[0].title);
+					assert.equal(otherMixJson.author, results[0].author);
 				})
 				.end(done);
 		});
@@ -261,8 +261,8 @@ suite("mixes service", function () {
 					assert(res.body.length >= 3);
 					for (var i = 0; i < createdMixesJson.length; i++) {
 						assert(res.body.find(function(element, index, array) {
-							return element._title == createdMixesJson[i].title
-								&& element._author == createdMixesJson[i].author;
+							return element.title == createdMixesJson[i].title
+								&& element.author == createdMixesJson[i].author;
 						}));
 					}
 				})
