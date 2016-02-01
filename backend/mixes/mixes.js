@@ -74,14 +74,14 @@ class Track {
 class Mix {
 
 	constructor (title, author, date, coverPath, tracks) {
-		this._tilte = title;
+		this._title = title;
 		this._author = author;
 		this._date = date;
 		this._coverPath = coverPath;
 		this._tracks = tracks;
 	}
 
-	get title() { return this._tilte; }
+	get title() { return this._title; }
 	get author() { return this._author; }
 	get date() { return this._date; }
 	get coverPath() { return this._coverPath; }

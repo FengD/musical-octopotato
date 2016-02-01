@@ -7,7 +7,85 @@ var express = require("express"),
 	mixes = require("./mixes"),
 	logger = require("./logger");
 
-// TODO routes
+router.get("/", function(req, res) {
+	mixes.get(null, null, function (err, documents) {
+		if (err) {
+			if (err.nonexistentMix) {
+				res.status(400).send(err);
+			}
+			else {
+				res.status(500).send(err);
+			}
+		}
+		else {
+			res.send(documents);
+		}
+	});
+});
+
+router.get("/:author", function(req, res) {
+	mixes.get(title, null, function (err, documents) {
+		if (err) {
+			if (err.nonexistentMix) {
+				res.status(400).send(err);
+			}
+			else {
+				res.status(500).send(err);
+			}
+		}
+		else {
+			res.send(documents);
+		}
+	});
+});
+
+router.get("/:author/:title", function(req, res) {
+	mixes.get(req.params.title, req.params.author, function (err, documents) {
+		if (err) {
+			if (err.nonexistentMix) {
+				res.status(400).send(err);
+			}
+			else {
+				res.status(500).send(err);
+			}
+		}
+		else {
+			res.send(documents);
+		}
+	});
+});
+
+router.post("/", function(req, res) {
+	mixes.create(req.body, function(err, result) {
+		if (err) {
+			if (err.duplicate || err.invalidJson) {
+				res.status(400).send(err);
+			}
+			else {
+				res.status(500).send(err);
+			}
+		}
+		else {
+			res.send(result);
+		}
+	});
+});
+
+router.delete("/:author/:title", function (req, res) {
+	mixes.remove(req.params.title, req.params.author, function (err, result) {
+		if (err) {
+			if (err.nonexistentMix) {
+				res.status(400).send(err);
+			}
+			else {
+				res.status(500).send(err);
+			}
+		}
+		else {
+			res.send(result);
+		}
+	});
+});
 
 router.init = function init(callback) {
 	mixes.init(function (err) {
