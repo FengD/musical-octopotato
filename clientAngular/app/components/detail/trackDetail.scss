@@ -1,6 +1,6 @@
 .track_detail{
   width: 100%;
-  height:320px;
+  height:100%;
   border:1px red solid;
 }
 .detail{
@@ -10,7 +10,7 @@
   margin-top:50px;
   margin-left:auto;
   margin-right:auto;
-  height: 200px;
+  height: 100%;
   padding: 5px;
 }
 .track, .trackCreated, .cover, .waveform, .actionbar, .interest, .actionbar li, .interest li{

@@ -25,9 +25,10 @@ angular.module('octopotato')
                 controller: 'Lien1Ctrl',
                 resolve: {
                     track: ['$http', '$route', function($http, $route){
-                        return $http.get('./api/track_' + $route.current.params.id + '.json')
+                        var ressourcePath = './api/track_' + $route.current.params.id + '.json';
+                        console.log("Resolving " + ressourcePath);
+                        return $http.get(ressourcePath)
                             .then(function(response){
-                                console.log(response.data);
                                 return response.data;
                             });
                     }]
