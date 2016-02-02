@@ -5,15 +5,11 @@
   "coverPath": "http://lorempixel.com/200/200/animals/",
   "tracks": [
     {
-      "trackPath" : "/uploads/guitare",
-      params ...
+      "trackPath" : "first track"
     },
     {
-      "trackPath" : "/uploads/basse",
-      params ...},
-    {
-      "trackPath" : "/uploads/drums",
-      params ...}
+      "trackPath" : "second track"
+    }
   ],
   "plays": 13,
   "likes": 32,
