@@ -1,20 +1,20 @@
 'use strict';
 angular.module('octopotato')
-    .controller('Lien_Ctrl',  function ($scope, $http) {
+    .controller('loginCtrl',  function ($scope, $http) {
 
         $scope.init = function () {
         };
 
-        $scope.showSignUp = function () {
-            $scope.loginForm = true;
+    /*    $scope.showSignUp = function () {
+            $scope.signUpForm = true;
             $scope.loginButton = false;
-        };
+        };  */
 
         $scope.login = function(){
 
         };
 
-        $scope.signIn = function(){
+        $scope.signUp = function(){
             $http({
                 method: 'POST',
                 url: 'http://localhost:8080/users',
@@ -28,6 +28,10 @@ angular.module('octopotato')
                 console.log("error");
                 console.log(error);
             });
+        };
+
+        $scope.signIn = function(){
+
         };
 
     });

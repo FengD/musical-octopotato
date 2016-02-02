@@ -1,21 +1,11 @@
-<div id="login-content" ng-controller="Lien_Ctrl" ng-init = "init();">
-  <div class="navbar-header1 login">
-    <button class="navbar-brand1" id="signUp" ng-hide="register" ng-click="showSignUp()">Sign up</button>
-    <button class="navbar-brand2" id="login" ng-hide="login">Log in</button>
-    <button class="navbar-brand6" id="logout" ng-show="logout" >Log out</button>
-  </div>
+<div id="login-content" ng-controller="loginCtrl" ng-init = "init();">
 
-  <div class="login-form row" ng-show="loginForm">
-    <form ng-submit="signIn()">
-      <div class="row">
-        <input type="text" placeholder="Username" ng-model="username" id="usernameReg" />
-      </div>
 
-<!--
+  <div class="signUp-form row" ng-hide="signUpForm">
+    <form ng-submit="signUp()">
       <div class="row">
-        <input type="email" placeholder="Email" pattern="[^ @]*@[^ @]*" ng-model="email" />
+        <input type="text" placeholder="Username" ng-model="username" class="usernameReg" />
       </div>
--->
 
       <div class="row">
         <input type="password" placeholder="Password" ng-model="password" />
@@ -25,10 +15,21 @@
         <button id="signUp-button" class="btn btn-primary" type="submit">Sign Up</button>
       </div>
     </form>
-
-    <div class="row">
-      <button id="login-button" class="btn btn-primary" type="submit" ng-click="signUp(username, email, pwd)" ng-show="loginButton">Login</button>
-    </div>
   </div>
 
+  <div class="login-form row" ng-hide="signUpForm">
+    <form ng-submit="signIn()">
+      <div class="row">
+        <input type="text" placeholder="Username" ng-model="username" class="usernameReg" />
+      </div>
+
+      <div class="row">
+        <input type="password" placeholder="Password" ng-model="password" />
+      </div>
+
+      <div class="row">
+        <button id="signIn-button" class="btn btn-primary" type="submit">Sign In</button>
+      </div>
+    </form>
+  </div>
 </div>

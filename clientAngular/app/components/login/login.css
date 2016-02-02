@@ -1,26 +1,20 @@
-div.navbar-header1.login {
-  height: 50px;
-  background-color: #071e3f;
-  width: 100%; }
-
-div.navbar-header1.login button {
-  float: right;
-  margin-right: 10px;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 10px;
-  background-color: #071e3f;
-  border: none; }
-
+div.signUp-form {
+  text-align: center;
+  margin-top: 50px;
+}
+div.signUp-form input {
+  margin-bottom: 10px;
+}
+div.signUp-form button {
+  margin-bottom: 20px;
+}
 div.login-form {
   text-align: center;
-  margin-top: 50px; }
-
+  margin-top: 50px;
+}
 div.login-form input {
-  margin-bottom: 10px; }
-
+  margin-bottom: 10px;
+}
 div.login-form button {
-  margin-bottom: 20px; }
-
-/*# sourceMappingURL=lien2.css.map */
+  margin-bottom: 20px;
+}

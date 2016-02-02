@@ -13,7 +13,7 @@ usersRouter.get("/", function(req, res) {
 			res.status(500).send(err);
 		}
 		else {
-			res.send(documents);
+			res.send(documents.map(users.toJSON));
 		}
 	});
 });
@@ -29,7 +29,7 @@ usersRouter.get("/:uid", function(req, res) {
 			}
 		}
 		else {
-			res.send(documents);
+			res.send(documents.map(users.toJSON));
 		}
 	}, req.params.uid);
 });
