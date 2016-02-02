@@ -13,7 +13,7 @@ angular.module('octopotato')
                 controller: 'TrackItemCtrl',
                 resolve: {
                     tracks: ['$http', function($http){
-                        return $http.get('./api/tracks.json')
+                        return $http.get('./api/mixes.json')
                             .then(function(response){
                                 console.log(response.data);
                                 return response.data;
@@ -25,7 +25,7 @@ angular.module('octopotato')
                 controller: 'Lien1Ctrl',
                 resolve: {
                     track: ['$http', '$route', function($http, $route){
-                        var ressourcePath = './api/track_' + $route.current.params.id + '.json';
+                        var ressourcePath = './api/mix_' + $route.current.params.id + '.json';
                         console.log("Resolving " + ressourcePath);
                         return $http.get(ressourcePath)
                             .then(function(response){

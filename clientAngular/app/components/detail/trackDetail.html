@@ -6,10 +6,13 @@
         <div class="trackCreated">{{track.date}}</div>
         <div>
             <img src="{{track.coverPath}}" alt="cover"><br/>
-            <equalizer>
-                equalizedSrc
-            </equalizer>
-            <div class="waveform">wave</div><br/>
+            <div class="mixTracks" ng-repeat="truc in track.tracks">
+
+                <equalizer>
+                    equalizedSrc
+                </equalizer>
+                <div class="waveform">{{track.trackPath}}</div><br/>
+            </div>
             <div class="actionbar">
                 <li><button class="btn btn-info glyphicon glyphicon-heart"> like</button></li>
                 <li><button class="btn btn-info glyphicon glyphicon-share"> share</button></li>
