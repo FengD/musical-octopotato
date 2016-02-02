@@ -1,5 +1,5 @@
 angular.module('octopotato')
-    .directive("equalizer", function(){
+    .directive('equalizer', function(){
 
         function visualize(canvas, analyser) {
             clearCanvas(canvas);
@@ -12,7 +12,7 @@ angular.module('octopotato')
         }
 
         function drawVolumeMeter(canvas, analyser){
-            var canvasCtx = canvas.getContext("2d"),
+            var canvasCtx = canvas.getContext('2d'),
                 bufferLength = analyser.frequencyBinCount,
                 dataArray = new Uint8Array(bufferLength),
                 average,
@@ -55,7 +55,7 @@ angular.module('octopotato')
         }
 
         function clearCanvas(canvas) {
-            var canvasContext = canvas.getContext("2d"),
+            var canvasContext = canvas.getContext('2d'),
                 width = canvas.width,
                 height = canvas.height;
 
@@ -74,7 +74,7 @@ angular.module('octopotato')
         function visuTimeDomain(canvas, analyser) {
             var width = canvas.width,
                 height = canvas.height,
-                canvasCtx = canvas.getContext("2d"),
+                canvasCtx = canvas.getContext('2d'),
                 bufferLength = analyser.frequencyBinCount,
                 dataArray = new Uint8Array(bufferLength),
                 sliceWidth = width / bufferLength,
@@ -111,15 +111,15 @@ angular.module('octopotato')
         return {
             restrict: 'EA',
             replace: true,
-            transclude: true,
-            scope: {title: '=expanderTitle'},
             templateUrl: './components/equalizer/equalizer.html',
             link: function(scope, element, attrs){
                 var ctx = window.AudioContext || window.webkitAudioContext;
                 var audioContext = new ctx();
-                var timeCanvas = document.querySelector("#myTimeCanvas");
-                var noiseSource = document.querySelector('#noiseSource');
-                var noiseSourceNode = audioContext.createMediaElementSource(noiseSource);
+                var timeCanvas = element.find('canvas')[0];
+                var audioSource = element.find('audio')[0];
+                console.log(timeCanvas);
+                console.log(audioSource);
+                var noiseSourceNode = audioContext.createMediaElementSource(audioSource);
                 var analyser = audioContext.createAnalyser();
 
                 analyser.fftSize = 1024;
