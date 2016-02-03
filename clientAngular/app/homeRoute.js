@@ -15,7 +15,6 @@ angular.module('octopotato')
                     mixPreviews: ['$http', function($http){
                         return $http.get('./api/mixes.json')
                             .then(function(response){
-                                console.log(response.data);
                                 return response.data;
                             });
                     }]
@@ -26,7 +25,6 @@ angular.module('octopotato')
                 resolve: {
                     track: ['$http', '$route', function($http, $route){
                         var ressourcePath = './api/mix_' + $route.current.params.id + '.json';
-                        console.log("Resolving " + ressourcePath);
                         return $http.get(ressourcePath)
                             .then(function(response){
                                 return response.data;
