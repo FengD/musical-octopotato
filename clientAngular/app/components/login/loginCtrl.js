@@ -1,6 +1,7 @@
 'use strict';
 angular.module('octopotato')
     .controller('loginCtrl',  function ($scope, $http) {
+        $scope.panel = false;
 
         $scope.init = function () {
         };
@@ -33,5 +34,4 @@ angular.module('octopotato')
         $scope.signIn = function(){
 
         };
-
     });

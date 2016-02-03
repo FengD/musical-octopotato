@@ -1,20 +1,85 @@
-div.signUp-form {
-  text-align: center;
-  margin-top: 50px;
-}
-div.signUp-form input {
-  margin-bottom: 10px;
-}
-div.signUp-form button {
-  margin-bottom: 20px;
-}
-div.login-form {
-  text-align: center;
-  margin-top: 50px;
-}
-div.login-form input {
-  margin-bottom: 10px;
-}
-div.login-form button {
-  margin-bottom: 20px;
-}
+* {
+  margin: 0;
+  padding: 0; }
+
+.content {
+  background-color: #24313C;
+  width: 100%;
+  height: 100vh; }
+  .content .form {
+    background-size: contain;
+    width: 500px;
+    height: 500px;
+    margin: 0 auto; }
+    .content .form .selectPanel {
+      padding: 150px 0 0 30px; }
+      .content .form .selectPanel div {
+        display: inline-block;
+        width: 220px;
+        height: 50px;
+        line-height: 50px;
+        color: #9BA89C;
+        font-size: 18px;
+        font-weight: 500;
+        font-family: 'Roboto';
+        text-align: center;
+        background-color: #435159;
+        margin: 0;
+        cursor: pointer; }
+      .content .form .selectPanel .selected {
+        background-color: #1AB188;
+        color: white; }
+    .content .form .signup, .content .form .signin {
+      margin-top: 40px;
+      text-align: center; }
+      .content .form .signup span, .content .form .signin span {
+        font-size: 26px;
+        color: white;
+        font-family: 'Roboto'; }
+      .content .form .signup .firstname, .content .form .signup .lastname, .content .form .signin .firstname, .content .form .signin .lastname {
+        margin-top: 37px;
+        width: 210px; }
+      .content .form .signup .firstname, .content .form .signin .firstname {
+        margin-right: 20px; }
+      .content .form .signup .mail, .content .form .signup .password, .content .form .signin .mail, .content .form .signin .password {
+        margin-top: 35px;
+        width: 444px; }
+
+input {
+  padding-left: 10px;
+  background-color: #435159;
+  color: white;
+  height: 34px;
+  border: solid darkgrey 2px; }
+
+input[type='submit'] {
+  color: white;
+  margin-top: 35px;
+  background-color: #1AB188;
+  border: none;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  width: 442px;
+  height: 65px;
+  line-height: 65px;
+  cursor: pointer; }
+
+/*
+<div class="selectPanel">
+    <div class="signinSelect">signin</div>
+    <div class="loginSelect">login</div>
+</div>
+<div class="signin">
+    <span>Inscrivez vous gratuitement !</span><br>
+    <input type="text" class="username" placeholder="username"><br>
+    <input type="password" class="password" placeholder="password">
+</div>
+<div class="login">
+    <input type="text" class="username" placeholder="username"><br>
+    <input type="mail" class="mail" placeholder="email"><br>
+    <input type="password" class="password" placeholder="password">
+</div>
+*/
+
+/*# sourceMappingURL=login.css.map */
