@@ -8,11 +8,11 @@ angular.module('octopotato')
             .when('/login', {
                 templateUrl: 'components/login/login.html'
             })
-            .when('/tracks', {
-                templateUrl: 'components/tracks/tracks.html',
-                controller: 'TrackItemCtrl',
+            .when('/mixes', {
+                templateUrl: 'components/mixes/mixes.html',
+                controller: 'MixesCtrl',
                 resolve: {
-                    tracks: ['$http', function($http){
+                    mixPreviews: ['$http', function($http){
                         return $http.get('./api/mixes.json')
                             .then(function(response){
                                 console.log(response.data);
@@ -35,6 +35,6 @@ angular.module('octopotato')
                 }
             })
             .otherwise({
-                redirectTo: '/tracks'
+                redirectTo: '/mixes'
             });
     }]);
