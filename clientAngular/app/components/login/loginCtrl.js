@@ -24,14 +24,28 @@ angular.module('octopotato')
                     pwd: $scope.password
                 }
             }).then(function successCallback(success) {
+                    //coucou soloe
                 console.log(success);
             }, function errorCallback(error) {
                 console.log("error");
                 console.log(error);
             });
         };
-
-        $scope.signIn = function(){
-
+        //POST /users/{uid}
+        //body: { pwd: "theSuperPassword" }
+       $scope.signIn = function(){
+            $http({
+                method: 'POST',
+                url: 'http://localhost:8080/users',
+                data: {
+                    uid: $scope.username,
+                    pwd: $scope.password
+                }
+            }).then(function successCallback(success) {
+                console.log(success);
+            }, function errorCallback(error) {
+                console.log("error");
+                console.log(error);
+            });
         };
     });

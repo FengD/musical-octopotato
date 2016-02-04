@@ -1,5 +1,5 @@
 
 angular
     .module('octopotato',[
-        'ngRoute'
-    ]);
+        'ngRoute','ngCookies'
+            ]);
