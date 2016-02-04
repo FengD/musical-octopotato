@@ -1,5 +1,5 @@
 angular.module('octopotato')
-    .directive('equalizer', function(){
+    .directive('equalizer', function($http){
 
         function visualize(canvas, analyser) {
             clearCanvas(canvas);
@@ -108,34 +108,158 @@ angular.module('octopotato')
 
         }
 
+        function visuFrequencyDomain(canvas, analyser){
+            var width = canvas.width,
+                height = canvas.height,
+                canvasCtx = canvas.getContext("2d"),
+                bufferLength = analyser.frequencyBinCount,
+                dataArray = new Uint8Array(bufferLength),
+                barWidth = width / bufferLength,
+                barHeight, heightScale,
+                x = 0;
+
+
+            clearCanvas(canvas);
+
+            analyser.getByteFrequencyData(dataArray);
+
+            barWidth = width / bufferLength;
+
+            // values go from 0 to 255 and the canvas heigt is 100. Let's rescale
+            // before drawing. This is the scale factor
+            heightScale = height/256;
+
+            for(var i = 0; i < bufferLength; i++) {
+                // between 0 and 255
+                barHeight = dataArray[i];
+
+                // The color is red but lighter or darker depending on the value
+                canvasCtx.fillStyle = 'rgb(' + (barHeight*2+100) + ',50,50)';
+                // scale from [0, 255] to the canvas height [0, height] pixels
+                barHeight *= heightScale;
+                // draw the bar
+                canvasCtx.fillRect(x, height-barHeight, barWidth, barHeight);
+
+                // 1 is the number of pixels between bars - you can change it
+                x += barWidth + 1;
+            }
+
+
+            requestAnimationFrame(function(){visuFrequencyDomain(canvas, analyser )});
+
+        }
+
+        function buildGraph(sample, context, endNode, element) {
+
+            var timeCanvasElt = element.find('canvas')[0];
+            var freqCanvasElt = element.find('canvas')[1];
+            var gainElt = element.find('input')[0];
+            var lowFilterElt = element.find('input')[1];
+            var midFilterElt = element.find('input')[2];
+            var highFilterElt = element.find('input')[3];
+
+
+            var noiseSourceNode = context.createBufferSource();
+            noiseSourceNode.buffer = sample;
+
+            var gainNode = context.createGain();
+            gainElt.oninput = function(evt){
+                gainNode.gain.value = evt.target.value;
+            };
+
+            var lowFilterNode = context.createBiquadFilter();
+            lowFilterNode.frequency.value = 200;
+            lowFilterNode.type = "peaking";
+            lowFilterNode.gain.value = 0;
+            lowFilterNode.Q.value = 0.05;
+            lowFilterElt.oninput = function(evt){
+                lowFilterNode.gain.value = evt.target.value;
+            };
+
+            var midFilterNode = context.createBiquadFilter();
+            midFilterNode.frequency.value = 4000;
+            midFilterNode.type = "peaking";
+            midFilterNode.gain.value = 0;
+            midFilterNode.Q.value = 2;
+            midFilterElt.oninput = function(evt){
+                midFilterNode.gain.value = evt.target.value;
+            };
+
+            var highFilterNode = context.createBiquadFilter();
+            highFilterNode.frequency.value = 8000;
+            highFilterNode.type = "peaking";
+            highFilterNode.gain.value = 0;
+            highFilterNode.Q.value = 5;
+            highFilterElt.oninput = function(evt){
+                highFilterNode.gain.value = evt.target.value;
+            };
+
+            var analyserNode = context.createAnalyser();
+            analyserNode.fftSize = 1024;
+
+
+            noiseSourceNode.connect(gainNode);
+            gainNode.connect(lowFilterNode);
+            lowFilterNode.connect(midFilterNode);
+            midFilterNode.connect(highFilterNode);
+            highFilterNode.connect(analyserNode);
+            analyserNode.connect(endNode);
+
+            requestAnimationFrame(function() {
+                visualize(timeCanvasElt, analyserNode)
+            });
+
+            requestAnimationFrame(function () {
+                visuTimeDomain(timeCanvasElt, analyserNode )
+            });
+
+            requestAnimationFrame(function () {
+                visuFrequencyDomain(freqCanvasElt, analyserNode)
+            });
+
+
+
+            // Create a single gain node for master volume
+            //masterVolumeNode = context.createGain();
+            console.log("in build graph, elem = " + sample);
+
+                // connect each sound sample to a vomume node
+               // trackVolumeNodes[i] = context.createGain();
+                // Connect the sound sample to its volume node
+               // sources[i].connect(trackVolumeNodes[i]);
+                // Connects all track volume nodes a single master volume node
+                //trackVolumeNodes[i].connect(masterVolumeNode);
+                // Connect the master volume to the speakers
+ //           masterVolumeNode.connect(context.destination);
+                // On active les boutons start et stop
+               // samples = sources;
+            return noiseSourceNode;
+
+           // onceLoaded();
+        }
+
+        var audiSource;
+
         return {
             restrict: 'EA',
-            replace: true,
+            replace: false,
             templateUrl: './components/equalizer/equalizer.html',
-            link: function(scope, element, attrs){
-                var ctx = window.AudioContext || window.webkitAudioContext;
-                var audioContext = new ctx();
-                var timeCanvas = element.find('canvas')[0];
-                var audioSource = element.find('audio')[0];
-                console.log(timeCanvas);
-                console.log(audioSource);
-                var noiseSourceNode = audioContext.createMediaElementSource(audioSource);
-                var analyser = audioContext.createAnalyser();
+            require: '^trackMix',
+            scope: true,
+            link: function(scope, element, attrs, trackMixController){
 
-                analyser.fftSize = 1024;
+                trackMixController.addTrackURL(attrs.songurl, element);
 
-                noiseSourceNode.connect(analyser);
-                analyser.connect(audioContext.destination);
-                console.log(noiseSourceNode);
+                var audioContext = trackMixController.getAudioContext();
 
+                var endNode = trackMixController.getOutputNode();
 
-                requestAnimationFrame(function() {
-                    visualize(timeCanvas, analyser)
-                });
+                element.buildAudioGraph = function(sample){
+                   return buildGraph(sample, audioContext, endNode, element);
+                };
 
-                requestAnimationFrame(function () {
-                    visuTimeDomain(timeCanvas, analyser )
-                });
+                console.log("###End equalizer link");
+
             }
         };
     });

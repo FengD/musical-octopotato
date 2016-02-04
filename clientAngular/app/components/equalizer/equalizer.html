@@ -1,7 +1,29 @@
 <div class="equalizer">
-    <audio src="./api/tracks/tuttiFruttiSummerLove.mp3"
-           id="audioSource_" controls loop
-           crossorigin="anonymous"> </audio>
+
+    <button>
+        <i class="fa fa-music fa-3x"></i>
+    </button>
+
+    <button>
+        <i class="fa fa-volume-off fa-3x"></i>
+    </button>
+
+    <label for="gain_{{$index}}">Gain</label>
+    <input type="range"  id="gain_{{$index}}" min="0" max="5" value="1" step="0.05" maxlength="3" />
+
+    <label for="lowFrequenciesFilter_{{$index}}">low Frequencies</label>
+    <input type="range" id="lowFrequenciesFilter_{{$index}}" min="-50" max="50" step="0.01" value="0" />
+    <br>
+
+    <label for="midFrequenciesFilter_{{$index}}">mid Frequencies</label>
+    <input type="range" id="midFrequenciesFilter_{{$index}}" min="-50" max="50" step="0.01" value="0" />
+    <br>
+
+    <label for="highFrequenciesFilter_{{$index}}">high Frequencies</label>
+    <input type="range" id="highFrequenciesFilter_{{$index}}" min="-50" max="50" step="0.01" value="O" />
+    <br>
+
 
     <canvas id="timeCanvas_" width=300 height=100></canvas>
+    <canvas id="myFreqCanvas" width=300 height=100></canvas>
 </div>
