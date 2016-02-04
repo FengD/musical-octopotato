@@ -1,5 +1,11 @@
 # musical-octopotato
 
+## Table of contents
+  // TODO
+
+## Team
+  // TODO who did what
+
 ## Installation
 
 ### Local mode
