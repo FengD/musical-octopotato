@@ -198,6 +198,16 @@ suite("users service", function() {
 				}], done);
 		});
 
+		test("should get Tony by posting password", function (done) {
+			request(userService)
+				.post("/users/" + tony.uid)
+				.send({ pwd: tony.pwd })
+				.expect(200, {
+					uid: tony.uid,
+					pwd: tony.pwd
+				}, done);
+		});
+
 		test("should get René", function (done) {
 			request(userService)
 				.get("/users/" + rene.uid)

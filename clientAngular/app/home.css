@@ -1,23 +1,31 @@
+/* line 1, cul.scss */
 body {
   margin: 0;
   padding: 0;
+  background-color: #D4DAD9 !important;
+  font-family: 'Roboto';
 }
+
+/* line 8, cul.scss */
 .header {
   line-height: 50px;
   height: 50px;
   width: 100%;
-  background-color: black;
+  background-color: #293540;
   color: white;
 }
+/* line 14, cul.scss */
 .header .logo {
   float: left;
   margin-left: 20px;
   margin-right: 50px;
 }
+/* line 19, cul.scss */
 .header .login {
   float: right;
   margin-right: 20px;
 }
+/* line 23, cul.scss */
 .header .search .form-control {
   width: 300px;
   margin-top: 8px;
@@ -25,47 +33,31 @@ body {
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
 }
+/* line 30, cul.scss */
 .header #searchButton {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
   border-top-left-radius: 0px;
   border-bottom-left-radius: 0px;
   margin-left: 0px;
+  margin-top: -2px;
 }
-.header #logButton,
-.header #tracksButton {
+/* line 38, cul.scss */
+.header #logButton, .header #tracksButton {
   float: right;
   margin-right: 30px;
   margin-top: -35px;
   text-decoration: none;
   color: white;
+  cursor: pointer;
 }
+/* line 46, cul.scss */
 .header #tracksButton {
   margin-right: 160px;
   margin-top: -50px;
 }
-.trackItemPreviews {
-  margin-top: 20px;
-  width: 100%;
-}
-.trackItemPreviews .trackItemPreview {
-  width: 700px;
-  margin: 0 auto 20px auto;
-  border: solid black 1px;
-  height: 100px;
-}
-.trackItemPreviews .trackItemPreview .leftItems,
-.trackItemPreviews .trackItemPreview .rightItems {
-  display: inline-block;
-  width: calc(46%);
-  vertical-align: middle;
-}
-.trackItemPreviews .trackItemPreview .leftItems img {
-  height: 50px;
-}
-.trackItemPreviews .trackItemPreview .leftItems .title {
-  text-transform: capitalize;
-}
-.trackItemPreviews .trackItemPreview .rightItems {
-  text-align: right;
+
+#nickname {
+  position: fixed;
+  left: 15%;
 }

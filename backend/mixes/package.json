@@ -2,20 +2,12 @@
   "name": "musical-octopotato-mixes-service",
   "version": "0.0.1",
   "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
   "author": "Polytech Nice-Sophia SI - Programmable Web 2015-2016 - groupe 12",
   "contributors": [
-    {
-      "name": "Ying Jiang",
-      "email": "ying.jiang@etu.unice.fr"
-    },
-    {
-      "name": "Fernando Garrigos",
-      "email": "jonafepa@gmail.com"
-    },
-    {
-      "name": "Tom Veniat",
-      "email": "tom.veniat@etu.unice.fr"
-    },
     {
       "name": "Marc Karassev",
       "email": "marc.karassev@yahoo.fr"
@@ -40,5 +32,5 @@
     "supertest": "^1.1.0"
   },
   "private": true,
-  "license": "no license"
+  "license": "UNLICENSED"
 }

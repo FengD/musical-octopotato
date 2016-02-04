@@ -35,4 +35,23 @@ angular.module('octopotato')
             .otherwise({
                 redirectTo: '/mixes'
             });
-    }]);
+    }])
+.run(['$rootScope', '$location', '$cookies',
+    function ($rootScope, $location, $cookies) {
+      // keep user logged in after page refresh
+
+      $rootScope.nickname = $cookies.get('nickname') || null;
+      $rootScope.password = $cookies.get('password') || null;
+
+
+     /* $rootScope.$on('$locationChangeStart', function () {
+
+        // redirect to login page if not logged in
+        if ($location.path() !== '/login' && $rootScope.nickname === null) {
+          $location.path('/login');
+        }
+
+      });
+    */
+    }
+  ]);

@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./home.css">
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="components/detail/trackDetail.css">
@@ -14,6 +15,7 @@
 </head>
 
 
+
 <body ng-app="octopotato" ng-controller="HomeCtrl">
 
     <header ng-include="'components/header/nav.html'"></header>
@@ -21,7 +23,6 @@
     <div class="content">
         <div ng-view class="ngview"></div>
     </div>
-
 
     <footer ng-include="'components/footer/footer.html'"></footer>
 
@@ -33,13 +34,16 @@
 <script src="../bower_components/angular-route/angular-route.min.js"></script>
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
 <script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../bower_components/angular-cookies/angular-cookies.js"></script>
 <script src="./resources/buffer-loader.js"></script>
+
 
 <script src="octopotato.js"></script>
 <script src="homeCtrl.js"></script>
 
 <script src="components/detail/trackDetailCtrl.js"></script>
 <script src="components/login/loginCtrl.js"></script>
+<script src="components/header/headerCtrl.js"></script>
 
 <script src="./components/mixes/mixes.js"></script>
 <script src="./components/trackMix/trackMix.js"></script>

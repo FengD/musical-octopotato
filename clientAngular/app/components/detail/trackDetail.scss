@@ -1,12 +1,15 @@
 .track_detail{
   width: 100%;
   height:100%;
-  border:1px red solid;
+  background-color: #D4DAD9;
+}
+.row {
+  background-color: #D4DAD9;
 }
 .detail{
   position:relative;
   width:80%;
-  border:1px blue solid;
+  background-color: #EAEAEA;
   margin-top:50px;
   margin-left:auto;
   margin-right:auto;
@@ -17,6 +20,7 @@
   display: inline-block;
 
 }
+
 .trackCreated, .waveform, .interest{
   float:right;
 
@@ -29,12 +33,20 @@
   float: bottom;
   bottom: 5px;
 }
+.actionbar .btn{
+    width:80px;
+    height:30px;
+    background-color: #71A08E;
+    border:none;
+
+}
 .interest{
   right: 5px;
 }
 /*....................................Endregion1.................................................*/
 
 /*....................................region2: comments.................................................*/
+/*
 .description{
   border:1px blue solid;
 }
@@ -50,7 +62,7 @@
 .similar_tracks{
   border:1px blue solid;
 }
-
+*/
 
 /*....................................Endregion2.................................................*/
 ._item{

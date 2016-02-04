@@ -4,9 +4,9 @@
             <a class="title" ng-bind="mixPreview.title" href="#tracks/{{mixPreview.title}}"></a>
             <span class="author">by {{mixPreview.author}}</span><br/>
             <img src="{{mixPreview.coverPath}}" alt="cover"><br/>
-            <button>like</button>
-            <button>share</button>
-            <button>remix</button>
+            <button class="btn btn-info glyphicon glyphicon-heart"> like</button>
+            <button class="btn btn-info glyphicon glyphicon-share"> share</button>
+            <a href="" class="btn btn-info glyphicon glyphicon-edit" role="button"> remix</a>
         </div>
         <div class="rightItems">
             <span class="date" ng-bind="mixPreview.date"></span><br/>
