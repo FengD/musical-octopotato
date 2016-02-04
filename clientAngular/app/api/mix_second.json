@@ -5,10 +5,23 @@
   "coverPath": "http://lorempixel.com/200/200/animals/",
   "tracks": [
     {
-      "trackPath" : "first track"
+
+      "trackPath" : "./api/tracks/queen_champions/basse.mp3"
     },
     {
-      "trackPath" : "second track"
+      "trackPath" : "./api/tracks/queen_champions/batterie.mp3"
+    },
+    {
+      "trackPath" : "./api/tracks/queen_champions/guitare.mp3"
+    },
+    {
+      "trackPath" : "./api/tracks/queen_champions/guitare2.mp3"
+    },
+    {
+      "trackPath" : "./api/tracks/queen_champions/piano.mp3"
+    },
+    {
+      "trackPath" : "./api/tracks/queen_champions/voix.mp3"
     }
   ],
   "plays": 13,
