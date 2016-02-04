@@ -1,12 +1,15 @@
 .track_detail {
   width: 100%;
-  height: 100%; }
+  height: 100%;
+  background-color: #D4DAD9; }
+
+.row {
+  background-color: #D4DAD9; }
 
 .detail {
   position: relative;
   width: 80%;
   background-color: #EAEAEA;
-  border-radius: 8px;
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
@@ -38,21 +41,23 @@
 
 /*....................................Endregion1.................................................*/
 /*....................................region2: comments.................................................*/
-.description {
-  border: 1px blue solid; }
-
-.mycomment {
-  border: 1px blue solid; }
-
-.commnents {
-  border: 1px blue solid; }
-
-.trackInfo {
-  border: 1px blue solid; }
-
-.similar_tracks {
-  border: 1px blue solid; }
-
+/*
+.description{
+  border:1px blue solid;
+}
+.mycomment{
+  border:1px blue solid;
+}
+.commnents{
+  border:1px blue solid;
+}
+.trackInfo{
+  border:1px blue solid;
+}
+.similar_tracks{
+  border:1px blue solid;
+}
+*/
 /*....................................Endregion2.................................................*/
 ._item {
   background-color: black; }

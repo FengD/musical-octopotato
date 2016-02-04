@@ -1,7 +1,8 @@
 body{
   margin: 0;
   padding: 0;
-  background-color:#5A5A5A !important;
+  background-color:#D4DAD9 !important;
+  font-family: 'Roboto';
 }
 
 .header{
@@ -47,34 +48,3 @@ body{
   }
 }
 
-.trackItemPreviews{
-  margin-top: 20px;
-  width: 100%;
-
-  .trackItemPreview{
-    width: 60%;
-    margin: 0 auto 20px auto;
-    background-color: #EAEAEA;
-    border-radius: 10px;
-    padding: 5px;
-    .leftItems, .rightItems{
-      display: inline-block;
-      width: calc(50% - 4px);
-      vertical-align: middle;
-    }
-
-    .leftItems{
-      img{
-        height: 50px;
-      }
-
-      .title{
-        text-transform: capitalize;
-      }
-    }
-
-    .rightItems{
-      text-align: right;
-    }
-  }
-}

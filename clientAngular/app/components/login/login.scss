@@ -1,17 +1,17 @@
 $green: #1AB188;
 $darkblue: #435159;
 $grey: #9BA89C;
-$background: #24313C;
+$background: #474A4A;;
 
 *{
   margin: 0;
   padding: 0;
 }
 
-.content{
-  background-color: $background;
-  width: 100%;
-  height: 100vh;
+ .content{
+   background-color: $background;
+   width: 100%;
+   height: 100vh;
 
   .form{
     //background: url('login.png') no-repeat center;

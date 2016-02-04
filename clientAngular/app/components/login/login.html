@@ -1,39 +1,9 @@
 <div id="login-content" class="content" ng-controller="loginCtrl" ng-init = "init();">
 
-  <!--<div class="signUp-form row" ng-hide="signUpForm">
-    <form ng-submit="signUp()">
-      <div class="row">
-        <input type="text" placeholder="Username" ng-model="username" class="usernameReg" />
-      </div>
-
-      <div class="row">
-        <input type="password" placeholder="Password" ng-model="password" />
-      </div>
-
-      <div class="row">
-        <button id="signUp-button" class="btn btn-primary" type="submit">Sign Up</button>
-      </div>
-    </form>
-  </div>
-
-  <div class="login-form row" ng-hide="signUpForm">
-    <form ng-submit="signIn()">
-      <div class="row">
-        <input type="text" placeholder="Username" ng-model="username" class="usernameReg" />
-      </div>
-
-      <div class="row">
-        <input type="password" placeholder="Password" ng-model="password" />
-      </div>
-
-      <div class="row">
-        <button id="signIn-button" class="btn btn-primary" type="submit">Sign In</button>
-      </div>
-    </form>
-  </div>-->
     <div class="form">
       <div class="selectPanel">
-        <div class="signupSelect" ng-class="{'selected': !panel}" ng-click="panel = false">Sign up</div><div class="loginSelect" ng-class="{'selected': panel}" ng-click="panel = true">Log In</div>
+        <div class="signupSelect" ng-class="{'selected': !panel}" ng-click="panel = false">Sign up</div><div class="loginSelect" ng-class="{'selected':
+        panel}" ng-click="panel = true">Log In</div>
       </div>
       <form class="signup" ng-submit="signUp()" ng-hide="panel">
         <span>Inscrivez vous gratuitement !</span><br>
@@ -43,10 +13,7 @@
         <input type="password" class="password" ng-model="password" placeholder="Mot de passe">
         <input type="submit" value="INSCRIPTION">
       </form>
-      <!--        <div class="login">
-                  <input type="mail" class="email" placeholder="email"><br>
-                  <input type="password" class="password" placeholder="password">
-              </div>-->
+
       <form class="signin" ng-submit="signIn()" ng-show="panel">
         <input type="text" class="mail" ng-model="username" placeholder="Nom">
         <input type="password" class="password" ng-model="password" placeholder="Mot de passe">

@@ -9,6 +9,9 @@
     },
     {
       "trackPath" : "second track"
+    },
+    {
+      "trackPath" : "third track"
     }
   ],
   "plays": 13,

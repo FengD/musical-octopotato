@@ -1,7 +1,8 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #5A5A5A !important; }
+  background-color: #D4DAD9 !important;
+  font-family: 'Roboto'; }
 
 .header {
   line-height: 50px;
@@ -38,25 +39,5 @@ body {
   .header #tracksButton {
     margin-right: 160px;
     margin-top: -50px; }
-
-.trackItemPreviews {
-  margin-top: 20px;
-  width: 100%; }
-  .trackItemPreviews .trackItemPreview {
-    width: 60%;
-    margin: 0 auto 20px auto;
-    background-color: #EAEAEA;
-    border-radius: 10px;
-    padding: 5px; }
-    .trackItemPreviews .trackItemPreview .leftItems, .trackItemPreviews .trackItemPreview .rightItems {
-      display: inline-block;
-      width: calc(50% - 4px);
-      vertical-align: middle; }
-    .trackItemPreviews .trackItemPreview .leftItems img {
-      height: 50px; }
-    .trackItemPreviews .trackItemPreview .leftItems .title {
-      text-transform: capitalize; }
-    .trackItemPreviews .trackItemPreview .rightItems {
-      text-align: right; }
 
 /*# sourceMappingURL=home.css.map */
