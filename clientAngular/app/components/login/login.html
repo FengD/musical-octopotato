@@ -2,20 +2,17 @@
 
     <div class="form">
       <div class="selectPanel">
-        <div class="signupSelect" ng-class="{'selected': !panel}" ng-click="panel = false">Sign up</div><div class="loginSelect" ng-class="{'selected':
-        panel}" ng-click="panel = true">Log In</div>
+        <div class="signupSelect" ng-class="{'selected': !panel}" ng-click="panel = false">Sign up</div><div class="loginSelect" ng-class="{'selected': panel}" ng-click="panel = true">Sign In</div>
       </div>
       <form class="signup" ng-submit="signUp()" ng-hide="panel">
         <span>Inscrivez vous gratuitement !</span><br>
-        <input type="text" class="firstname" ng-model="username" placeholder="Nom">
-        <input type="text" class="lastname" placeholder="Prenom"><br>
-        <input type="mail" class="mail" placeholder="Email"><br>
+        <input type="text" class="nickname" ng-model="nickname" placeholder="Nickname"><br>
         <input type="password" class="password" ng-model="password" placeholder="Mot de passe">
         <input type="submit" value="INSCRIPTION">
       </form>
 
       <form class="signin" ng-submit="signIn()" ng-show="panel">
-        <input type="text" class="mail" ng-model="username" placeholder="Nom">
+        <input type="text" class="nickname" ng-model="nickname" placeholder="Nickname">
         <input type="password" class="password" ng-model="password" placeholder="Mot de passe">
         <input type="submit" value="CONNEXION">
       </form>

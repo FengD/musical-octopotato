@@ -1,9 +1,12 @@
-<div class="header">
+<div class="header" ng-controller="headerCtrl">
     <div class="logo">Octopotato</div>
+    <div id="nickname" >{{nickname}}</div>
     <div class="search input-group">
           <input type="text" class="form-control" placeholder="Search for...">
           <button id="searchButton" class="btn btn-default" type="button">Search</button>
     </div>
     <a id="tracksButton" href="#tracks">Tracks</a>
-    <a id="logButton" class="glyphicon glyphicon-user" href="#login"> Sign in</a>
+
+    <a id="logButton" class="glyphicon glyphicon-user" href="#login" ng-show="!nickname"> Sign in</a>
+    <a id="logButton" class="glyphicon glyphicon-user" ng-click="signOut()" ng-show="nickname"> Sign out</a>
 </div>

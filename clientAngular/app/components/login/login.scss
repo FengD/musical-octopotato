@@ -53,16 +53,7 @@ $background: #474A4A;;
         font-family: 'Roboto';
       }
 
-      .firstname, .lastname{
-        margin-top: 37px;
-        width: 210px;
-      }
-
-      .firstname{
-        margin-right: 20px;
-      }
-
-      .mail, .password{
+      .nickname, .password{
         margin-top: 35px;
         width: 444px;
       }
@@ -72,6 +63,7 @@ $background: #474A4A;;
 }
 
 input{
+
   padding-left: 10px;
   background-color: $darkblue;
   color: white;

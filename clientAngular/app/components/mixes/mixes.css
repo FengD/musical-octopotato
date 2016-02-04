@@ -1,26 +1,40 @@
+/* line 2, mixes.scss */
 .trackItemPreviews {
   margin-top: 20px;
   width: 100%;
-  background-color: #D4DAD9; }
-  .trackItemPreviews .trackItemPreview {
-    width: 60%;
-    margin: 0 auto 20px auto;
-    background-color: #EAEAEA;
-    padding: 5px; }
-    .trackItemPreviews .trackItemPreview .leftItems, .trackItemPreviews .trackItemPreview .rightItems {
-      display: inline-block;
-      width: calc(50% - 4px);
-      vertical-align: middle; }
-    .trackItemPreviews .trackItemPreview .leftItems img {
-      height: 50px; }
-    .trackItemPreviews .trackItemPreview .leftItems .title {
-      text-transform: capitalize; }
-    .trackItemPreviews .trackItemPreview .leftItems .btn {
-      width: 80px;
-      height: 30px;
-      background-color: #71A08E;
-      border: none; }
-    .trackItemPreviews .trackItemPreview .rightItems {
-      text-align: right; }
+  background-color: #D4DAD9;
+}
+/* line 6, mixes.scss */
+.trackItemPreviews .trackItemPreview {
+  width: 60%;
+  margin: 0 auto 20px auto;
+  background-color: #EAEAEA;
+  padding: 5px;
+}
+/* line 11, mixes.scss */
+.trackItemPreviews .trackItemPreview .leftItems, .trackItemPreviews .trackItemPreview .rightItems {
+  display: inline-block;
+  width: calc(50% - 4px);
+  vertical-align: middle;
+}
+/* line 18, mixes.scss */
+.trackItemPreviews .trackItemPreview .leftItems img {
+  height: 50px;
+}
+/* line 22, mixes.scss */
+.trackItemPreviews .trackItemPreview .leftItems .title {
+  text-transform: capitalize;
+}
+/* line 26, mixes.scss */
+.trackItemPreviews .trackItemPreview .leftItems .btn {
+  width: 80px;
+  height: 30px;
+  background-color: #71A08E;
+  border: none;
+}
+/* line 34, mixes.scss */
+.trackItemPreviews .trackItemPreview .rightItems {
+  text-align: right;
+}
 
 /*# sourceMappingURL=mixes.css.map */
