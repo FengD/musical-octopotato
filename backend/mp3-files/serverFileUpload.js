@@ -53,9 +53,9 @@ app.get('/uploads', function (req, res) {
 
 app.use("/uploads", express.static(__dirname + '/uploads'));
 
-app.listen(3000, function () {
+app.listen(8082, function () {
 
-  console.log("Server is listening on port 3000");
-  console.log("Open http://localhost:3000 and upload some files!")
+  console.log("Server is listening on port 8082");
+  console.log("Open http://localhost:8082 and upload some files!")
 
 });
