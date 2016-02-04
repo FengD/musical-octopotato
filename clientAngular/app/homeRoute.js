@@ -8,12 +8,12 @@ angular.module('octopotato')
             .when('/login', {
                 templateUrl: 'components/login/login.html'
             })
-            .when('/tracks', {
-                templateUrl: 'components/tracks/tracks.html',
-                controller: 'TrackItemCtrl',
+            .when('/mixes', {
+                templateUrl: 'components/mixes/mixes.html',
+                controller: 'MixesCtrl',
                 resolve: {
-                    tracks: ['$http', function($http){
-                        return $http.get('./api/tracks.json')
+                    mixPreviews: ['$http', function($http){
+                        return $http.get('./api/mixes.json')
                             .then(function(response){
                                 console.log(response.data);
                                 return response.data;
@@ -25,15 +25,16 @@ angular.module('octopotato')
                 controller: 'trackDetailCtrl',
                 resolve: {
                     track: ['$http', '$route', function($http, $route){
-                        return $http.get('./api/track_' + $route.current.params.id + '.json')
+                        var ressourcePath = './api/mix_' + $route.current.params.id + '.json';
+                        console.log("Resolving " + ressourcePath);
+                        return $http.get(ressourcePath)
                             .then(function(response){
-                                console.log(response.data);
                                 return response.data;
                             });
                     }]
                 }
             })
             .otherwise({
-                redirectTo: '/tracks'
+                redirectTo: '/mixes'
             });
     }]);

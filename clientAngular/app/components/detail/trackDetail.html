@@ -5,14 +5,20 @@
         </div>
         <div class="trackCreated">{{track.date}}</div>
         <div>
-            <div class="cover">cover</div>
-            <div class="waveform">wave</div><br/>
+            <img src="{{track.coverPath}}" alt="cover"><br/>
+            <div class="mixTracks" ng-repeat="truc in track.tracks">
+                <equalizer>
+                    equalizedSrc
+                </equalizer>
+                <div class="waveform">{{track.trackPath}}</div><br/>
+            </div>
             <div class="actionbar">
                 <li><button class="btn btn-info glyphicon glyphicon-heart"> like</button></li>
                 <li><button class="btn btn-info glyphicon glyphicon-share"> share</button></li>
                 <li><a href="" class="btn btn-info glyphicon glyphicon-edit" role="button"> remix</a></li>
             </div>
             <div>zefzef : {{test}}</div>
+
             <div class="interest">
                 <li class="glyphicon glyphicon-play">420</li>
                 <li class="glyphicon glyphicon-heart">36</li>
