@@ -62,8 +62,8 @@ function create(data, callback) {
 	}
 }
 
-function get(callback, uid) {
-	var json = toJSON(new User(uid, undefined));
+function get(uid, pwd, callback) {
+	var json = toJSON(new User(uid, pwd));
 
 	mongoConnection.getDatabase().collection(USERS_COLLECTION).find(json)
 		.toArray(function(err, documents) {
@@ -72,7 +72,7 @@ function get(callback, uid) {
 			callback(err, documents);
 		}
 		else {
-			if (documents.length === 0 && uid) {
+			if (documents.length === 0 && (uid || pwd)) {
 				err = new Error("nonexistent user");
 				err.nonexistentUser = true;
 				callback(err, null);
