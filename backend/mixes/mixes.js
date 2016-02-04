@@ -48,50 +48,167 @@ class Track {
 			json.midFilterFreq, json.lowFilterFreq);
 	}
 
-	static toJSON (mix) {
-		// TODO
+	static toJSON (track) {
+		var json = {};
+
+		if (track.trackPath != undefined) json.trackPath = track.trackPath;
+		else {
+			var err = new Error("invalid Track object");
+
+			err.invalidTrack = true;
+			throw err;
+		}
+		if (track.gain != undefined) json.gain = track.gain;
+		if (track.balance != undefined) json.balance = track.balance;
+		if (track.highFilterLevel != undefined) json.highFilterLevel = track.highFilterLevel;
+		if (track.midFilterLevel != undefined) json.midFilterLevel = track.midFilterLevel;
+		if (track.lowFilterLevel != undefined) json.lowFilterLevel = track.lowFilterLevel;
+		if (track.highFilterFreq != undefined) json.highFilterFreq = track.highFilterFreq;
+		if (track.midFilterFreq != undefined) json.midFilterFreq = track.midFilterFreq;
+		if (track.lowFilterFreq != undefined) json.lowFilterFreq = track.lowFilterFreq;
+		return json;
 	}
 
 }
 
 class Mix {
 
-	constructor (title, author, tracks) {
-		this._tilte = title;
+	constructor (title, author, date, coverPath, tracks) {
+		this._title = title;
 		this._author = author;
+		this._date = date;
+		this._coverPath = coverPath;
 		this._tracks = tracks;
 	}
 
-	get title() { return this._tilte; }
+	get title() { return this._title; }
 	get author() { return this._author; }
+	get date() { return this._date; }
+	get coverPath() { return this._coverPath; }
 	get tracks() { return this._tracks; }
 
 	static fromJSON (json) {
-		if (!(json.title && json.author && json.tracks
+		if (!(json.title && json.author && json.date && json.coverPath && json.tracks
 			&& Array.isArray(json.tracks))) {
 			var err = new Error("invalid json");
 
 			err.invalidJson = true;
 			throw err;
 		}
-		return new Mix(json.title, json.author, json.tracks.map(Track.fromJSON));
+		return new Mix(json.title, json.author, json.date, json.coverPath,
+			json.tracks.map(Track.fromJSON));
 	}
 
 	static toJSON (mix) {
-		// TODO
+		var json = {};
+
+		if (mix.title != undefined && mix.author != undefined) {
+			json.title = mix.title;
+			json.author = mix.author;
+		}
+		else {
+			var error = new Error("invalid Mix object");
+
+			error.invalidMix = true;
+			throw error;
+		}
+		if (mix.date) json.date = mix.date;
+		if (mix.coverPath) json.coverPath = mix.coverPath;
+		if (mix.tracks != undefined) {
+			json.tracks = [];
+			for (var i = 0; i < mix.tracks.length; i++) {
+				json.tracks.push(Track.toJSON(mix.tracks[i]));
+			}
+		}
+		return json;
 	}
 }
 
 function create(data, callback) {
-	// TODO
+	try {
+		var mix = Mix.fromJSON(data);
+
+		mongoConnection.getDatabase().collection(MIXES_COLLECTION).find({
+			author: mix.author,
+			title: mix.title
+		}).toArray(function (err, documents) {
+			if (err) {
+				logger.warn(err);
+				callback(err, documents)
+			}
+			else if (documents.length != 0) {
+				err = new Error("duplicate mix for author " + mix.author);
+				err.duplicate = true;
+				callback(err, null);
+			}
+			else {
+				mongoConnection.getDatabase().collection(MIXES_COLLECTION).insertOne(Mix.toJSON(mix),
+					function(err, result) {
+					if (err) {
+						logger.warn(err);
+						if (err.code == 11000)
+							err.duplicate = true;
+						callback(err, null);
+					}
+					else {
+						callback(null, result.result);
+					}
+				});
+			}
+		});
+	}
+	catch(err) {
+		logger.warn(err);
+		callback(err, null);
+	}
 }
 
-function get(callback, uid) {
-	// TODO
+function get(title, author, callback) {
+	var json = {};
+
+	if (title) json.title = title;
+	if (author) json.author = author;
+	mongoConnection.getDatabase().collection(MIXES_COLLECTION).find(json)
+		.toArray(function(err, documents) {
+		if (err) {
+			logger.warn(err);
+			callback(err, documents);
+		}
+		else {
+			if (documents.length === 0 && title && author) {
+				err = new Error("nonexistent mix");
+				err.nonexistentMix = true;
+				callback(err, null);
+			}
+			else {
+				documents = documents.map(function(element) {
+					return Mix.fromJSON(element);
+				});
+				callback(err, documents);
+			}
+		}
+	});
 }
 
-function remove(uid, callback) {
-	// TODO
+function remove(tilte, author, callback) {
+	mongoConnection.getDatabase().collection(MIXES_COLLECTION).deleteOne({
+		title: tilte,
+		author: author
+	}, null, function(err, result) {
+		if (err) {
+			logger.warn(err);
+			callback(err, result);
+		}
+		else {
+			result = JSON.parse(result);
+			if (result.n == 0) {
+				err = new Error("nonexistent mix");
+				err.nonexistentMix = true;
+				callback(err, null);
+			}
+			else callback(err, result);
+		}
+	});
 }
 
 function init(callback) {

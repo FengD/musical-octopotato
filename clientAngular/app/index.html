@@ -3,54 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="./home.css">
     <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="components/detail/lien1.css">
-    <link rel="stylesheet" href="components/login/lien2.css">
-    <link rel="stylesheet" href="./components/tracks/tracks.css">
-    <link rel="stylesheet" href="../../bower_components/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="components/detail/trackDetail.css">
+    <link rel="stylesheet" href="components/login/login.css">
+    <link rel="stylesheet" href="./components/mixes/mixes.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
 </head>
-
-
-
-
-
-
-
 
 
 <body ng-app="octopotato" ng-controller="HomeCtrl">
 
-    <header ng-include="'templates/nav.html'"></header>
+    <header ng-include="'components/header/nav.html'"></header>
 
     <div class="content">
         <div ng-view class="ngview"></div>
     </div>
 
-
-    <footer ng-include="'templates/footer.html'"></footer>
+    <footer ng-include="'components/footer/footer.html'"></footer>
 
 </body>
-
-
-
-
-
-
 
 
 
 <script src="../bower_components/angular/angular.min.js"></script>
 <script src="../bower_components/angular-route/angular-route.min.js"></script>
 <script src="../bower_components/jquery/dist/jquery.min.js"></script>
-<script src="../../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
-<script src="scripts/octopotato.js"></script>
-<script src="scripts/controllers/homeCtrl.js"></script>
+<script src="octopotato.js"></script>
+<script src="homeCtrl.js"></script>
 
-<script src="components/detail/lien1Ctrl.js"></script>
-<script src="components/login/lien2Ctrl.js"></script>
+<script src="components/detail/trackDetailCtrl.js"></script>
+<script src="components/login/loginCtrl.js"></script>
 
-<script src="./components/tracks/tracksCtrl.js"></script>
-<script src="./scripts/routes.js"></script>
+<script src="./components/mixes/mixes.js"></script>
+<script src="./components/equalizer/equalizer.js"></script>
+
+
+<script src="./homeRoute.js"></script>
 </html>

@@ -1,0 +1,39 @@
+
+.trackItemPreviews{
+  margin-top: 20px;
+  width: 100%;
+  background-color: #D4DAD9;
+  .trackItemPreview{
+    width: 60%;
+    margin: 0 auto 20px auto;
+    background-color: #EAEAEA;
+    padding: 5px;
+    .leftItems, .rightItems{
+      display: inline-block;
+      width: calc(50% - 4px);
+      vertical-align: middle;
+    }
+
+    .leftItems{
+      img{
+        height: 50px;
+      }
+
+      .title{
+        text-transform: capitalize;
+      }
+
+      .btn{
+        width:80px;
+        height:30px;
+        background-color: #71A08E;
+        border:none;
+      }
+    }
+
+    .rightItems{
+      text-align: right;
+
+    }
+  }
+}

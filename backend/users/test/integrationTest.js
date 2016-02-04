@@ -193,17 +193,27 @@ suite("users service", function() {
 			request(userService)
 				.get("/users/" + tony.uid)
 				.expect(200, [{
-					_uid: tony.uid,
-					_pwd: tony.pwd
+					uid: tony.uid,
+					pwd: tony.pwd
 				}], done);
+		});
+
+		test("should get Tony by posting password", function (done) {
+			request(userService)
+				.post("/users/" + tony.uid)
+				.send({ pwd: tony.pwd })
+				.expect(200, {
+					uid: tony.uid,
+					pwd: tony.pwd
+				}, done);
 		});
 
 		test("should get René", function (done) {
 			request(userService)
 				.get("/users/" + rene.uid)
 				.expect(200, [{
-					_uid: rene.uid,
-					_pwd: rene.pwd
+					uid: rene.uid,
+					pwd: rene.pwd
 				}], done);
 		});
 
@@ -220,7 +230,7 @@ suite("users service", function() {
 					assert(res.body.length >= 3);
 					for (var i = 0; i < createdUsers.length; i++) {
 						assert(res.body.find(function(element, index, array) {
-							return element._uid == createdUsers[i].uid;
+							return element.uid == createdUsers[i].uid;
 						}));
 					}
 				})

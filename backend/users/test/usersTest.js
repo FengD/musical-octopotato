@@ -125,7 +125,7 @@ suite("users", function() {
 		});
 
 		test("should get all users", function(done) {
-			users.get(function(err, data) {
+			users.get(null, null, function(err, data) {
 				assert.equal(null, err);
 				assert(data.length >= 3);
 				for (var i = 0; i < createdUsers.length; i++) {
@@ -138,20 +138,29 @@ suite("users", function() {
 		});
 		
 		test("should get Bobby by its uid", function(done) {
-			users.get(function(err, data) {
+			users.get(bobbyJson.uid, null, function(err, data) {
 				assert.equal(null, err);
 				assert.equal(1, data.length);
 				assert.deepEqual([bobby], data);
 				done();
-			}, bobbyJson.uid);
+			});
+		});
+		
+		test("should get Bobby by its uid and password", function(done) {
+			users.get(bobbyJson.uid, bobbyJson.pwd, function(err, data) {
+				assert.equal(null, err);
+				assert.equal(1, data.length);
+				assert.deepEqual([bobby], data);
+				done();
+			});
 		});
 		
 		test("should get an error with nonexistant uid", function(done) {
-			users.get(function(err, data) {
+			users.get("nonExistantUid", null, function(err, data) {
 				assert(err);
 				assert(err.nonexistentUser);
 				done();
-			}, "nonExistantUid");
+			});
 		});
 		
 		suiteTeardown(function(done) {
