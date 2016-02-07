@@ -19,7 +19,7 @@
 
     fileInput.onchange = function() {
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'http://localhost:3000/api/file');
+        xhr.open('POST', 'http://localhost:8082/api/file');
 
         xhr.upload.onprogress = function(e) {
             progress.value = e.loaded;
@@ -40,13 +40,13 @@
     // for displaying uploaded images
     function showUploadedImages() {
         var xhr = new XMLHttpRequest();
-        xhr.open('GET', 'http://localhost:3000/uploads');
+        xhr.open('GET', 'http://localhost:8082/uploads');
 
         xhr.onload = function(e) {
             var images = JSON.parse(this.response);
             for(var i=0; i < images.length; i++) {
                 var img = document.createElement("img");
-                img.src = "http://localhost:3000/uploads/" + images[i];
+                img.src = "http://localhost:8082/uploads/" + images[i];
                 img.width=100;
                 document.body.appendChild(img);
             }
