@@ -1,5 +1,5 @@
 angular.module('octopotato')
-    .config(['$routeProvider', function($routeProvider) {
+    .config(['$routeProvider',  function($routeProvider) {
         $routeProvider.
             when('/detail', {
                 templateUrl: 'components/detail/trackDetail.html',
@@ -12,11 +12,8 @@ angular.module('octopotato')
                 templateUrl: 'components/mixes/mixes.html',
                 controller: 'MixesCtrl',
                 resolve: {
-                    mixPreviews: ['$http', function($http){
-                        return $http.get('./api/mixes.json')
-                            .then(function(response){
-                                return response.data;
-                            });
+                    mixPreviews: ['mixService', function(mixService){
+                        return mixService.getMixes();
                     }]
                 }
             }).when('/mixes/:userId', {
@@ -30,16 +27,21 @@ angular.module('octopotato')
                             });
                     }]
                 }
-            }).when('/tracks/:id', {
+            }).when('/mixes/:authorId/:mixName', {
                 templateUrl: 'components/detail/trackDetail.html',
                 controller: 'trackDetailCtrl',
                 resolve: {
-                    track: ['$http', '$route', function($http, $route){
-                        var ressourcePath = './api/mix_' + $route.current.params.id + '.json';
-                        return $http.get(ressourcePath)
-                            .then(function(response){
-                                return response.data;
-                            });
+                    track: ['$http', '$route','mixService', function($http, $route,mixService){
+                        var authorId = $route.current.params.authorId,
+                            mixName = $route.current.params.mixName;
+                        console.log(authorId + ' - ' + mixName);
+                        console.log(mixService.getMix(authorId, mixName).value);
+                        return mixService.getMix(authorId,mixName);
+                        //var ressourcePath = './api/mix_' + $route.current.params.id + '.json';
+                        //return $http.get(ressourcePath)
+                        //    .then(function(response){
+                        //        return response.data;
+                        //    });
                     }]
                 }
             })

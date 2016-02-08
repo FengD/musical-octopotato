@@ -1,5 +1,5 @@
 angular.module('octopotato')
-    .directive('trackMix', function(){
+    .directive('trackMix', function(mixService){
 
         var bufferLoader,
             childElements = [],
@@ -135,8 +135,15 @@ angular.module('octopotato')
                 };
 
                 saveButton.onclick = function() {
-                    console.log(scope);
-                    //save scope.track
+                    console.log( JSON.stringify(scope.track));
+                    mixService.postMix(JSON.stringify(scope.track)).then(
+                        function(){
+                            "use strict";
+                            console.log('COUCOU');
+                        }, function(err){
+                            "use strict";
+                            console.log(err);
+                        });
                 }
 
             }

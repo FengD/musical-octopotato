@@ -1,7 +1,7 @@
 <div class="trackItemPreviews">
     <div class="trackItemPreview" ng-repeat="mixPreview in mixPreviews">
         <div class="leftItems">
-            <a class="title" ng-bind="mixPreview.title" href="#tracks/{{mixPreview.title}}"></a>
+            <a class="title" ng-bind="mixPreview.title" href="#/mixes/{{mixPreview.author}}/{{mixPreview.title}}"></a>
             <span class="author">by {{mixPreview.author}}</span><br/>
             <img src="{{mixPreview.coverPath}}" alt="cover"><br/>
             <button class="btn btn-info glyphicon glyphicon-heart"> like</button>

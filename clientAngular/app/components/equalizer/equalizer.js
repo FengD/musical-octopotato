@@ -61,10 +61,6 @@ angular.module('octopotato')
 
             canvasContext.save();
 
-            // clear the canvas
-            // like this: canvasContext.clearRect(0, 0, width, height);
-
-            // Or use rgba fill to give a slight blur effect
             canvasContext.fillStyle = 'rgba(0, 0, 0, 0.5)';
             canvasContext.fillRect(0, 0, width, height);
 
@@ -127,22 +123,15 @@ angular.module('octopotato')
 
             barWidth = width / bufferLength;
 
-            // values go from 0 to 255 and the canvas heigt is 100. Let's rescale
-            // before drawing. This is the scale factor
             heightScale = height / 256;
 
             for (var i = 0; i < bufferLength; i++) {
-                // between 0 and 255
                 barHeight = dataArray[i];
 
-                // The color is red but lighter or darker depending on the value
-                canvasCtx.fillStyle = 'rgb(' + (barHeight * 2 + 100) + ',50,50)';
-                // scale from [0, 255] to the canvas height [0, height] pixels
+                canvasCtx.fillStyle = buildGradient(canvasCtx,height);//'rgb(' + (barHeight * 2 + 100) + ',50,50)';
                 barHeight *= heightScale;
-                // draw the bar
                 canvasCtx.fillRect(x, height - barHeight, barWidth, barHeight);
 
-                // 1 is the number of pixels between bars - you can change it
                 x += barWidth + 1;
             }
 
@@ -219,23 +208,10 @@ angular.module('octopotato')
             });
 
 
-            // Create a single gain node for master volume
-            //masterVolumeNode = context.createGain();
             console.log("in build graph, elem = " + sample);
 
-            // connect each sound sample to a vomume node
-            // trackVolumeNodes[i] = context.createGain();
-            // Connect the sound sample to its volume node
-            // sources[i].connect(trackVolumeNodes[i]);
-            // Connects all track volume nodes a single master volume node
-            //trackVolumeNodes[i].connect(masterVolumeNode);
-            // Connect the master volume to the speakers
-            //           masterVolumeNode.connect(context.destination);
-            // On active les boutons start et stop
-            // samples = sources;
             return noiseSourceNode;
 
-            // onceLoaded();
         }
 
         function initTrack(params){
