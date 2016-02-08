@@ -62,3 +62,6 @@ app.listen(8082, function () {
     console.log("Open http://localhost:8082 and upload some files!")
 
 });
+
+module.exports = exports = app;
+
