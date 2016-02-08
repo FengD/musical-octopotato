@@ -10,8 +10,9 @@ var assert = require('assert'),
 var Track = mixes.Track,
 	Mix = mixes.Mix;
 
-var track1 = new Track("daPath", 0, 1, 2, 3, 4, 5, 6, 7),
+var track1 = new Track("daTrack", "daPath", 0, 1, 2, 3, 4, 5, 6, 7),
 	track1Json = {
+		name: "daTrack",
 		trackPath: "daPath",
 		gain: 0,
 		balance: 1,
@@ -22,8 +23,9 @@ var track1 = new Track("daPath", 0, 1, 2, 3, 4, 5, 6, 7),
 		midFilterFreq: 6,
 		lowFilterFreq: 7
 	},
-	track2 = new Track("daOtherPath", 8, 9, 10, 11, 12, 13, 14, 15),
+	track2 = new Track("daOtherTrack", "daOtherPath", 8, 9, 10, 11, 12, 13, 14, 15),
 	track2Json = {
+		name: "daOtherTrack",
 		trackPath: "daOtherPath",
 		gain: 8,
 		balance: 9,
@@ -193,20 +195,28 @@ suite("mixes", function() {
 					logger.error(err);
 					throw err;
 				}
-				assert.deepEqual(superMix,  {
+				assert.deepEqual(result, {
 					ok: 1,
 					n: 1
 				});
+				done();
 			});
-			done();
 		});
 
 		test("should send error when recreating SuperMix", function(done) {
 			mixes.create(Mix.toJSON(superMix), function(err, result) {
-				assert.ifError(err);
+				//assert.ifError(err);
 				assert(err.duplicate);
+				done();
 			});
-			done();
+		});
+
+		test("should send error when creating invalid mix", function(done) {
+			mixes.create({ invalid: "invalid" }, function(err, result) {
+				//assert.ifError(err);
+				assert(err.invalidJson);
+				done();
+			});
 		});
 	});
 
@@ -222,16 +232,16 @@ suite("mixes", function() {
 					ok: 1,
 					n: 1
 				}, result);
+				done();
 			});
-			done();
 		});
 
 		test("should reremove SuperMix with error", function(done) {
 			mixes.remove(superMix.title, superMix.author, function(err, result) {
-				assert.ifError(err);
+				//assert.ifError(err);
 				assert(err.nonexistentMix);
+				done();
 			});
-			done();
 		});
 	});
 
@@ -327,6 +337,72 @@ suite("mixes", function() {
 		
 		test("should get an error with nonexistent mix", function(done) {
 			mixes.get("nonexistentMix", "nonexistentAuthor", function(err, data) {
+				//assert.ifError(err);
+				assert(err.nonexistentMix);
+				done();
+			});
+		});
+	});
+
+	suite("#replace()", function() {
+
+		var mix1 = new Mix("mix1", "auth1", new Date(), "/path", [track1]),
+		 	mix2 = new Mix("mix2", "auth1", new Date(), "/path", [track2]);
+		var update = mix1, createdMixes = [superMix, mix1, mix2],
+			auth1Mixes = [mix1, mix2];
+
+		update.coverPath = "/updatedPath";
+
+		suiteSetup(function(done) {
+			async.parallel([
+				function(callback) {
+					mixes.create(Mix.toJSON(superMix), function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					mixes.create(Mix.toJSON(mix1), function(err, result) {
+						callback(err, result);
+					});
+				}
+			], function(err, results) {
+				assert.equal(null, err);
+				done();
+			});
+		});
+		
+		suiteTeardown(function(done) {
+			async.parallel([
+				function(callback) {
+					mixes.remove(superMix.title, superMix.author, function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					mixes.remove(mix1.title, mix1.author, function(err, result) {
+						callback(err, result);
+					});
+				}
+			], function(err, results) {
+				assert.equal(null, err);
+				done();
+			});
+		});
+		
+		test("should replace mix1", function(done) {
+			mixes.replace(Mix.toJSON(update), function(err, result) {
+				assert.equal(null, err);
+				assert.deepEqual(result,  {
+					ok: 1,
+					n: 1,
+					nModified: 1
+				});
+				done();
+			});
+		});
+		
+		test("should get an error while replacing nonexistent mix", function(done) {
+			mixes.replace(Mix.toJSON(mix2), function(err, result) {
 				//assert.ifError(err);
 				assert(err.nonexistentMix);
 				done();
