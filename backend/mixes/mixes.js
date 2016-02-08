@@ -10,8 +10,9 @@ var mongoConnection = require("./mongo_connection"),
 
 class Track {
 
-	constructor (trackPath, gain, balance, highFilterLevel, midFilterLevel,
+	constructor (name, trackPath, gain, balance, highFilterLevel, midFilterLevel,
 		lowFilterLevel, highFilterFreq, midFilterFreq, lowFilterFreq) {
+		this._name = name;
 		this._trackPath = trackPath;
 		this._gain = gain;
 		this._balance = balance;
@@ -23,6 +24,7 @@ class Track {
 		this._lowFilterFreq = lowFilterFreq; 
 	}
 
+	get name() { return this._name; }
 	get trackPath() { return this._trackPath; }
 	get gain() { return this._gain; }
 	get balance() { return this._balance; }
@@ -37,15 +39,16 @@ class Track {
 		if (!(json.trackPath && json.gain != undefined && json.balance != undefined
 			&& json.highFilterLevel != undefined && json.midFilterLevel != undefined
 			&& json.lowFilterLevel != undefined && json.highFilterFreq != undefined
-			&& json.midFilterFreq != undefined && json.lowFilterFreq != undefined)) {
+			&& json.midFilterFreq != undefined && json.lowFilterFreq != undefined
+			&& json.name != undefined)) {
 			var err = new Error("invalid json");
 
 			err.invalidJson = true;
 			throw err;
 		}
-		return new Track(json.trackPath, json.gain, json.balance, json.highFilterLevel,
-			json.midFilterLevel, json.lowFilterLevel, json.highFilterFreq,
-			json.midFilterFreq, json.lowFilterFreq);
+		return new Track(json.name, json.trackPath, json.gain, json.balance,
+			json.highFilterLevel, json.midFilterLevel, json.lowFilterLevel,
+			json.highFilterFreq, json.midFilterFreq, json.lowFilterFreq);
 	}
 
 	static toJSON (track) {
@@ -58,6 +61,7 @@ class Track {
 			err.invalidTrack = true;
 			throw err;
 		}
+		if (track.name != undefined) json.name = track.name;
 		if (track.gain != undefined) json.gain = track.gain;
 		if (track.balance != undefined) json.balance = track.balance;
 		if (track.highFilterLevel != undefined) json.highFilterLevel = track.highFilterLevel;

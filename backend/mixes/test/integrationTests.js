@@ -10,6 +10,7 @@ var assert = require('assert'),
 	logger = require("../logger");
 
 var track1Json = {
+		name: "daTrack",
 		trackPath: "daPath",
 		gain: 0,
 		balance: 1,
@@ -20,6 +21,7 @@ var track1Json = {
 		midFilterFreq: 6,
 		lowFilterFreq: 7
 }, 	track2Json = {
+		name: "daOtherTrack",
 		trackPath: "daOtherPath",
 		gain: 8,
 		balance: 9,

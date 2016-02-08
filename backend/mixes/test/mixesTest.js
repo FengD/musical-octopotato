@@ -10,8 +10,9 @@ var assert = require('assert'),
 var Track = mixes.Track,
 	Mix = mixes.Mix;
 
-var track1 = new Track("daPath", 0, 1, 2, 3, 4, 5, 6, 7),
+var track1 = new Track("daTrack", "daPath", 0, 1, 2, 3, 4, 5, 6, 7),
 	track1Json = {
+		name: "daTrack",
 		trackPath: "daPath",
 		gain: 0,
 		balance: 1,
@@ -22,8 +23,9 @@ var track1 = new Track("daPath", 0, 1, 2, 3, 4, 5, 6, 7),
 		midFilterFreq: 6,
 		lowFilterFreq: 7
 	},
-	track2 = new Track("daOtherPath", 8, 9, 10, 11, 12, 13, 14, 15),
+	track2 = new Track("daOtherTrack", "daOtherPath", 8, 9, 10, 11, 12, 13, 14, 15),
 	track2Json = {
+		name: "daOtherTrack",
 		trackPath: "daOtherPath",
 		gain: 8,
 		balance: 9,
