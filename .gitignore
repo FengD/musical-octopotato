@@ -1,5 +1,6 @@
 node_modules
 bower_components
+backend/mp3-files/uploads/
 .idea
 .idea/*
 .sass-cache/
