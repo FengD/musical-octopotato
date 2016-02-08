@@ -1,8 +1,8 @@
 var express = require("express");
 var fs = require("fs");
-var multer  = require("multer");
+var multer = require("multer");
 
-var app     = express();
+var app = express();
 
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
@@ -23,31 +23,34 @@ app.use(function (req, res, next) {
 });
 
 var storage = multer.diskStorage({
-  destination: "./uploads",
-  filename: function (req, file, cb) {
-    cb(null, file.originalname + '-' + Date.now());
-  }
+    destination: "./uploads",
+    filename: function (req, file, cb) {
+        cb(null, file.originalname + '-' + Date.now());
+    }
 });
 
-var upload = multer({ storage: storage });
+var upload = multer({storage: storage});
 
 app.post('/api/file', upload.array('file'), function (req, res) {
 
-  console.log("received " + req.files.length + " files");// form files
-  for(var i=0; i < req.files.length; i++) {
-    console.log("### " + req.files[i].path);
-  }
-  //console.log("The URL for the file is:" + "localhost:3000\\"+req.file.path);
+    console.log("received " + req.files.length + " files");// form files
+    var filesPaths = [];
+    for (var i = 0; i < req.files.length; i++) {
+        filesPaths.push(req.files[i].filename);
+        console.log("### " + req.files[i].path);
 
-  res.status(204).end();
+    }
+    //console.log("The URL for the file is:" + "localhost:3000\\"+req.file.path);
+    res.send(filesPaths);
+    //res.status(200).end();
 
 });
 
 app.get('/uploads', function (req, res) {
 
-  fs.readdir("./uploads", function(err, list) {
-      res.end(JSON.stringify(list));
-  });
+    fs.readdir("./uploads", function (err, list) {
+        res.end(JSON.stringify(list));
+    });
 
 });
 
@@ -55,7 +58,7 @@ app.use("/uploads", express.static(__dirname + '/uploads'));
 
 app.listen(8082, function () {
 
-  console.log("Server is listening on port 8082");
-  console.log("Open http://localhost:8082 and upload some files!")
+    console.log("Server is listening on port 8082");
+    console.log("Open http://localhost:8082 and upload some files!")
 
 });
