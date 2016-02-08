@@ -19,6 +19,17 @@ angular.module('octopotato')
                             });
                     }]
                 }
+            }).when('/mixes/:userId', {
+                templateUrl: 'components/mixes/mixes.html',
+                controller: 'MixesCtrl',
+                resolve: {
+                    mixPreviews: ['$http', function($http){
+                        return $http.get('./api/user/mixes.json')
+                            .then(function(response){
+                                return response.data;
+                            });
+                    }]
+                }
             }).when('/tracks/:id', {
                 templateUrl: 'components/detail/trackDetail.html',
                 controller: 'trackDetailCtrl',

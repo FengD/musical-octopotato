@@ -11,10 +11,18 @@
     </button>
     <label for="mainGain">Main Gain</label>
     <input type="range"  id="mainGain" min="0" max="5" value="1" step="0.05" maxlength="3" />
-    <div class="mixTracks" ng-repeat="truc in track.tracks">
+    <div  ng-repeat="truc in track.tracks">
 
-        <equalizer song={{truc}}>
+        <equalizer>
             equalizedSrc
         </equalizer>
     </div>
+
+    <div>
+        <button class="btn btn-info">
+            Save
+        </button>
+    </div>
+
+
 </div>

@@ -238,6 +238,20 @@ angular.module('octopotato')
             // onceLoaded();
         }
 
+        function initTrack(params){
+            if(!params.trackPath){
+                return;
+            }
+            params.gain = params.gain || 0;
+            params.balance = params.balance || 0;
+            params.highFilterLevel = params.highFilterLevel || 0;
+            params.midFilterLevel = params.midFilterLevel || 0;
+            params.lowFilterLevel = params.lowFilterLevel || 0;
+            params.highFilterFreq = params.highFilterFreq || 8000;
+            params.midFilterFreq = params.midFilterFreq || 4000;
+            params.lowFilterFreq = params.lowFilterFreq || 200;
+        }
+
         var audiSource;
 
         return {
@@ -248,21 +262,18 @@ angular.module('octopotato')
             scope: true,
             link: function (scope, element, attrs, trackMixController) {
 
-                console.log(attrs.song);
-                attrs = JSON.parse(attrs.song);
+                initTrack(scope.truc);
 
-                trackMixController.addTrackURL(attrs.trackPath, element);
+                trackMixController.addTrackURL(scope.truc.trackPath, element);
 
                 var audioContext = trackMixController.getAudioContext();
 
                 var endNode = trackMixController.getOutputNode();
 
                 element.buildAudioGraph = function (sample) {
-                    var localScope = scope;
-                    return buildGraph(sample, audioContext, endNode, element, attrs);
+                    return buildGraph(sample, audioContext, endNode, element, scope.truc);
                 };
 
-                scope.currentElt = attrs;
 
                 console.log("###End equalizer link");
 

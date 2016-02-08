@@ -1,9 +1,9 @@
-input {
-  max-width: 20%;
-}
 .equalizer {
   border: solid 1px red;
   margin: 2em;
   padding: 1em;
   display: inline-block;
+}
+.equalizer input {
+  max-width: 20%;
 }

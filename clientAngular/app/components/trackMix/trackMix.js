@@ -29,26 +29,6 @@ angular.module('octopotato')
 
             mainGainNode.connect(outputNodes[0]);
             outputNodes.unshift(mainGainNode);
-        };
-
-        function loadSongs() {
-            bufferLoader = new BufferLoader(audioContext,mixTracksURLs,
-                function(buffersResult){
-                    buffers = buffers.concat(buffersResult);
-
-                    buffers.forEach(function(sample, i) {
-                        samples[i] = childElements[i].buildAudioGraph(sample);
-                    });
-
-                    samples.forEach(function(s) {
-                        startedAt = Date.now();
-                        s.start(0, timePlayed/1000);
-                    });
-
-                });
-
-
-            bufferLoader.load();
         }
 
         function loadSong(songURL, element) {
@@ -64,10 +44,7 @@ angular.module('octopotato')
                             var currentPlayingTime = timePlayed +  Date.now() - startedAt;
                             newSample.start(0, currentPlayingTime/1000);
                         }
-
-                      //  samples[samples.length-1].start(0, timePlayed/1000);
                     });
-
 
                 });
 
@@ -118,6 +95,7 @@ angular.module('octopotato')
                 var playButton = element.find("button")[0];
                 var pauseButton = element.find("button")[1];
                 var stopButton = element.find("button")[2];
+                var saveButton = element.find("button")[3];
 
                 playButton.onclick = function(){
                     buffers.forEach(function(sample, i) {
@@ -155,6 +133,11 @@ angular.module('octopotato')
                     playButton.disabled=false;
                     pauseButton.disabled=true;
                 };
+
+                saveButton.onclick = function() {
+                    console.log(scope);
+                    //save scope.track
+                }
 
             }
         };
