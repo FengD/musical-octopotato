@@ -195,20 +195,28 @@ suite("mixes", function() {
 					logger.error(err);
 					throw err;
 				}
-				assert.deepEqual(superMix,  {
+				assert.deepEqual(result, {
 					ok: 1,
 					n: 1
 				});
+				done();
 			});
-			done();
 		});
 
 		test("should send error when recreating SuperMix", function(done) {
 			mixes.create(Mix.toJSON(superMix), function(err, result) {
-				assert.ifError(err);
+				//assert.ifError(err);
 				assert(err.duplicate);
+				done();
 			});
-			done();
+		});
+
+		test("should send error when creating invalid mix", function(done) {
+			mixes.create({ invalid: "invalid" }, function(err, result) {
+				//assert.ifError(err);
+				assert(err.invalidJson);
+				done();
+			});
 		});
 	});
 
@@ -224,16 +232,16 @@ suite("mixes", function() {
 					ok: 1,
 					n: 1
 				}, result);
+				done();
 			});
-			done();
 		});
 
 		test("should reremove SuperMix with error", function(done) {
 			mixes.remove(superMix.title, superMix.author, function(err, result) {
-				assert.ifError(err);
+				//assert.ifError(err);
 				assert(err.nonexistentMix);
+				done();
 			});
-			done();
 		});
 	});
 
