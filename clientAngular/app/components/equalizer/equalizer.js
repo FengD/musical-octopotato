@@ -1,17 +1,17 @@
 angular.module('octopotato')
-    .directive('equalizer', function($http){
+    .directive('equalizer', function ($http) {
 
         function visualize(canvas, analyser) {
             clearCanvas(canvas);
             drawVolumeMeter(canvas, analyser);
 
             // call again the visualize function at 60 frames/s
-            requestAnimationFrame(function() {
+            requestAnimationFrame(function () {
                 visualize(canvas, analyser)
             });
         }
 
-        function drawVolumeMeter(canvas, analyser){
+        function drawVolumeMeter(canvas, analyser) {
             var canvasCtx = canvas.getContext('2d'),
                 bufferLength = analyser.frequencyBinCount,
                 dataArray = new Uint8Array(bufferLength),
@@ -25,7 +25,7 @@ angular.module('octopotato')
 
             canvasCtx.fillStyle = buildGradient(canvasCtx, height);
 
-            canvasCtx.fillRect(0,height-average, 25, height);
+            canvasCtx.fillRect(0, height - average, 25, height);
 
             canvasCtx.restore();
         }
@@ -45,11 +45,11 @@ angular.module('octopotato')
         }
 
         function buildGradient(canvasCtx, height) {
-            var gradient = canvasCtx.createLinearGradient(0,0,0, height);
-            gradient.addColorStop(1,'#000000');
-            gradient.addColorStop(0.75,'#ff0000');
-            gradient.addColorStop(0.25,'#ffff00');
-            gradient.addColorStop(0,'#ffffff');
+            var gradient = canvasCtx.createLinearGradient(0, 0, 0, height);
+            gradient.addColorStop(1, '#000000');
+            gradient.addColorStop(0.75, '#ff0000');
+            gradient.addColorStop(0.25, '#ffff00');
+            gradient.addColorStop(0, '#ffffff');
 
             return gradient
         }
@@ -78,7 +78,7 @@ angular.module('octopotato')
                 bufferLength = analyser.frequencyBinCount,
                 dataArray = new Uint8Array(bufferLength),
                 sliceWidth = width / bufferLength,
-                x=0;
+                x = 0;
 
             clearCanvas(canvas);
 
@@ -104,11 +104,13 @@ angular.module('octopotato')
 
             canvasCtx.stroke();
 
-            requestAnimationFrame(function(){visuTimeDomain(canvas, analyser )})
+            requestAnimationFrame(function () {
+                visuTimeDomain(canvas, analyser)
+            })
 
         }
 
-        function visuFrequencyDomain(canvas, analyser){
+        function visuFrequencyDomain(canvas, analyser) {
             var width = canvas.width,
                 height = canvas.height,
                 canvasCtx = canvas.getContext("2d"),
@@ -127,32 +129,34 @@ angular.module('octopotato')
 
             // values go from 0 to 255 and the canvas heigt is 100. Let's rescale
             // before drawing. This is the scale factor
-            heightScale = height/256;
+            heightScale = height / 256;
 
-            for(var i = 0; i < bufferLength; i++) {
+            for (var i = 0; i < bufferLength; i++) {
                 // between 0 and 255
                 barHeight = dataArray[i];
 
                 // The color is red but lighter or darker depending on the value
-                canvasCtx.fillStyle = 'rgb(' + (barHeight*2+100) + ',50,50)';
+                canvasCtx.fillStyle = 'rgb(' + (barHeight * 2 + 100) + ',50,50)';
                 // scale from [0, 255] to the canvas height [0, height] pixels
                 barHeight *= heightScale;
                 // draw the bar
-                canvasCtx.fillRect(x, height-barHeight, barWidth, barHeight);
+                canvasCtx.fillRect(x, height - barHeight, barWidth, barHeight);
 
                 // 1 is the number of pixels between bars - you can change it
                 x += barWidth + 1;
             }
 
 
-            requestAnimationFrame(function(){visuFrequencyDomain(canvas, analyser )});
+            requestAnimationFrame(function () {
+                visuFrequencyDomain(canvas, analyser)
+            });
 
         }
 
-        function buildGraph(sample, context, endNode, element) {
+        function buildGraph(sample, context, endNode, element, attrs) {
 
             var timeCanvasElt = element.find('canvas')[0];
-            var freqCanvasElt = element.find('canvas')[1];
+            var freqCanvasElt = element.find('canvas')[0];
             var gainElt = element.find('input')[0];
             var lowFilterElt = element.find('input')[1];
             var midFilterElt = element.find('input')[2];
@@ -163,34 +167,35 @@ angular.module('octopotato')
             noiseSourceNode.buffer = sample;
 
             var gainNode = context.createGain();
-            gainElt.oninput = function(evt){
+            gainElt.oninput = function (evt) {
                 gainNode.gain.value = evt.target.value;
+                attrs.gain = evt.target.value;
             };
 
             var lowFilterNode = context.createBiquadFilter();
-            lowFilterNode.frequency.value = 200;
+            lowFilterNode.frequency.value = attrs.lowFilterFreq;
             lowFilterNode.type = "peaking";
-            lowFilterNode.gain.value = 0;
+            lowFilterNode.gain.value = attrs.lowFilterLevel;
             lowFilterNode.Q.value = 0.05;
-            lowFilterElt.oninput = function(evt){
+            lowFilterElt.oninput = function (evt) {
                 lowFilterNode.gain.value = evt.target.value;
             };
 
             var midFilterNode = context.createBiquadFilter();
-            midFilterNode.frequency.value = 4000;
+            midFilterNode.frequency.value = attrs.midFilterFreq;
             midFilterNode.type = "peaking";
-            midFilterNode.gain.value = 0;
+            midFilterNode.gain.value = attrs.midFilterLevel;
             midFilterNode.Q.value = 2;
-            midFilterElt.oninput = function(evt){
+            midFilterElt.oninput = function (evt) {
                 midFilterNode.gain.value = evt.target.value;
             };
 
             var highFilterNode = context.createBiquadFilter();
-            highFilterNode.frequency.value = 8000;
+            highFilterNode.frequency.value = attrs.highFilterFreq;
             highFilterNode.type = "peaking";
-            highFilterNode.gain.value = 0;
+            highFilterNode.gain.value = attrs.highFilterLevel;
             highFilterNode.Q.value = 5;
-            highFilterElt.oninput = function(evt){
+            highFilterElt.oninput = function (evt) {
                 highFilterNode.gain.value = evt.target.value;
             };
 
@@ -205,12 +210,8 @@ angular.module('octopotato')
             highFilterNode.connect(analyserNode);
             analyserNode.connect(endNode);
 
-            requestAnimationFrame(function() {
-                visualize(timeCanvasElt, analyserNode)
-            });
-
             requestAnimationFrame(function () {
-                visuTimeDomain(timeCanvasElt, analyserNode )
+                visuTimeDomain(timeCanvasElt, analyserNode)
             });
 
             requestAnimationFrame(function () {
@@ -218,24 +219,23 @@ angular.module('octopotato')
             });
 
 
-
             // Create a single gain node for master volume
             //masterVolumeNode = context.createGain();
             console.log("in build graph, elem = " + sample);
 
-                // connect each sound sample to a vomume node
-               // trackVolumeNodes[i] = context.createGain();
-                // Connect the sound sample to its volume node
-               // sources[i].connect(trackVolumeNodes[i]);
-                // Connects all track volume nodes a single master volume node
-                //trackVolumeNodes[i].connect(masterVolumeNode);
-                // Connect the master volume to the speakers
- //           masterVolumeNode.connect(context.destination);
-                // On active les boutons start et stop
-               // samples = sources;
+            // connect each sound sample to a vomume node
+            // trackVolumeNodes[i] = context.createGain();
+            // Connect the sound sample to its volume node
+            // sources[i].connect(trackVolumeNodes[i]);
+            // Connects all track volume nodes a single master volume node
+            //trackVolumeNodes[i].connect(masterVolumeNode);
+            // Connect the master volume to the speakers
+            //           masterVolumeNode.connect(context.destination);
+            // On active les boutons start et stop
+            // samples = sources;
             return noiseSourceNode;
 
-           // onceLoaded();
+            // onceLoaded();
         }
 
         var audiSource;
@@ -246,17 +246,23 @@ angular.module('octopotato')
             templateUrl: './components/equalizer/equalizer.html',
             require: '^trackMix',
             scope: true,
-            link: function(scope, element, attrs, trackMixController){
+            link: function (scope, element, attrs, trackMixController) {
 
-                trackMixController.addTrackURL(attrs.songurl, element);
+                console.log(attrs.song);
+                attrs = JSON.parse(attrs.song);
+
+                trackMixController.addTrackURL(attrs.trackPath, element);
 
                 var audioContext = trackMixController.getAudioContext();
 
                 var endNode = trackMixController.getOutputNode();
 
-                element.buildAudioGraph = function(sample){
-                   return buildGraph(sample, audioContext, endNode, element);
+                element.buildAudioGraph = function (sample) {
+                    var localScope = scope;
+                    return buildGraph(sample, audioContext, endNode, element, attrs);
                 };
+
+                scope.currentElt = attrs;
 
                 console.log("###End equalizer link");
 

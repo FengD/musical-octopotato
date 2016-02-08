@@ -1,17 +1,18 @@
 angular.module('octopotato')
-    .directive('trackMix', function($timeout){
+    .directive('trackMix', function(){
 
         var bufferLoader,
             childElements = [],
             mixTracksURLs = [],
-            buffers,
+            buffers = [],
             ctx = window.AudioContext || window.webkitAudioContext,
             audioContext= new ctx(),
             nbEqualizer,
             trackVolumeNodes=[],
             samples = [],
-            startedAt, timePlayed = 10000,
-            outputNodes = [];
+            startedAt, timePlayed = 15000,
+            outputNodes = [],
+            isPlaying = false;
 
         function buildOutputNode(context, element){
             outputNodes.push(context.destination);
@@ -22,8 +23,6 @@ angular.module('octopotato')
                 mainGainNode.gain.value = evt.target.value;
             };
 
-
-
             var compressorNode = context.createDynamicsCompressor();
             compressorNode.connect(outputNodes[0]);
             outputNodes.unshift(compressorNode);
@@ -31,6 +30,50 @@ angular.module('octopotato')
             mainGainNode.connect(outputNodes[0]);
             outputNodes.unshift(mainGainNode);
         };
+
+        function loadSongs() {
+            bufferLoader = new BufferLoader(audioContext,mixTracksURLs,
+                function(buffersResult){
+                    buffers = buffers.concat(buffersResult);
+
+                    buffers.forEach(function(sample, i) {
+                        samples[i] = childElements[i].buildAudioGraph(sample);
+                    });
+
+                    samples.forEach(function(s) {
+                        startedAt = Date.now();
+                        s.start(0, timePlayed/1000);
+                    });
+
+                });
+
+
+            bufferLoader.load();
+        }
+
+        function loadSong(songURL, element) {
+            bufferLoader = new BufferLoader(audioContext,[songURL],
+                function(buffersResult){
+                    buffers = buffers.concat(buffersResult);
+
+                    buffersResult.forEach(function(sample, i) {
+                        var newSample = element.buildAudioGraph(sample);
+                        samples = samples.concat(newSample);
+
+                        if (isPlaying) {
+                            var currentPlayingTime = timePlayed +  Date.now() - startedAt;
+                            newSample.start(0, currentPlayingTime/1000);
+                        }
+
+                      //  samples[samples.length-1].start(0, timePlayed/1000);
+                    });
+
+
+                });
+
+
+            bufferLoader.load();
+        }
 
 
         return {
@@ -40,8 +83,9 @@ angular.module('octopotato')
             templateUrl: "./components/trackMix/trackMix.html",
             controller: function($scope){
 
-                this.mute
-
+                this.isAlreadyRunning = function() {
+                    return songIsAlreadyRunning;
+                };
 
                 this.getOutputNode = function() {
                     return outputNodes[0];
@@ -50,6 +94,8 @@ angular.module('octopotato')
                 this.addTrackURL = function(url, element){
                     mixTracksURLs.push(url);
                     childElements.push(element);
+
+                    loadSong(url, element);
                 };
 
                 this.getAudioContext = function(){
@@ -69,34 +115,6 @@ angular.module('octopotato')
 
                 buildOutputNode(audioContext, element);
 
-                $timeout( function(){
-                    nbEqualizer = element.find("equalizer").length;
-                    bufferLoader = new BufferLoader(ctrl.getAudioContext(),ctrl.getTracksURLs(),
-                        function(buffersResult){
-                            buffers = buffersResult;
-
-                            buffers.forEach(function(sample, i) {
-                                samples[i] = childElements[i].buildAudioGraph(sample);
-                            });
-
-                            samples.forEach(function(s) {
-                               // s.start(0);
-                            });
-
-
-                            //
-                            //buildGraph(buffers, audioContext, function(){
-                            //        samples.forEach(function(s) {
-                            //            s.start(0);
-                            //        });
-                            //    });
-                    });
-
-
-                    bufferLoader.load();
-                },0);
-
-
                 var playButton = element.find("button")[0];
                 var pauseButton = element.find("button")[1];
                 var stopButton = element.find("button")[2];
@@ -105,6 +123,7 @@ angular.module('octopotato')
                     buffers.forEach(function(sample, i) {
                         samples[i] = childElements[i].buildAudioGraph(sample);
                     });
+                    isPlaying = true;
                     startedAt = Date.now();
                     samples.forEach(function(s) {
                         s.start(0, timePlayed/1000);
@@ -112,18 +131,24 @@ angular.module('octopotato')
                     playButton.disabled=true;
                     pauseButton.disabled=false;
                 };
+
                 pauseButton.onclick = function(){
                     var pausedAt = Date.now();
                     timePlayed += pausedAt-startedAt;
                     console.log("Played : " + timePlayed);
+
+                    isPlaying = false;
                     samples.forEach(function(s) {
                         s.stop();
                     });
                     playButton.disabled=false;
                     pauseButton.disabled=true;
                 };
+
                 stopButton.onclick = function(){
                     timePlayed = 0;
+
+                    isPlaying = false;
                     samples.forEach(function(s) {
                         s.stop();
                     });
@@ -131,10 +156,6 @@ angular.module('octopotato')
                     pauseButton.disabled=true;
                 };
 
-
-
-
-                console.log("###End trackMix link");
             }
         };
 
