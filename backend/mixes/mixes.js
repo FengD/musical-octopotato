@@ -10,8 +10,9 @@ var mongoConnection = require("./mongo_connection"),
 
 class Track {
 
-	constructor (trackPath, gain, balance, highFilterLevel, midFilterLevel,
+	constructor (name, trackPath, gain, balance, highFilterLevel, midFilterLevel,
 		lowFilterLevel, highFilterFreq, midFilterFreq, lowFilterFreq) {
+		this._name = name;
 		this._trackPath = trackPath;
 		this._gain = gain;
 		this._balance = balance;
@@ -23,6 +24,7 @@ class Track {
 		this._lowFilterFreq = lowFilterFreq; 
 	}
 
+	get name() { return this._name; }
 	get trackPath() { return this._trackPath; }
 	get gain() { return this._gain; }
 	get balance() { return this._balance; }
@@ -37,15 +39,16 @@ class Track {
 		if (!(json.trackPath && json.gain != undefined && json.balance != undefined
 			&& json.highFilterLevel != undefined && json.midFilterLevel != undefined
 			&& json.lowFilterLevel != undefined && json.highFilterFreq != undefined
-			&& json.midFilterFreq != undefined && json.lowFilterFreq != undefined)) {
+			&& json.midFilterFreq != undefined && json.lowFilterFreq != undefined
+			&& json.name != undefined)) {
 			var err = new Error("invalid json");
 
 			err.invalidJson = true;
 			throw err;
 		}
-		return new Track(json.trackPath, json.gain, json.balance, json.highFilterLevel,
-			json.midFilterLevel, json.lowFilterLevel, json.highFilterFreq,
-			json.midFilterFreq, json.lowFilterFreq);
+		return new Track(json.name, json.trackPath, json.gain, json.balance,
+			json.highFilterLevel, json.midFilterLevel, json.lowFilterLevel,
+			json.highFilterFreq, json.midFilterFreq, json.lowFilterFreq);
 	}
 
 	static toJSON (track) {
@@ -58,6 +61,7 @@ class Track {
 			err.invalidTrack = true;
 			throw err;
 		}
+		if (track.name != undefined) json.name = track.name;
 		if (track.gain != undefined) json.gain = track.gain;
 		if (track.balance != undefined) json.balance = track.balance;
 		if (track.highFilterLevel != undefined) json.highFilterLevel = track.highFilterLevel;
@@ -82,10 +86,19 @@ class Mix {
 	}
 
 	get title() { return this._title; }
+	set title(title) { this._title = title; }
+
 	get author() { return this._author; }
+	set author(author) { this._author = author; }
+
 	get date() { return this._date; }
+	set date(date) { this._date = date; }
+
 	get coverPath() { return this._coverPath; }
+	set coverPath(coverPath) { this._coverPath = coverPath; }
+
 	get tracks() { return this._tracks; }
+	set tracks(tracks) { this._tracks = tracks; }
 
 	static fromJSON (json) {
 		if (!(json.title && json.author && json.date && json.coverPath && json.tracks
@@ -190,13 +203,12 @@ function get(title, author, callback) {
 	});
 }
 
-function remove(tilte, author, callback) {
+function remove(title, author, callback) {
 	mongoConnection.getDatabase().collection(MIXES_COLLECTION).deleteOne({
-		title: tilte,
+		title: title,
 		author: author
 	}, null, function(err, result) {
 		if (err) {
-			logger.warn(err);
 			callback(err, result);
 		}
 		else {
@@ -209,6 +221,34 @@ function remove(tilte, author, callback) {
 			else callback(err, result);
 		}
 	});
+}
+
+function replace(data, callback) {
+	try {
+		var mix = Mix.fromJSON(data);
+
+		mongoConnection.getDatabase().collection(MIXES_COLLECTION).replaceOne({
+			title: mix.title,
+			author: mix.author
+		}, Mix.toJSON(mix), null, function (error, result) {
+			if (error) {
+				logger.warn(error);
+				callback(error, null);
+			}
+			else {
+				if (result.result.n == 0) {
+					error = new Error("nonexistent mix");
+					error.nonexistentMix = true;
+					callback(error, null);
+				}
+				else callback(null, result.result);
+			}
+		});
+	}
+	catch(err) {
+		logger.warn(err);
+		callback(err, null);
+	}
 }
 
 function init(callback) {
@@ -234,5 +274,6 @@ exports.Mix = Mix;
 exports.create = create;
 exports.get = get;
 exports.remove = remove;
+exports.replace = replace;
 exports.init = init;
 exports.clean = clean;

@@ -87,6 +87,25 @@ router.delete("/:author/:title", function (req, res) {
 	});
 });
 
+router.put("/", function (req, res) {
+	mixes.replace(req.body, function (err, result) {
+		if (err) {
+			if (err.invalidJson) {
+				res.status(400).send(err);
+			}
+			else if (err.nonexistentMix) {
+				res.status(404).send(err);
+			}
+			else {
+				res.status(500).send(err);
+			}
+		}
+		else {
+			res.send(result);
+		}
+	});
+});
+
 router.init = function init(callback) {
 	mixes.init(function (err) {
 		if (err) {
