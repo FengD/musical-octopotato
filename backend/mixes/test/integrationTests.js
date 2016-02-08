@@ -271,4 +271,91 @@ suite("mixes service", function () {
 				.expect(200, done);
 		});
 	});
+
+	suite("#replace()", function() {
+
+		var mix1Json = {
+			title: "mix1",
+			author: "auth1",
+			date: new Date(),
+			coverPath: "/path/path",
+			tracks: [track2Json]
+		};
+		var updateJson = mix1Json, createdMixesJson = [mix1Json];
+
+		updateJson.coverPath = "/updatedPath";
+
+		suiteSetup(function(done) {
+			async.each(createdMixesJson, function iterator (item, callback) {
+				request(app).post("/mixes").send(item).expect(200).end(function (err, result) {
+					callback(err);
+				});
+			}, function join (err) {
+				if (err) {
+					logger.error(err);
+					throw err;
+				}
+				done();
+			});
+		});
+		
+		suiteTeardown(function(done) {
+			async.each(createdMixesJson, function iterator (item, callback) {
+				request(app)
+					.delete("/mixes/" + item.author + "/" + item.title)
+					.expect(200)
+					.end(function (err, result) {
+						callback(err);
+				});
+			}, function join (err) {
+				if (err) {
+					logger.error(err);
+					throw err;
+				}
+				done();
+			});
+		});
+		
+		test("should replace mix1", function(done) {
+			request(app)
+				.put("/mixes")
+				.send(updateJson)
+				.expect(200)
+				.end(function (err, res) {
+					if (err) {
+						logger.error(err);
+						throw err;
+					}
+					done();
+				});
+		});
+		
+		test("should get an error while replacing nonexistent mix", function(done) {
+			request(app)
+				.put("/mixes")
+				.send(superMixJson)
+				.expect(404)
+				.end(function (err, res) {
+					if (err) {
+						logger.error(err);
+						throw err;
+					}
+					done();
+				});
+		});
+		
+		test("should get an error while replacing to an invalid mix", function(done) {
+			request(app)
+				.put("/mixes")
+				.send({invalid: "invalid"})
+				.expect(400)
+				.end(function (err, res) {
+					if (err) {
+						logger.error(err);
+						throw err;
+					}
+					done();
+				});
+		});
+	});
 });
