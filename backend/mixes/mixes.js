@@ -86,10 +86,19 @@ class Mix {
 	}
 
 	get title() { return this._title; }
+	set title(title) { this._title = title; }
+
 	get author() { return this._author; }
+	set author(author) { this._author = author; }
+
 	get date() { return this._date; }
+	set date(date) { this._date = date; }
+
 	get coverPath() { return this._coverPath; }
+	set coverPath(coverPath) { this._coverPath = coverPath; }
+
 	get tracks() { return this._tracks; }
+	set tracks(tracks) { this._tracks = tracks; }
 
 	static fromJSON (json) {
 		if (!(json.title && json.author && json.date && json.coverPath && json.tracks
@@ -194,13 +203,12 @@ function get(title, author, callback) {
 	});
 }
 
-function remove(tilte, author, callback) {
+function remove(title, author, callback) {
 	mongoConnection.getDatabase().collection(MIXES_COLLECTION).deleteOne({
-		title: tilte,
+		title: title,
 		author: author
 	}, null, function(err, result) {
 		if (err) {
-			logger.warn(err);
 			callback(err, result);
 		}
 		else {
@@ -213,6 +221,34 @@ function remove(tilte, author, callback) {
 			else callback(err, result);
 		}
 	});
+}
+
+function replace(data, callback) {
+	try {
+		var mix = Mix.fromJSON(data);
+
+		mongoConnection.getDatabase().collection(MIXES_COLLECTION).replaceOne({
+			title: mix.title,
+			author: mix.author
+		}, Mix.toJSON(mix), null, function (error, result) {
+			if (error) {
+				logger.warn(error);
+				callback(error, null);
+			}
+			else {
+				if (result.result.n == 0) {
+					error = new Error("nonexistent mix");
+					error.nonexistentMix = true;
+					callback(error, null);
+				}
+				else callback(null, result.result);
+			}
+		});
+	}
+	catch(err) {
+		logger.warn(err);
+		callback(err, null);
+	}
 }
 
 function init(callback) {
@@ -238,5 +274,6 @@ exports.Mix = Mix;
 exports.create = create;
 exports.get = get;
 exports.remove = remove;
+exports.replace = replace;
 exports.init = init;
 exports.clean = clean;

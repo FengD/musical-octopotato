@@ -335,4 +335,70 @@ suite("mixes", function() {
 			});
 		});
 	});
+
+	suite("#replace()", function() {
+
+		var mix1 = new Mix("mix1", "auth1", new Date(), "/path", [track1]),
+		 	mix2 = new Mix("mix2", "auth1", new Date(), "/path", [track2]);
+		var update = mix1, createdMixes = [superMix, mix1, mix2],
+			auth1Mixes = [mix1, mix2];
+
+		update.coverPath = "/updatedPath";
+
+		suiteSetup(function(done) {
+			async.parallel([
+				function(callback) {
+					mixes.create(Mix.toJSON(superMix), function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					mixes.create(Mix.toJSON(mix1), function(err, result) {
+						callback(err, result);
+					});
+				}
+			], function(err, results) {
+				assert.equal(null, err);
+				done();
+			});
+		});
+		
+		suiteTeardown(function(done) {
+			async.parallel([
+				function(callback) {
+					mixes.remove(superMix.title, superMix.author, function(err, result) {
+						callback(err, result);
+					});
+				},
+				function(callback) {
+					mixes.remove(mix1.title, mix1.author, function(err, result) {
+						callback(err, result);
+					});
+				}
+			], function(err, results) {
+				assert.equal(null, err);
+				done();
+			});
+		});
+		
+		test("should replace mix1", function(done) {
+			mixes.replace(Mix.toJSON(update), function(err, result) {
+				assert.equal(null, err);
+				assert.deepEqual(result,  {
+					ok: 1,
+					n: 1,
+					nModified: 1
+				});
+				done();
+			});
+		});
+		
+		test("should get an error while replacing nonexistent mix", function(done) {
+			mixes.replace(Mix.toJSON(mix2), function(err, result) {
+				//assert.ifError(err);
+				assert(err.nonexistentMix);
+				done();
+			});
+		});
+	});
 });
