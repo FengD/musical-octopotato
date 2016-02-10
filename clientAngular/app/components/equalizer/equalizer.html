@@ -3,8 +3,8 @@
         <span class="track_title">
             <a href="#" editable-text="truc.name">{{ truc.name.indexOf("/")>-1 ? truc.name.split("/")[truc.name.split("/").length-1].split(".")[0] : truc.name}}</a>
         </span>
-        <button><i class="fa fa-music"></i></button>
-        <button><i class="fa fa-volume-off"></i></button>
+        <button class="btn btn-default glyphicon glyphicon-music"></button>
+        <button class="btn btn-default glyphicon glyphicon-volume-off"></button>
 
         <label class="gain" for="gain_{{$index}}">Gain</label>
         <input class="gainInput" type="range"  id="gain_{{$index}}" min="0" max="5" value="{{truc.gain}}" step="0.05" maxlength="3" />

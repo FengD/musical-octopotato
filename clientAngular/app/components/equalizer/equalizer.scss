@@ -2,9 +2,9 @@
 
 .equalizer{
   margin: 2em;
-  background-color: black;
+  background-color: #D4DAD9;
   height:120px;
-  color:white;
+  color:#293540;
 
   .editButtonLeft, .editButtonRight{
     vertical-align: top;
@@ -12,13 +12,14 @@
     button{
       width:20px;
       height:20px;
+      padding:0px;
       margin-left:10px;
       color:black;
     }
 
     label{
       font-size: 14px;
-
+      color:#293540 !important;
     }
 
     label.gain{
@@ -35,7 +36,7 @@
       a.editable{
         text-decoration: none;
         border:none !important;
-        color:white;
+        color:#293540;
       }
     }
 
@@ -53,6 +54,7 @@
       display: inline-block;
       margin-left: 25px;
     }
+
     input[type=range]::-webkit-slider-thumb {
       -webkit-appearance: none;
       border: 1px solid #000000;
@@ -64,6 +66,7 @@
       margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
       box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
     }
+
     input[type=range].highInput{
       margin-right: 45px;
     }
@@ -75,7 +78,7 @@
 
     > div{
       display: block;
-
+      color:#293540;
       .mid,.low,.high{
         margin-left:20px;
       }
