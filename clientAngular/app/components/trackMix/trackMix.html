@@ -6,9 +6,16 @@
     <button id="pauseButton">
         <i class="fa fa-pause fa-2x"></i>
     </button>
-    <button>
+    <button id="stopButton">
         <i class="fa fa-stop fa-2x"></i>
     </button>
+
+    <div class="saveButton" ng-show="track.author == nickname">
+        <button class=" btn btn-info">
+            Save
+        </button>
+    </div>
+
     <label for="mainGain">Main Gain</label>
     <input type="range"  id="mainGain" min="0" max="5" value="1" step="0.05" maxlength="3" />
     <div class="tracks" ng-repeat="truc in track.tracks">
@@ -18,11 +25,7 @@
         </equalizer>
     </div>
 
-    <div ng-show="track.author == nickname">
-        <button class="btn btn-info">
-            Save
-        </button>
-    </div>
+
 
 
 </div>

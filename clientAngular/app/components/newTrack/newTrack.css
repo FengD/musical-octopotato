@@ -1,6 +1,6 @@
 .newTrack {
-  border: solid 1px blue;
   margin: 2em;
-  padding: 1em;
   display: inline-block;
-}
+  float: right; }
+
+/*# sourceMappingURL=newTrack.css.map */

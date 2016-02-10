@@ -1,74 +1,52 @@
 .track_detail {
   width: 100%;
   height: 100%;
-  background-color: #D4DAD9;
-}
+  background-color: #D4DAD9; }
+
 .row {
-  background-color: #D4DAD9;
-}
+  background-color: #D4DAD9; }
+
 .detail {
   position: relative;
-  width: 80%;
+  width: 1200px;
   background-color: #EAEAEA;
   margin-top: 50px;
   margin-left: auto;
   margin-right: auto;
   height: 100%;
-  padding: 5px;
-}
-.track,
-.trackCreated,
-.cover,
-.waveform,
-.actionbar,
-.interest,
-.actionbar li,
-.interest li {
-  display: inline-block;
-}
-.trackCreated,
-.waveform,
-.interest {
-  float: right;
-}
+  padding: 5px; }
+
+.track, .trackCreated, .cover, .waveform, .actionbar, .interest, .actionbar li, .interest li {
+  display: inline-block; }
+
+.trackCreated, .waveform, .interest {
+  float: right; }
+
 .trackName {
-  text-decoration: none;
-}
-.actionbar,
-.interest {
+  text-decoration: none; }
+
+.actionbar, .interest {
   position: absolute;
   float: bottom;
-  bottom: 5px;
-}
+  bottom: 5px; }
+
 .actionbar .btn {
   width: 80px;
   height: 30px;
   background-color: #71A08E;
-  border: none;
-}
+  border: none; }
+
 .interest {
-  right: 5px;
-}
-/*....................................Endregion1.................................................*/
-/*....................................region2: comments.................................................*/
-/*
-.description{
-  border:1px blue solid;
-}
-.mycomment{
-  border:1px blue solid;
-}
-.commnents{
-  border:1px blue solid;
-}
-.trackInfo{
-  border:1px blue solid;
-}
-.similar_tracks{
-  border:1px blue solid;
-}
-*/
+  right: 5px; }
+
 /*....................................Endregion2.................................................*/
 ._item {
-  background-color: black;
-}
+  background-color: black; }
+
+img {
+  vertical-align: top; }
+
+new-track {
+  float: right; }
+
+/*# sourceMappingURL=trackDetail.css.map */

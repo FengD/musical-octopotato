@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,SAAS;EACP,MAAM,EAAE,GAAG;EACX,OAAO,EAAE,YAAY;EACrB,KAAK,EAAC,KAAK",
+"sources": ["newTrack.scss"],
+"names": [],
+"file": "newTrack.css"
+}

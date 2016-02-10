@@ -1,6 +1,7 @@
 angular.module('octopotato')
     .directive('equalizer', function ($http) {
 
+
         function visualize(canvas, analyser) {
             clearCanvas(canvas);
             drawVolumeMeter(canvas, analyser);

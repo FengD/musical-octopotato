@@ -1,31 +1,33 @@
 <div class="equalizer">
+    <div class="editButtonLeft">
+        <span class="track_title">
+            <a href="#" editable-text="truc.name">{{ truc.name.indexOf("/")>-1 ? truc.name.split("/")[truc.name.split("/").length-1].split(".")[0] : truc.name}}</a>
+        </span>
+        <button><i class="fa fa-music"></i></button>
+        <button><i class="fa fa-volume-off"></i></button>
 
-    <label class="track_title">
-        <a href="#" editable-text="truc.name">{{ truc.name}}</a>
-    </label>
-    <button>
-        <i class="fa fa-music fa-1x"></i>
-    </button>
+        <label class="gain" for="gain_{{$index}}">Gain</label>
+        <input class="gainInput" type="range"  id="gain_{{$index}}" min="0" max="5" value="{{truc.gain}}" step="0.05" maxlength="3" />
+    </div>
 
-    <button>
-        <i class="fa fa-volume-off fa-1x"></i>
-    </button>
+   <!--<canvas class="timeCanvas_" width=300 height=100></canvas>-->
+    <canvas class="myFreqCanvas" width=600 height=100></canvas>
 
-    <label class="gain" for="gain_{{$index}}">Gain</label>
-    <label class="frequencies">Frequencies</label><br/>
-    <input type="range"  id="gain_{{$index}}" min="0" max="5" value="{{truc.gain}}" step="0.05" maxlength="3" />
+    <div class="editButtonRight">
+        <br/><label class="frequencies">Frequencies</label>
+        <div class="input">
+            <input class="lowInput" type="range" id="lowFrequenciesFilter_{{$index}}" min="-25" max="25" step="0.01" value="{{truc.lowFilterLevel}}" />
+            <input class="midInput" type="range" id="midFrequenciesFilter_{{$index}}" min="-25" max="25" step="0.01" value="{{truc.midFilterLevel}}" />
+            <input class="highInput" type="range" id="highFrequenciesFilter_{{$index}}" min="-25" max="25" step="0.01" value="{{truc.highFilterLevel}}" />
+        </div>
 
-    <input type="range" id="lowFrequenciesFilter_{{$index}}" min="-25" max="25" step="0.01" value="{{truc.lowFilterLevel}}" />
-    <input type="range" id="midFrequenciesFilter_{{$index}}" min="-25" max="25" step="0.01" value="{{truc.midFilterLevel}}" />
-    <input type="range" id="highFrequenciesFilter_{{$index}}" min="-25" max="25" step="0.01" value="{{truc.highFilterLevel}}" />
+        <div class="label">
+            <span class="low" for="lowFrequenciesFilter_{{$index}}">low</span>
+            <span class="mid" for="midFrequenciesFilter_{{$index}}">mid</span>
+            <span class="high" for="highFrequenciesFilter_{{$index}}">high</span>
+        </div>
 
-    <canvas id="timeCanvas_" width=300 height=100></canvas>
-    <canvas id="myFreqCanvas" width=300 height=100></canvas>
-
-    <br/>
-    <label class="low" for="lowFrequenciesFilter_{{$index}}">low</label>
-    <label class="mid" for="midFrequenciesFilter_{{$index}}">mid</label>
-    <label class="high" for="highFrequenciesFilter_{{$index}}">high</label>
+    </div>
 
 
 </div>

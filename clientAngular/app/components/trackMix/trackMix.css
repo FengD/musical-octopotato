@@ -1,20 +1,24 @@
 .mixTracks {
-  border: solid 1px green;
-  margin-left: 18%;
-  margin-top: -16%;
-  display: inline-block; }
-  .mixTracks button {
-    margin: 10px; }
-    .mixTracks button .fa {
-      background-color: #71A08E;
+  display: inline-block;
+  width: 980px; }
+  .mixTracks button#playButton, .mixTracks button#pauseButton, .mixTracks button#stopButton {
+    margin: 10px 0 0 10px; }
+    .mixTracks button#playButton .fa, .mixTracks button#pauseButton .fa, .mixTracks button#stopButton .fa {
       padding: 8px;
-      border: none; }
+      background-color: #71A08E; }
+  .mixTracks .saveButton {
+    margin: 10px;
+    float: right; }
   .mixTracks input {
     margin-left: 10px; }
   .mixTracks label {
     display: block;
-    margin: 10px; }
+    margin: 50px 0 10px 10px; }
   .mixTracks .tracks {
     margin-top: -15px; }
+  .mixTracks #mainGain {
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 50px; }
 
 /*# sourceMappingURL=trackMix.css.map */

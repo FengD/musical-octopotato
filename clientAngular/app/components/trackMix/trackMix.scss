@@ -1,16 +1,18 @@
 .mixTracks{
-  border : solid 1px green;
-  margin-left: 18%;
-  margin-top: -16%;
   display: inline-block;
+  width: 980px;
 
-  button{
-    margin:10px;
+  button#playButton, button#pauseButton,button#stopButton{
+   margin:10px 0 0 10px;
     .fa{
-      background-color: #71A08E;
       padding:8px;
-      border:none;
+      background-color: #71A08E;
     }
+  }
+
+  .saveButton{
+    margin:10px;
+    float:right;
   }
 
   input{
@@ -19,10 +21,19 @@
 
   label{
     display: block;
-    margin: 10px;
+    margin:50px 0 10px 10px;
   }
 
   .tracks{
     margin-top:-15px;
   }
+
+  #mainGain{
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 50px;
+  }
+
+
+
 }
