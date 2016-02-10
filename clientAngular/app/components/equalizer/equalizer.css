@@ -1,9 +1,40 @@
 .equalizer {
   border: solid 1px red;
   margin: 2em;
-  padding: 1em;
-  display: inline-block;
-}
-.equalizer input {
-  max-width: 20%;
-}
+  background-color: black;
+  height: 100px; }
+  .equalizer label.track_title {
+    display: block; }
+    .equalizer label.track_title a.editable {
+      text-decoration: none;
+      color: white; }
+  .equalizer button {
+    float: right; }
+    .equalizer button .fa {
+      background-color: transparent;
+      width: 30px;
+      height: 30px; }
+  .equalizer label {
+    display: inline-block; }
+  .equalizer label.frequencies {
+    margin-left: 5px; }
+  .equalizer label.low, .equalizer label.mid, .equalizer label.high {
+    top: -110px;
+    margin: 3px;
+    position: relative; }
+  .equalizer label.low {
+    margin-left: 56px; }
+  .equalizer input[type=range] {
+    max-width: 20%;
+    -webkit-appearance: slider-vertical;
+    /* WebKit */
+    width: 8px;
+    height: 60px;
+    padding: 0 5px;
+    display: inline-block;
+    margin-left: 20px; }
+  .equalizer canvas {
+    border: solid red 1px;
+    vertical-align: top; }
+
+/*# sourceMappingURL=equalizer.css.map */

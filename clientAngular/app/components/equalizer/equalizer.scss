@@ -3,10 +3,50 @@
 .equalizer{
   border : solid 1px red;
   margin: 2em;
-  padding: 1em;
-  display: inline-block;
+  background-color: black;
+  height:100px;
 
-  input{
+  label.track_title{
+    display:block;
+  a.editable{
+    text-decoration: none;
+    color:white;
+  }
+  }
+  button{
+    float: right;
+  .fa{
+    background-color: transparent;
+    width:30px;
+    height: 30px;
+  }
+  }
+  label{
+    display:inline-block;
+  }
+  label.frequencies{
+    margin-left:5px;
+  }
+  label.low,label.mid,label.high{
+    top: -110px;
+    margin: 3px;
+    position: relative;
+  }
+  label.low{
+    margin-left:56px;
+  }
+  input[type=range]{
     max-width: 20%;
+    -webkit-appearance: slider-vertical; /* WebKit */
+    width: 8px;
+    height: 60px;
+    padding: 0 5px;
+    display: inline-block;
+    margin-left: 20px;
+  }
+
+  canvas{
+    border: solid red 1px;
+    vertical-align: top;
   }
 }

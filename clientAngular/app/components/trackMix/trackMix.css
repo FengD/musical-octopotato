@@ -14,7 +14,7 @@
   .mixTracks label {
     display: block;
     margin: 10px; }
-  .mixTracks #tracks {
+  .mixTracks .tracks {
     margin-top: -15px; }
 
 /*# sourceMappingURL=trackMix.css.map */
