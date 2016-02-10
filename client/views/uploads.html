@@ -32,9 +32,9 @@
         };
 
         var form = new FormData();
-        for(var i=0; i < fileInput.files.length; i++)
+        for(var i=0; i < fileInput.files.length; i++) {
             form.append('file', fileInput.files[i]);
-
+        }
         xhr.send(form);
     };
     // for displaying uploaded images
