@@ -1,10 +1,10 @@
 angular.module('octopotato')
     .config(['$routeProvider', function($routeProvider) {
-        $routeProvider.
-            when('/detail', {
+        $routeProvider
+      /*      .when('/detail', {
                 templateUrl: 'components/detail/trackDetail.html',
                 controller: 'trackDetailCtrl'
-            })
+            })   */
             .when('/login', {
                 templateUrl: 'components/login/login.html'
             })
@@ -30,7 +30,8 @@ angular.module('octopotato')
                             });
                     }]
                 }
-            }).when('/tracks/:id', {
+            })
+            .when('/tracks/:id', {
                 templateUrl: 'components/detail/trackDetail.html',
                 controller: 'trackDetailCtrl',
                 resolve: {

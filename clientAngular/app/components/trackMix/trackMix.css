@@ -1,6 +1,20 @@
 .mixTracks {
   border: solid 1px green;
-  margin: 2em;
-  padding: 1em;
-  display: inline-block;
-}
+  margin-left: 18%;
+  margin-top: -16%;
+  display: inline-block; }
+  .mixTracks button {
+    margin: 10px; }
+    .mixTracks button .fa {
+      background-color: #71A08E;
+      padding: 8px;
+      border: none; }
+  .mixTracks input {
+    margin-left: 10px; }
+  .mixTracks label {
+    display: block;
+    margin: 10px; }
+  .mixTracks #tracks {
+    margin-top: -15px; }
+
+/*# sourceMappingURL=trackMix.css.map */
