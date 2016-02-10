@@ -50,7 +50,7 @@ usersRouter.post("/", function(req, res) {
 	});
 });
 
-usersRouter.post("/:uid", function (req, res) {
+usersRouter.post("/:uid", function login (req, res) {
 	users.get(req.params.uid, req.body.pwd, function (err, result) {
 		if (err) {
 			if (err.nonexistentUser) {
@@ -92,11 +92,11 @@ usersRouter.init = function init(callback) {
 		}
 		callback(err);
 	});
-}
+};
 
 usersRouter.clean = function clean() {
 	users.clean();
-}
+};
 
 // Exports
 

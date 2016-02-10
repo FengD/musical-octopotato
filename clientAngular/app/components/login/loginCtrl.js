@@ -11,8 +11,8 @@ angular.module('octopotato')
                 method: 'POST',
                 url: 'http://localhost:8080/users',
                 data: {
-                    uid: $scope.nickname,
-                    pwd: $scope.password
+                    "uid": $scope.nickname,
+                    "pwd": $scope.password
                 }
             }).then(function successCallback(success) {
                     //coucou soloe

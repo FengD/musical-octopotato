@@ -8,7 +8,7 @@
 }
 .detail{
   position:relative;
-  width:80%;
+  width: 1200px;
   background-color: #EAEAEA;
   margin-top:50px;
   margin-left:auto;
@@ -43,29 +43,16 @@
 .interest{
   right: 5px;
 }
-/*....................................Endregion1.................................................*/
-
-/*....................................region2: comments.................................................*/
-/*
-.description{
-  border:1px blue solid;
-}
-.mycomment{
-  border:1px blue solid;
-}
-.commnents{
-  border:1px blue solid;
-}
-.trackInfo{
-  border:1px blue solid;
-}
-.similar_tracks{
-  border:1px blue solid;
-}
-*/
 
 /*....................................Endregion2.................................................*/
 ._item{
   background-color: black;
 
+}
+img{
+  vertical-align: top;
+}
+
+new-track {
+  float:right;
 }

@@ -1,12 +1,94 @@
 
 
 .equalizer{
-  border : solid 1px red;
   margin: 2em;
-  padding: 1em;
-  display: inline-block;
+  background-color: black;
+  height:120px;
+  color:white;
 
-  input{
-    max-width: 20%;
+  .editButtonLeft, .editButtonRight{
+    vertical-align: top;
+    display: inline-block;
+    button{
+      width:20px;
+      height:20px;
+      margin-left:10px;
+      color:black;
+    }
+
+    label{
+      font-size: 14px;
+
+    }
+
+    label.gain{
+      font-weight: normal;
+      margin:3px 0 2px 38px;
+    }
+
+    span.track_title{
+      margin: 10px 0 0 10px;
+      display:inline-block;
+      width:55px;
+      font-weight: bolder;
+      font-size: 16px;
+      a.editable{
+        text-decoration: none;
+        border:none !important;
+        color:white;
+      }
+    }
+
+    label.frequencies{
+      font-weight: normal;
+      margin: 3px 0 2px 28px;
+    }
+
+    input[type=range]{
+      max-width: 20%;
+      -webkit-appearance: slider-vertical; /* WebKit */
+      width: 8px;
+      height: 50px;
+      padding: 0 5px;
+      display: inline-block;
+      margin-left: 25px;
+    }
+    input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      border: 1px solid #000000;
+      height: 36px;
+      width: 16px;
+      border-radius: 3px;
+      background: #ffffff;
+      cursor: pointer;
+      margin-top: -14px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d; /* Add cool effects to your sliders! */
+    }
+    input[type=range].highInput{
+      margin-right: 45px;
+    }
+
+
+    input[type=range].gainInput{
+      margin-left: 45px;
+    }
+
+    > div{
+      display: block;
+
+      .mid,.low,.high{
+        margin-left:20px;
+      }
+      .low{
+        margin-left:-18px;
+      }
+    }
+
+  }
+
+  canvas{
+    margin: 16px 0 0 10px;
+    display: inline-block;
+    vertical-align: top;
   }
 }

@@ -1,6 +1,39 @@
 .mixTracks{
-  border : solid 1px green;
-  margin: 2em;
-  padding: 1em;
   display: inline-block;
+  width: 980px;
+
+  button#playButton, button#pauseButton,button#stopButton{
+   margin:10px 0 0 10px;
+    .fa{
+      padding:8px;
+      background-color: #71A08E;
+    }
+  }
+
+  .saveButton{
+    margin:10px;
+    float:right;
+  }
+
+  input{
+    margin-left:10px;
+  }
+
+  label{
+    display: block;
+    margin:50px 0 10px 10px;
+  }
+
+  .tracks{
+    margin-top:-15px;
+  }
+
+  #mainGain{
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 50px;
+  }
+
+
+
 }

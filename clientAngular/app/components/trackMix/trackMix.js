@@ -1,5 +1,5 @@
 angular.module('octopotato')
-    .directive('trackMix', function(){
+    .directive('trackMix', function(mixService){
 
         var bufferLoader,
             childElements = [],
@@ -10,7 +10,7 @@ angular.module('octopotato')
             nbEqualizer,
             trackVolumeNodes=[],
             samples = [],
-            startedAt, timePlayed = 15000,
+            startedAt, timePlayed = 0,
             outputNodes = [],
             isPlaying = false;
 
@@ -71,8 +71,9 @@ angular.module('octopotato')
                 this.addTrackURL = function(url, element){
                     mixTracksURLs.push(url);
                     childElements.push(element);
-
+                    $scope.start();
                     loadSong(url, element);
+                    $scope.complete();
                 };
 
                 this.getAudioContext = function(){
@@ -134,10 +135,20 @@ angular.module('octopotato')
                     pauseButton.disabled=true;
                 };
 
-                saveButton.onclick = function() {
-                    console.log(scope);
-                    //save scope.track
-                }
+                saveButton.onclick = function () {
+                    console.log(JSON.stringify(scope.track));
+                    scope.start();
+
+                    mixService.updateMix(JSON.stringify(scope.track)).then(
+                        function(){
+                            "use strict";
+                            console.log('COUCOUPOST');
+                            scope.complete();
+                        }, function(err){
+                            "use strict";
+                            console.log(err);
+                        });
+                };
 
             }
         };

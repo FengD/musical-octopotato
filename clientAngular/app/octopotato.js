@@ -1,5 +1,3 @@
 
 angular
-    .module('octopotato',[
-        'ngRoute','ngCookies'
-            ]);
+    .module('octopotato',['ngRoute','ngCookies', 'angular-loading-bar','xeditable' ]);

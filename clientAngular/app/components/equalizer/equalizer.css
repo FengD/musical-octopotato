@@ -1,9 +1,68 @@
 .equalizer {
-  border: solid 1px red;
   margin: 2em;
-  padding: 1em;
-  display: inline-block;
-}
-.equalizer input {
-  max-width: 20%;
-}
+  background-color: black;
+  height: 120px;
+  color: white; }
+  .equalizer .editButtonLeft, .equalizer .editButtonRight {
+    vertical-align: top;
+    display: inline-block; }
+    .equalizer .editButtonLeft button, .equalizer .editButtonRight button {
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+      color: black; }
+    .equalizer .editButtonLeft label, .equalizer .editButtonRight label {
+      font-size: 14px; }
+    .equalizer .editButtonLeft label.gain, .equalizer .editButtonRight label.gain {
+      font-weight: normal;
+      margin: 3px 0 2px 38px; }
+    .equalizer .editButtonLeft span.track_title, .equalizer .editButtonRight span.track_title {
+      margin: 10px 0 0 10px;
+      display: inline-block;
+      width: 55px;
+      font-weight: bolder;
+      font-size: 16px; }
+      .equalizer .editButtonLeft span.track_title a.editable, .equalizer .editButtonRight span.track_title a.editable {
+        text-decoration: none;
+        border: none !important;
+        color: white; }
+    .equalizer .editButtonLeft label.frequencies, .equalizer .editButtonRight label.frequencies {
+      font-weight: normal;
+      margin: 3px 0 2px 28px; }
+    .equalizer .editButtonLeft input[type=range], .equalizer .editButtonRight input[type=range] {
+      max-width: 20%;
+      -webkit-appearance: slider-vertical;
+      /* WebKit */
+      width: 8px;
+      height: 50px;
+      padding: 0 5px;
+      display: inline-block;
+      margin-left: 25px; }
+    .equalizer .editButtonLeft input[type=range]::-webkit-slider-thumb, .equalizer .editButtonRight input[type=range]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      border: 1px solid #000000;
+      height: 36px;
+      width: 16px;
+      border-radius: 3px;
+      background: #ffffff;
+      cursor: pointer;
+      margin-top: -14px;
+      /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+      box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+      /* Add cool effects to your sliders! */ }
+    .equalizer .editButtonLeft input[type=range].highInput, .equalizer .editButtonRight input[type=range].highInput {
+      margin-right: 45px; }
+    .equalizer .editButtonLeft input[type=range].gainInput, .equalizer .editButtonRight input[type=range].gainInput {
+      margin-left: 45px; }
+    .equalizer .editButtonLeft > div, .equalizer .editButtonRight > div {
+      display: block; }
+      .equalizer .editButtonLeft > div .mid, .equalizer .editButtonLeft > div .low, .equalizer .editButtonLeft > div .high, .equalizer .editButtonRight > div .mid, .equalizer .editButtonRight > div .low, .equalizer .editButtonRight > div .high {
+        margin-left: 20px; }
+      .equalizer .editButtonLeft > div .low, .equalizer .editButtonRight > div .low {
+        margin-left: -18px; }
+  .equalizer canvas {
+    margin: 16px 0 0 10px;
+    display: inline-block;
+    vertical-align: top; }
+
+/*# sourceMappingURL=equalizer.css.map */
