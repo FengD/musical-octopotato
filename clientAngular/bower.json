@@ -20,6 +20,8 @@
     "font-awesome": "fontawesome#~4.5.0",
     "angular-route": "~1.4.8",
     "bootstrap": "~3.3.6",
-    "angular-cookies": "~1.4.9"
+    "angular-cookies": "~1.4.9",
+    "angular-xeditable": "~0.1.9",
+    "angular-loading-bar": "~0.8.0"
   }
 }

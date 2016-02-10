@@ -61,10 +61,6 @@ angular.module('octopotato')
 
             canvasContext.save();
 
-            // clear the canvas
-            // like this: canvasContext.clearRect(0, 0, width, height);
-
-            // Or use rgba fill to give a slight blur effect
             canvasContext.fillStyle = 'rgba(0, 0, 0, 0.5)';
             canvasContext.fillRect(0, 0, width, height);
 
@@ -127,22 +123,15 @@ angular.module('octopotato')
 
             barWidth = width / bufferLength;
 
-            // values go from 0 to 255 and the canvas heigt is 100. Let's rescale
-            // before drawing. This is the scale factor
             heightScale = height / 256;
 
             for (var i = 0; i < bufferLength; i++) {
-                // between 0 and 255
                 barHeight = dataArray[i];
 
-                // The color is red but lighter or darker depending on the value
-                canvasCtx.fillStyle = 'rgb(' + (barHeight * 2 + 100) + ',50,50)';
-                // scale from [0, 255] to the canvas height [0, height] pixels
+                canvasCtx.fillStyle = buildGradient(canvasCtx,height);//'rgb(' + (barHeight * 2 + 100) + ',50,50)';
                 barHeight *= heightScale;
-                // draw the bar
                 canvasCtx.fillRect(x, height - barHeight, barWidth, barHeight);
 
-                // 1 is the number of pixels between bars - you can change it
                 x += barWidth + 1;
             }
 
@@ -155,18 +144,22 @@ angular.module('octopotato')
 
         function buildGraph(sample, context, endNode, element, attrs) {
 
+            var oldGainValue;
+
             var timeCanvasElt = element.find('canvas')[0];
             var freqCanvasElt = element.find('canvas')[0];
             var gainElt = element.find('input')[0];
             var lowFilterElt = element.find('input')[1];
             var midFilterElt = element.find('input')[2];
             var highFilterElt = element.find('input')[3];
+            var muteButton = element.find('button')[1];
 
 
             var noiseSourceNode = context.createBufferSource();
             noiseSourceNode.buffer = sample;
 
             var gainNode = context.createGain();
+            gainNode.gain.value = attrs.gain;
             gainElt.oninput = function (evt) {
                 gainNode.gain.value = evt.target.value;
                 attrs.gain = evt.target.value;
@@ -179,6 +172,7 @@ angular.module('octopotato')
             lowFilterNode.Q.value = 0.05;
             lowFilterElt.oninput = function (evt) {
                 lowFilterNode.gain.value = evt.target.value;
+                attrs.lowFilterLevel = evt.target.value;
             };
 
             var midFilterNode = context.createBiquadFilter();
@@ -188,6 +182,7 @@ angular.module('octopotato')
             midFilterNode.Q.value = 2;
             midFilterElt.oninput = function (evt) {
                 midFilterNode.gain.value = evt.target.value;
+                attrs.midFilterLevel = evt.target.value;
             };
 
             var highFilterNode = context.createBiquadFilter();
@@ -197,10 +192,26 @@ angular.module('octopotato')
             highFilterNode.Q.value = 5;
             highFilterElt.oninput = function (evt) {
                 highFilterNode.gain.value = evt.target.value;
+                attrs.highFilterLevel = evt.target.value;
             };
 
             var analyserNode = context.createAnalyser();
             analyserNode.fftSize = 1024;
+
+            muteButton.onclick = function(){
+
+                var newValue;
+                if (oldGainValue) {
+                    newValue = oldGainValue;
+                    oldGainValue = false;
+                } else {
+                    newValue = 0;
+                    oldGainValue =attrs.gain;
+                }
+
+                gainNode.gain.value = newValue;
+                attrs.gain = newValue;
+            };
 
 
             noiseSourceNode.connect(gainNode);
@@ -219,40 +230,25 @@ angular.module('octopotato')
             });
 
 
-            // Create a single gain node for master volume
-            //masterVolumeNode = context.createGain();
             console.log("in build graph, elem = " + sample);
 
-            // connect each sound sample to a vomume node
-            // trackVolumeNodes[i] = context.createGain();
-            // Connect the sound sample to its volume node
-            // sources[i].connect(trackVolumeNodes[i]);
-            // Connects all track volume nodes a single master volume node
-            //trackVolumeNodes[i].connect(masterVolumeNode);
-            // Connect the master volume to the speakers
-            //           masterVolumeNode.connect(context.destination);
-            // On active les boutons start et stop
-            // samples = sources;
             return noiseSourceNode;
 
-            // onceLoaded();
         }
 
-        function initTrack(params){
-            if(!params.trackPath){
+        function initTrack(track){
+            if(!track.trackPath){
                 return;
             }
-            params.gain = params.gain || 0;
-            params.balance = params.balance || 0;
-            params.highFilterLevel = params.highFilterLevel || 0;
-            params.midFilterLevel = params.midFilterLevel || 0;
-            params.lowFilterLevel = params.lowFilterLevel || 0;
-            params.highFilterFreq = params.highFilterFreq || 8000;
-            params.midFilterFreq = params.midFilterFreq || 4000;
-            params.lowFilterFreq = params.lowFilterFreq || 200;
+            track.gain = track.gain || 1;
+            track.balance = track.balance || 0;
+            track.highFilterLevel = track.highFilterLevel || 0;
+            track.midFilterLevel = track.midFilterLevel || 0;
+            track.lowFilterLevel = track.lowFilterLevel || 0;
+            track.highFilterFreq = track.highFilterFreq || 8000;
+            track.midFilterFreq = track.midFilterFreq || 4000;
+            track.lowFilterFreq = track.lowFilterFreq || 200;
         }
-
-        var audiSource;
 
         return {
             restrict: 'EA',

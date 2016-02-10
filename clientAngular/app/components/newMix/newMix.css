@@ -1,0 +1,12 @@
+.newMix {
+  display: block;
+  width: 60%;
+  margin: 20px auto 20px auto;
+  background-color: #EAEAEA;
+  padding: 5px;
+}
+.newMix .btn {
+  height: 30px;
+  background-color: #71A08E;
+  border: none;
+}
