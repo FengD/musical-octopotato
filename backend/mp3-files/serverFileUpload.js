@@ -33,11 +33,11 @@ var upload = multer({storage: storage});
 
 app.post('/api/file', upload.array('file'), function (req, res) {
 
-    console.log("received " + req.files.length + " files");// form files
+    //console.log("received " + req.files.length + " files");// form files
     var filesPaths = [];
     for (var i = 0; i < req.files.length; i++) {
         filesPaths.push(req.files[i].filename);
-        console.log("### " + req.files[i].path);
+       // console.log("### " + req.files[i].path);
 
     }
     //console.log("The URL for the file is:" + "localhost:3000\\"+req.file.path);
