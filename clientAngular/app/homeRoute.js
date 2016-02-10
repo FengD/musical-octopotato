@@ -20,11 +20,9 @@ angular.module('octopotato')
                 templateUrl: 'components/mixes/mixes.html',
                 controller: 'MixesCtrl',
                 resolve: {
-                    mixPreviews: ['$http', function($http){
-                        return $http.get('./api/user/mixes.json')
-                            .then(function(response){
-                                return response.data;
-                            });
+                    mixPreviews: ['$route', 'mixService', function($route,mixService){
+                        var user = $route.current.params.userId;
+                        return mixService.getMixesByAuthor(user);
                     }]
                 }
             }).when('/mixes/:authorId/:mixName', {

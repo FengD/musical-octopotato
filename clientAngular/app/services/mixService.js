@@ -44,6 +44,14 @@ class MixService {
         return deferred.promise;
     }
 
+    updateMix(mixData) {
+        let deferred = this._$q.defer();
+        this._$http.put(this.serviceUrl, mixData)
+            .success(data => deferred.resolve(data))
+            .error(err => deferred.reject(err));
+        return deferred.promise;
+    }
+
     deleteMix(author, mixName) {
         let deferred = this._$q.defer();
         this._$http.delete(this.serviceUrl + author + '/' + mixName)
