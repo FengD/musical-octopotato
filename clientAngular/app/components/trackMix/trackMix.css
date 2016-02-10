@@ -3,9 +3,6 @@
   width: 980px; }
   .mixTracks button#playButton, .mixTracks button#pauseButton, .mixTracks button#stopButton {
     margin: 10px 0 0 10px; }
-    .mixTracks button#playButton .fa, .mixTracks button#pauseButton .fa, .mixTracks button#stopButton .fa {
-      padding: 8px;
-      background-color: #71A08E; }
   .mixTracks .saveButton {
     margin: 10px;
     float: right; }

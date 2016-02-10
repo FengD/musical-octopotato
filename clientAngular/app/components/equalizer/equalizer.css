@@ -1,18 +1,20 @@
 .equalizer {
   margin: 2em;
-  background-color: black;
+  background-color: #D4DAD9;
   height: 120px;
-  color: white; }
+  color: #293540; }
   .equalizer .editButtonLeft, .equalizer .editButtonRight {
     vertical-align: top;
     display: inline-block; }
     .equalizer .editButtonLeft button, .equalizer .editButtonRight button {
       width: 20px;
       height: 20px;
+      padding: 0px;
       margin-left: 10px;
       color: black; }
     .equalizer .editButtonLeft label, .equalizer .editButtonRight label {
-      font-size: 14px; }
+      font-size: 14px;
+      color: #293540 !important; }
     .equalizer .editButtonLeft label.gain, .equalizer .editButtonRight label.gain {
       font-weight: normal;
       margin: 3px 0 2px 38px; }
@@ -25,7 +27,7 @@
       .equalizer .editButtonLeft span.track_title a.editable, .equalizer .editButtonRight span.track_title a.editable {
         text-decoration: none;
         border: none !important;
-        color: white; }
+        color: #293540; }
     .equalizer .editButtonLeft label.frequencies, .equalizer .editButtonRight label.frequencies {
       font-weight: normal;
       margin: 3px 0 2px 28px; }
@@ -55,7 +57,8 @@
     .equalizer .editButtonLeft input[type=range].gainInput, .equalizer .editButtonRight input[type=range].gainInput {
       margin-left: 45px; }
     .equalizer .editButtonLeft > div, .equalizer .editButtonRight > div {
-      display: block; }
+      display: block;
+      color: #293540; }
       .equalizer .editButtonLeft > div .mid, .equalizer .editButtonLeft > div .low, .equalizer .editButtonLeft > div .high, .equalizer .editButtonRight > div .mid, .equalizer .editButtonRight > div .low, .equalizer .editButtonRight > div .high {
         margin-left: 20px; }
       .equalizer .editButtonLeft > div .low, .equalizer .editButtonRight > div .low {

@@ -1,6 +1,6 @@
 {
 "version": 3,
-"mappings": "AAAA,SAAS;EACP,MAAM,EAAE,GAAG;EACX,OAAO,EAAE,YAAY;EACrB,KAAK,EAAC,KAAK",
+"mappings": "AAAA,SAAS;EACP,OAAO,EAAE,YAAY;EACrB,KAAK,EAAE,KAAK;EACZ,GAAG,EAAE,IAAI;EACT,QAAQ,EAAE,QAAQ;EAClB,oBAAU;IACR,aAAa,EAAE,GAAG",
 "sources": ["newTrack.scss"],
 "names": [],
 "file": "newTrack.css"

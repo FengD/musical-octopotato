@@ -47,10 +47,10 @@ angular.module('octopotato')
 
         function buildGradient(canvasCtx, height) {
             var gradient = canvasCtx.createLinearGradient(0, 0, 0, height);
-            gradient.addColorStop(1, '#000000');
-            gradient.addColorStop(0.75, '#ff0000');
-            gradient.addColorStop(0.25, '#ffff00');
-            gradient.addColorStop(0, '#ffffff');
+            gradient.addColorStop(1, '#2980b9');  //black
+            gradient.addColorStop(0.75, '#2BC0E4'); //red
+            gradient.addColorStop(0.25, '#ffff00');  //yellow
+            gradient.addColorStop(0, '#EAECC6');  //white
 
             return gradient
         }
@@ -62,7 +62,7 @@ angular.module('octopotato')
 
             canvasContext.save();
 
-            canvasContext.fillStyle = 'rgba(0, 0, 0, 0.5)';
+            canvasContext.fillStyle = 'rgba(212,218,217, 0.3)';
             canvasContext.fillRect(0, 0, width, height);
 
             canvasContext.restore();
