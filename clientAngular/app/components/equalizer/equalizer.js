@@ -144,18 +144,22 @@ angular.module('octopotato')
 
         function buildGraph(sample, context, endNode, element, attrs) {
 
+            var oldGainValue;
+
             var timeCanvasElt = element.find('canvas')[0];
             var freqCanvasElt = element.find('canvas')[0];
             var gainElt = element.find('input')[0];
             var lowFilterElt = element.find('input')[1];
             var midFilterElt = element.find('input')[2];
             var highFilterElt = element.find('input')[3];
+            var muteButton = element.find('button')[1];
 
 
             var noiseSourceNode = context.createBufferSource();
             noiseSourceNode.buffer = sample;
 
             var gainNode = context.createGain();
+            gainNode.gain.value = attrs.gain;
             gainElt.oninput = function (evt) {
                 gainNode.gain.value = evt.target.value;
                 attrs.gain = evt.target.value;
@@ -168,6 +172,7 @@ angular.module('octopotato')
             lowFilterNode.Q.value = 0.05;
             lowFilterElt.oninput = function (evt) {
                 lowFilterNode.gain.value = evt.target.value;
+                attrs.lowFilterLevel = evt.target.value;
             };
 
             var midFilterNode = context.createBiquadFilter();
@@ -177,6 +182,7 @@ angular.module('octopotato')
             midFilterNode.Q.value = 2;
             midFilterElt.oninput = function (evt) {
                 midFilterNode.gain.value = evt.target.value;
+                attrs.midFilterLevel = evt.target.value;
             };
 
             var highFilterNode = context.createBiquadFilter();
@@ -186,10 +192,26 @@ angular.module('octopotato')
             highFilterNode.Q.value = 5;
             highFilterElt.oninput = function (evt) {
                 highFilterNode.gain.value = evt.target.value;
+                attrs.highFilterLevel = evt.target.value;
             };
 
             var analyserNode = context.createAnalyser();
             analyserNode.fftSize = 1024;
+
+            muteButton.onclick = function(){
+
+                var newValue;
+                if (oldGainValue) {
+                    newValue = oldGainValue;
+                    oldGainValue = false;
+                } else {
+                    newValue = 0;
+                    oldGainValue =attrs.gain;
+                }
+
+                gainNode.gain.value = newValue;
+                attrs.gain = newValue;
+            };
 
 
             noiseSourceNode.connect(gainNode);
@@ -214,21 +236,19 @@ angular.module('octopotato')
 
         }
 
-        function initTrack(params){
-            if(!params.trackPath){
+        function initTrack(track){
+            if(!track.trackPath){
                 return;
             }
-            params.gain = params.gain || 0;
-            params.balance = params.balance || 0;
-            params.highFilterLevel = params.highFilterLevel || 0;
-            params.midFilterLevel = params.midFilterLevel || 0;
-            params.lowFilterLevel = params.lowFilterLevel || 0;
-            params.highFilterFreq = params.highFilterFreq || 8000;
-            params.midFilterFreq = params.midFilterFreq || 4000;
-            params.lowFilterFreq = params.lowFilterFreq || 200;
+            track.gain = track.gain || 1;
+            track.balance = track.balance || 0;
+            track.highFilterLevel = track.highFilterLevel || 0;
+            track.midFilterLevel = track.midFilterLevel || 0;
+            track.lowFilterLevel = track.lowFilterLevel || 0;
+            track.highFilterFreq = track.highFilterFreq || 8000;
+            track.midFilterFreq = track.midFilterFreq || 4000;
+            track.lowFilterFreq = track.lowFilterFreq || 200;
         }
-
-        var audiSource;
 
         return {
             restrict: 'EA',

@@ -1,19 +1,26 @@
 <div class="trackItemPreviews">
     <div class="trackItemPreview" ng-repeat="mixPreview in mixPreviews">
+
         <div class="leftItems">
             <a class="title" ng-bind="mixPreview.title" href="#/mixes/{{mixPreview.author}}/{{mixPreview.title}}"></a>
-            <span class="author">by {{mixPreview.author}}</span><br/>
+            by
+            <a class="author" ng-bind="mixPreview.author" href="#/mixes/{{mixPreview.author}}"></a><br/>
             <img src="{{mixPreview.coverPath}}" alt="cover"><br/>
             <button class="btn btn-info glyphicon glyphicon-heart"> like</button>
-            <button class="btn btn-info glyphicon glyphicon-share"> share</button>
-            <a href="" class="btn btn-info glyphicon glyphicon-edit" role="button"> remix</a>
+            <button class="btn btn-info glyphicon glyphicon-edit"  ng-show="nickname" ng-click="remix()"> remix</button>
         </div>
+
         <div class="rightItems">
+
             <span class="date" ng-bind="mixPreview.date"></span><br/>
-            <span>WAVE</span><br/>
             <span class="plays" ng-bind="mixPreview.plays"></span><i class="fa fa-play"></i>
             <span class="likes" ng-bind="mixPreview.likes"></span><i class="fa fa-heart"></i>
-            <span class="comments" ng-bind="mixPreview.comments"></span><i class="fa fa-comment"></i>
+
         </div>
+
     </div>
+
+    <new-mix>
+        NEW MIX
+    </new-mix>
 </div>

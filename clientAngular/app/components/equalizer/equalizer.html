@@ -1,7 +1,7 @@
 <div class="equalizer">
 
     <h1>
-        {{truc.trackPath}} :
+        <a href="#" editable-text="truc.name">{{ truc.name }}</a>
     </h1>
     <button>
         <i class="fa fa-music fa-3x"></i>
@@ -12,7 +12,7 @@
     </button>
 
     <label for="gain_{{$index}}">Gain</label>
-    <input type="range"  id="gain_{{$index}}" min="0" max="5" value="1" step="0.05" maxlength="3" />
+    <input type="range"  id="gain_{{$index}}" min="0" max="5" value="{{truc.gain}}" step="0.05" maxlength="3" />
 
     <label for="lowFrequenciesFilter_{{$index}}">low Frequencies</label>
     <input type="range" id="lowFrequenciesFilter_{{$index}}" min="-25" max="25" step="0.01" value="{{truc.lowFilterLevel}}" />
