@@ -18,8 +18,13 @@ cd ../mp3-files
 npm install
 
 # installing frontend
-# TODO
+echo "installing frontend..."
+cd ../../clientAngular
+bower install
+npm install
 
-# installing forever
+# installing tools
 echo "installing forever..."
 npm install -g forever
+echo "installing grunt..."
+npm install -g grunt
