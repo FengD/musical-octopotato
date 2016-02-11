@@ -4,5 +4,5 @@ backend/mp3-files/uploads/
 .idea
 .idea/*
 .sass-cache/
-
+*/app/api/
 .DS_Store
