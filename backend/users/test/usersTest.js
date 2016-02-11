@@ -190,10 +190,8 @@ suite("users", function() {
 	});
 
 	suiteTeardown(function(done) {
-		users.clean();
-		done();
-		// users.clean(function (err, result) {
-		// 	done();
-		// });
+		users.clean(function (err, result) {
+			done();
+		});
 	});
 });

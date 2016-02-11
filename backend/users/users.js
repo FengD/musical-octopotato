@@ -119,8 +119,10 @@ function init(callback) {
 	});
 }
 
-function clean() {
-	mongoConnection.disconnect();
+function clean(callback) {
+	mongoConnection.disconnect(function (err, result) {
+		callback(err, result);
+	});
 }
 
 // Exports

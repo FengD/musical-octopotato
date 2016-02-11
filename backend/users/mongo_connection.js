@@ -23,9 +23,16 @@ function connect(callback) {
 	});
 }
 
-function disconnect() {
-  database.close();
-  logger.info("Closed connection to mongodb.");
+function disconnect(callback) {
+  	database.close(false, function (err, result) {
+  		if (err) {
+  			logger.warn(err);
+  		}
+  		else {
+		  	logger.info("Closed connection to mongodb.");
+  		}
+  		callback(err, result);
+  	});
 }
 
 function getDatabase() {

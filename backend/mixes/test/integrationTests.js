@@ -59,8 +59,10 @@ suite("mixes service", function () {
 		});
 	});
 
-	suiteTeardown(function () {
-		app.cleanBeforeExit();
+	suiteTeardown(function (done) {
+		app.cleanBeforeExit(function (err, result) {
+			done();
+		});
 	});
 
 	suite("mix creation", function () {

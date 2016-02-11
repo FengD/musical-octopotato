@@ -58,8 +58,10 @@ suite("mixes", function() {
 		});
 	});
 
-	suiteTeardown(function() {
-		mixes.clean();
+	suiteTeardown(function(done) {
+		mixes.clean(function (err, result) {
+			done();
+		});
 	});
 
 	suite("Track class", function () {

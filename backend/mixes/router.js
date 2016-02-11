@@ -118,8 +118,10 @@ router.init = function init(callback) {
 	});
 }
 
-router.clean = function clean() {
-	mixes.clean();
+router.clean = function clean(callback) {
+	mixes.clean(function (err, result) {
+		callback(err, result);
+	});
 }
 
 // Exports

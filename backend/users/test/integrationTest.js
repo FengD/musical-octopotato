@@ -35,8 +35,10 @@ suite("users service", function() {
 		});
 	});
 
-	suiteTeardown(function () {
-		userService.cleanBeforeExit();
+	suiteTeardown(function (done) {
+		userService.cleanBeforeExit(function (err, result) {
+			done();
+		});
 	});
 
 	suite("user creation", function () {

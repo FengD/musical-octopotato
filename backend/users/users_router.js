@@ -94,8 +94,10 @@ usersRouter.init = function init(callback) {
 	});
 };
 
-usersRouter.clean = function clean() {
-	users.clean();
+usersRouter.clean = function clean(callback) {
+	users.clean(function (err, result) {
+		callback(err, result);
+	});
 };
 
 // Exports

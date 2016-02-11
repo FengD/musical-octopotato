@@ -32,26 +32,43 @@ app.use(bodyParser.json());
 
 app.use("/users", usersRouter);
 
-app.cleanBeforeExit = function cleanBeforeExit() {
+app.cleanBeforeExit = function cleanBeforeExit(callback) {
 	logger.info("exiting...");
-	usersRouter.clean();
+	usersRouter.clean(function (err, result) {
+		callback(err, result);
+	});
 }
 
 process.on("beforeExit", function() {
-	app.cleanBeforeExit();
+	app.cleanBeforeExit(function (err, result) {
+		if (err) {
+			logger.error(err);
+		}
+	});
 });
 
 process.on("SIGINT", function() {
-	app.cleanBeforeExit();
-	process.exit(0);
+	app.cleanBeforeExit(function (err, result) {
+		if (err) {
+			logger.error(err);
+			process.exit(1);
+		}
+		else {
+			process.exit(0);
+		}
+	});
 });
 
 (function init() {
 	usersRouter.init(function (err) {
 		if (err) {
 			logger.error(err);
-			app.cleanBeforeExit();
-			exit(1);
+			app.cleanBeforeExit(function (err, result) {
+				if (err) {
+					logger.error(err);
+				}
+				exit(1);
+			});
 		}
 		else {
 			app.listen(port);
