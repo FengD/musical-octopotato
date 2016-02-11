@@ -2,11 +2,11 @@
     <div class="trackItemPreview" ng-repeat="mixPreview in mixPreviews">
 
         <div class="leftItems">
-            <a class="title" ng-bind="mixPreview.title" href="#/mixes/{{mixPreview.author}}/{{mixPreview.title}}"></a>
+            <a class="title" ng-bind="mixPreview.title" href="#/mixes/{{mixPreview.author}}/{{mixPreview.title}}" ng-click="play(mixPreview)"></a>
             by
             <a class="author" ng-bind="mixPreview.author" href="#/mixes/{{mixPreview.author}}"></a><br/>
             <img src="{{mixPreview.coverPath}}" alt="cover"><br/>
-            <button class="btn btn-info glyphicon glyphicon-heart"> like</button>
+            <button class="btn btn-info glyphicon glyphicon-heart" ng-click="like(mixPreview)"> like</button>
             <button class="btn btn-info glyphicon glyphicon-edit"  ng-show="nickname && mixPreview.author != nickname" ng-click="remix(mixPreview)"> remix</button>
         </div>
 
