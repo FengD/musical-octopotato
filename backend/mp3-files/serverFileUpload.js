@@ -23,7 +23,7 @@ app.use(function (req, res, next) {
 });
 
 var storage = multer.diskStorage({
-    destination: "./uploads",
+    destination: __dirname + "/uploads",
     filename: function (req, file, cb) {
         cb(null, file.originalname + '-' + Date.now());
     }
@@ -48,7 +48,7 @@ app.post('/api/file', upload.array('file'), function (req, res) {
 
 app.get('/uploads', function (req, res) {
 
-    fs.readdir("./uploads", function (err, list) {
+    fs.readdir(__dirname + "/uploads", function (err, list) {
         res.end(JSON.stringify(list));
     });
 
