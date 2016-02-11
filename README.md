@@ -34,6 +34,7 @@ Then execute the `run_local.sh` script, it will start the backend services.
 
 To be able to run the front end, you should clone the project in the www/ folder of any apache installation
 ([Installation][7] for Ubuntu).
+
 The application will now be available at: [http://localhost:8282/musical-octopotato/clientAngular/app/#/mixes][6] and any changes done in the frontend end will automatically be rendered.
 
 To stop the backend services, run the `stop_local.sh` script.
