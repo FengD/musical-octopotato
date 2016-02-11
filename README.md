@@ -32,7 +32,8 @@ The following commands do not need to be executed in root mode, but they have to
 
 Then execute the `run_local.sh` script, it will start the backend services.
 
-To be able to run the front end, you should clone the project in the www/ folder of any apache installation ([installation][7] for Ubuntu )
+To be able to run the front end, you should clone the project in the www/ folder of any apache installation
+([Installation][7] for Ubuntu).
 The application will now be available at: [http://localhost:8282/musical-octopotato/clientAngular/app/#/mixes][6] and any changes done in the frontend end will automatically be rendered.
 
 To stop the backend services, run the `stop_local.sh` script.
@@ -53,6 +54,8 @@ You can run the command `mocha -u tdd` in each backend subdirectory (`backend/us
  * [Node.js official website][3]
  * [ECMAScript 6 features][4]
  * [Compass installation instructions][5]
+ * [Application frontend][6]
+ * [Apache2 server installation instructions][7]
 
 [1]: https://docs.mongodb.org/master/installation/
 [2]: https://www.mongodb.org/
