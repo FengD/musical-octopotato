@@ -270,6 +270,22 @@ suite("mixes service", function () {
 				})
 				.expect(200, done);
 		});
+
+		test("should get all SuperDJ mixes", function (done) {
+			request(app)
+				.get("/mixes/daSuperDJ")
+				.expect(200)
+				.expect(function (res) {
+					assert(res.body.length >= 2);
+					for (var i = 0; i < superDjMixesJson.length; i++) {
+						assert(res.body.find(function(element, index, array) {
+							return element.title == superDjMixesJson[i].title
+								&& element.author == superDjMixesJson[i].author;
+						}));
+					}
+				})
+				.end(done);
+		});
 	});
 
 	suite("#replace()", function() {

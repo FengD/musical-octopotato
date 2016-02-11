@@ -10,12 +10,12 @@ var express = require("express"),
 router.get("/", function(req, res) {
 	mixes.get(null, null, function (err, documents) {
 		if (err) {
-			if (err.nonexistentMix) {
-				res.status(400).send(err);
-			}
-			else {
+			// if (err.nonexistentMix) {
+			// 	res.status(400).send(err);
+			// }
+			// else {
 				res.status(500).send(err);
-			}
+			//}
 		}
 		else {
 			res.send(documents.map(mixes.Mix.toJSON));
@@ -24,14 +24,14 @@ router.get("/", function(req, res) {
 });
 
 router.get("/:author", function(req, res) {
-	mixes.get(title, null, function (err, documents) {
+	mixes.get(null, req.params.author, function (err, documents) {
 		if (err) {
-			if (err.nonexistentMix) {
-				res.status(400).send(err);
-			}
-			else {
+			// if (err.nonexistentMix) {
+			// 	res.status(400).send(err);
+			// }
+			// else {
 				res.status(500).send(err);
-			}
+			//}
 		}
 		else {
 			res.send(documents.map(mixes.Mix.toJSON));
