@@ -22,7 +22,7 @@ angular.module('octopotato')
                     var newMix = {
                         "title": mixNameInput.value,
                         "author": scope.nickname,
-                        "date": Date.now(),
+                        "date": new Date(Date.now()).toDateString() + ' ' + new Date(Date.now()).toLocaleTimeString() ,
                         "coverPath": "http://lorempixel.com/200/200/animals/",
                         "tracks": [],
                         "plays": 0,

@@ -1,25 +1,25 @@
 angular.module('octopotato')
-    .directive('trackMix', function(mixService){
+    .directive('trackMix', function ($rootScope, $location, mixService) {
 
         var bufferLoader,
             childElements = [],
             mixTracksURLs = [],
             buffers = [],
             ctx = window.AudioContext || window.webkitAudioContext,
-            audioContext= new ctx(),
+            audioContext = new ctx(),
             nbEqualizer,
-            trackVolumeNodes=[],
+            trackVolumeNodes = [],
             samples = [],
             startedAt, timePlayed = 0,
             outputNodes = [],
             isPlaying = false;
 
-        function buildOutputNode(context, element){
+        function buildOutputNode(context, element) {
             outputNodes.push(context.destination);
 
             var mainGainElt = element.find('input')[0];
             var mainGainNode = context.createGain();
-            mainGainElt.oninput = function(evt){
+            mainGainElt.oninput = function (evt) {
                 mainGainNode.gain.value = evt.target.value;
             };
 
@@ -32,24 +32,66 @@ angular.module('octopotato')
         }
 
         function loadSong(songURL, element) {
-            bufferLoader = new BufferLoader(audioContext,[songURL],
-                function(buffersResult){
+            bufferLoader = new BufferLoader(audioContext, [songURL],
+                function (buffersResult) {
                     buffers = buffers.concat(buffersResult);
 
-                    buffersResult.forEach(function(sample, i) {
+                    buffersResult.forEach(function (sample, i) {
                         var newSample = element.buildAudioGraph(sample);
                         samples = samples.concat(newSample);
 
                         if (isPlaying) {
-                            var currentPlayingTime = timePlayed +  Date.now() - startedAt;
-                            newSample.start(0, currentPlayingTime/1000);
+                            var currentPlayingTime = timePlayed + Date.now() - startedAt;
+                            newSample.start(0, currentPlayingTime / 1000);
+                        } else if (timePlayed == 0){
+                            startedAt = Date.now();
+                            newSample.start(0)
                         }
                     });
 
                 });
-
-
             bufferLoader.load();
+        }
+
+        function playAll() {
+
+            buffers.forEach(function (sample, i) {
+                samples[i] = childElements[i].buildAudioGraph(sample);
+            });
+            isPlaying = true;
+            startedAt = Date.now();
+            samples.forEach(function (s) {
+                s.start(0, timePlayed / 1000);
+            });
+            playButton.disabled = true;
+            pauseButton.disabled = false;
+            stopButton.disabled = false;
+        }
+
+        function pauseAll() {
+            var pausedAt = Date.now();
+            timePlayed += pausedAt - startedAt;
+            console.log("Played : " + timePlayed);
+
+            isPlaying = false;
+            samples.forEach(function (s) {
+                s.stop();
+            });
+            playButton.disabled = false;
+            pauseButton.disabled = true;
+            stopButton.disabled = false;
+        }
+
+        function stopAll() {
+            timePlayed = 0;
+
+            isPlaying = false;
+            samples.forEach(function (s) {
+                s.stop();
+            });
+            playButton.disabled = false;
+            pauseButton.disabled = true;
+            stopButton.disabled = true;
         }
 
 
@@ -58,17 +100,17 @@ angular.module('octopotato')
             replace: true,
             transclude: true,
             templateUrl: "./components/trackMix/trackMix.html",
-            controller: function($scope){
+            controller: function ($scope) {
 
-                this.isAlreadyRunning = function() {
+                this.isAlreadyRunning = function () {
                     return songIsAlreadyRunning;
                 };
 
-                this.getOutputNode = function() {
+                this.getOutputNode = function () {
                     return outputNodes[0];
                 };
 
-                this.addTrackURL = function(url, element){
+                this.addTrackURL = function (url, element) {
                     mixTracksURLs.push(url);
                     childElements.push(element);
                     $scope.start();
@@ -76,17 +118,33 @@ angular.module('octopotato')
                     $scope.complete();
                 };
 
-                this.getAudioContext = function(){
+                this.toggleMuteOthers = function (elt) {
+                    childElements.forEach(function (child) {
+                        if (child != elt) {
+                            child.mute();
+                        } else {
+                            child.unMute();
+                        }
+                    })
+                };
+
+                this.getAudioContext = function () {
                     return audioContext;
                 };
 
-                this.getTracksURLs = function(){
+                this.getTracksURLs = function () {
                     return mixTracksURLs;
                 };
 
                 this.getSamples = function () {
                     return samples;
-                }
+                };
+
+                $scope.$on('$locationChangeStart', function (event) {
+                    if (isPlaying) {
+                        stopAll();
+                    }
+                });
             },
 
             link: function (scope, element, attrs, ctrl) {
@@ -97,60 +155,56 @@ angular.module('octopotato')
                 var pauseButton = element.find("button")[1];
                 var stopButton = element.find("button")[2];
                 var saveButton = element.find("button")[3];
+                var delButton = element.find("button")[4];
+                var remixButton = element.find("button")[5];
 
-                playButton.onclick = function(){
-                    buffers.forEach(function(sample, i) {
-                        samples[i] = childElements[i].buildAudioGraph(sample);
-                    });
-                    isPlaying = true;
-                    startedAt = Date.now();
-                    samples.forEach(function(s) {
-                        s.start(0, timePlayed/1000);
-                    });
-                    playButton.disabled=true;
-                    pauseButton.disabled=false;
-                };
+                playButton.onclick = playAll;
 
-                pauseButton.onclick = function(){
-                    var pausedAt = Date.now();
-                    timePlayed += pausedAt-startedAt;
-                    console.log("Played : " + timePlayed);
+                pauseButton.onclick = pauseAll;
 
-                    isPlaying = false;
-                    samples.forEach(function(s) {
-                        s.stop();
-                    });
-                    playButton.disabled=false;
-                    pauseButton.disabled=true;
-                };
-
-                stopButton.onclick = function(){
-                    timePlayed = 0;
-
-                    isPlaying = false;
-                    samples.forEach(function(s) {
-                        s.stop();
-                    });
-                    playButton.disabled=false;
-                    pauseButton.disabled=true;
-                };
+                stopButton.onclick = stopAll;
 
                 saveButton.onclick = function () {
-                    console.log(JSON.stringify(scope.track));
                     scope.start();
 
                     mixService.updateMix(JSON.stringify(scope.track)).then(
-                        function(){
-                            "use strict";
-                            console.log('COUCOUPOST');
+                        function () {
                             scope.complete();
-                        }, function(err){
-                            "use strict";
-                            console.log(err);
+                        }, function (err) {
+                            console.error(err);
+                            scope.start();
                         });
                 };
 
+                delButton.onclick = function () {
+                    scope.start();
+
+                    mixService.deleteMix(scope.track.author, scope.track.title).then(
+                        function () {
+                            $location.path('/mixes');
+                            scope.complete();
+                        }, function (err) {
+                            console.error(err);
+                            alert(JSON.stringify(err));
+                            scope.complete();
+                        });
+                };
+
+                remixButton.onclick = function () {
+                    var mix = scope.track;
+                    scope.start();
+                    mix.author = scope.nickname;
+                    mixService.postMix(mix).then(
+                        function (res) {
+                            $location.path('/mixes/' + mix.author + '/' + mix.title);
+                        }, function (err) {
+                            console.error(err);
+                            alert(JSON.stringify(err));
+                        }
+                    );
+                };
             }
+
         };
 
     });

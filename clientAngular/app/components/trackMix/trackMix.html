@@ -1,15 +1,26 @@
 <div class="mixTracks">
 
-    <button id="playButton" class="btn btn-default glyphicon glyphicon-play">
+    <button id="playButton" class="btn btn-default glyphicon glyphicon-play" disabled="true">
     </button>
     <button id="pauseButton" class="btn btn-default glyphicon glyphicon-pause">
     </button>
     <button id="stopButton" class="btn btn-default glyphicon glyphicon-stop">
     </button>
 
+
+
     <div class="saveButton" ng-show="track.author == nickname">
         <button class=" btn btn-info">
             Save
+        </button>
+        <button class=" btn btn-warning">
+            Delete
+        </button>
+    </div>
+
+    <div class="saveButton" ng-show="nickname && track.author != nickname">
+        <button class=" btn btn-info">
+            Remix
         </button>
     </div>
 

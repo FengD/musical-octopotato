@@ -7,7 +7,7 @@
             <a class="author" ng-bind="mixPreview.author" href="#/mixes/{{mixPreview.author}}"></a><br/>
             <img src="{{mixPreview.coverPath}}" alt="cover"><br/>
             <button class="btn btn-info glyphicon glyphicon-heart"> like</button>
-            <button class="btn btn-info glyphicon glyphicon-edit"  ng-show="nickname" ng-click="remix()"> remix</button>
+            <button class="btn btn-info glyphicon glyphicon-edit"  ng-show="nickname && mixPreview.author != nickname" ng-click="remix(mixPreview)"> remix</button>
         </div>
 
         <div class="rightItems">
@@ -15,6 +15,7 @@
             <span class="date" ng-bind="mixPreview.date"></span><br/>
             <span class="plays" ng-bind="mixPreview.plays"></span><i class="fa fa-play"></i>
             <span class="likes" ng-bind="mixPreview.likes"></span><i class="fa fa-heart"></i>
+            <i class="deleteMix fa fa-trash" ng-show="mixPreview.author == nickname" ng-click="deleteMix(mixPreview)"></i>
 
         </div>
 

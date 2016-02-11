@@ -39,15 +39,13 @@ angular.module('octopotato')
 
                 };
 
-
-
                 function handleNewFiles(res) {
                         for (var i = 0; i < res.length; i++) {
-                            var name = "http://localhost:8082/uploads/" + res[i];
+                            var path = "http://localhost:8082/uploads/" + res[i];
                             scope.track.tracks.push(
                                 {
-                                    "name" : name,
-                                    "trackPath" : name
+                                    "name" : res[i],
+                                    "trackPath" : path
                                 }
                             );
                         }

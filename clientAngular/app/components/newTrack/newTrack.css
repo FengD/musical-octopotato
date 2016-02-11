@@ -2,8 +2,8 @@
   display: inline-block;
   right: 150px;
   top: 35px;
-  position: absolute; }
-  .newTrack input#file {
-    margin-bottom: 5px; }
-
-/*# sourceMappingURL=newTrack.css.map */
+  position: absolute;
+}
+.newTrack input#file {
+  margin-bottom: 5px;
+}
