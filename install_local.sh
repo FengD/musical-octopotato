@@ -6,6 +6,14 @@ echo "you should have npm installed"
 parent_path=$( cd "$(dirname "${BASH_SOURCE}")" ; pwd -P )
 cd "$parent_path"
 
+# installing tools
+echo "installing forever..."
+npm install -g forever
+echo "installing grunt..."
+npm install -g grunt
+echo "installing bower..."
+npm install -g bower
+
 # installing backend
 echo "installing users service..."
 cd backend/users
@@ -23,8 +31,3 @@ cd ../../clientAngular
 bower install
 npm install
 
-# installing tools
-echo "installing forever..."
-npm install -g forever
-echo "installing grunt..."
-npm install -g grunt
