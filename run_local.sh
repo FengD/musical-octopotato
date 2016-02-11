@@ -15,6 +15,8 @@ echo "starting mp3-files service..."
 forever start backend/mp3-files/serverFileUpload.js
 
 # starting frontend
-# TODO
+#echo "starting frontend..."
+#cd clientAngular
+#grunt serve
 
 echo "startup complete"
