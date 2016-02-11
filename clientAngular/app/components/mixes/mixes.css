@@ -30,3 +30,6 @@
 .trackItemPreviews .trackItemPreview .rightItems {
   text-align: right;
 }
+.trackItemPreviews .trackItemPreview .deleteMix {
+  cursor: pointer;
+}

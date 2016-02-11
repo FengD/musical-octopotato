@@ -5,6 +5,7 @@
         </span>
         <button class="btn btn-default glyphicon glyphicon-music"></button>
         <button class="btn btn-default glyphicon glyphicon-volume-off"></button>
+        <button class="btn btn-default glyphicon glyphicon-trash" ng-click="delTrack(truc)"></button>
 
         <label class="gain" for="gain_{{$index}}">Gain</label>
         <input class="gainInput" type="range"  id="gain_{{$index}}" min="0" max="5" value="{{truc.gain}}" step="0.05" maxlength="3" />

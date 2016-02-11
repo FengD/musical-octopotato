@@ -82,7 +82,7 @@ angular.module('octopotato')
             analyser.getByteTimeDomainData(dataArray);
 
             canvasCtx.lineWidth = 2;
-            canvasCtx.strokeStyle = 'lightBlue';
+            canvasCtx.strokeStyle = '#2980b9';
 
             canvasCtx.beginPath();
 
@@ -122,14 +122,14 @@ angular.module('octopotato')
 
             analyser.getByteFrequencyData(dataArray);
 
-            barWidth = width / bufferLength;
+            barWidth = 10 * width / bufferLength;
 
             heightScale = height / 256;
 
-            for (var i = 0; i < bufferLength; i++) {
+            for (var i = 0; i < bufferLength / 10; i++) {
                 barHeight = dataArray[i];
 
-                canvasCtx.fillStyle = buildGradient(canvasCtx,height);//'rgb(' + (barHeight * 2 + 100) + ',50,50)';
+                canvasCtx.fillStyle = buildGradient(canvasCtx, height);//'rgb(' + (barHeight * 2 + 100) + ',50,50)';
                 barHeight *= heightScale;
                 canvasCtx.fillRect(x, height - barHeight, barWidth, barHeight);
 
@@ -145,7 +145,7 @@ angular.module('octopotato')
 
         function buildGraph(sample, context, endNode, element, attrs) {
 
-            var oldGainValue;
+            var oldGainValue, isMute;
 
             var timeCanvasElt = element.find('canvas')[0];
             var freqCanvasElt = element.find('canvas')[0];
@@ -199,20 +199,38 @@ angular.module('octopotato')
             var analyserNode = context.createAnalyser();
             analyserNode.fftSize = 1024;
 
-            muteButton.onclick = function(){
+            element.toggleMute = function () {
 
                 var newValue;
-                if (oldGainValue) {
-                    newValue = oldGainValue;
-                    oldGainValue = false;
+                if (isMute) {
+                    element.unMute();
                 } else {
-                    newValue = 0;
-                    oldGainValue =attrs.gain;
+                    element.mute();
                 }
 
+                isMute = !isMute;
                 gainNode.gain.value = newValue;
                 attrs.gain = newValue;
             };
+
+            element.mute = function () {
+                if (!isMute) {
+                    oldGainValue = attrs.gain;
+                    gainNode.gain.value = 0;
+                    attrs.gain = 0;
+                    isMute = true;
+                }
+            };
+
+            element.unMute = function () {
+                if (isMute) {
+                    gainNode.gain.value = oldGainValue;
+                    attrs.gain = oldGainValue;
+                    isMute = false;
+                }
+            };
+
+            muteButton.onclick = element.toggleMute;
 
 
             noiseSourceNode.connect(gainNode);
@@ -230,15 +248,12 @@ angular.module('octopotato')
                 visuFrequencyDomain(freqCanvasElt, analyserNode)
             });
 
-
-            console.log("in build graph, elem = " + sample);
-
             return noiseSourceNode;
 
         }
 
-        function initTrack(track){
-            if(!track.trackPath){
+        function initTrack(track) {
+            if (!track.trackPath) {
                 return;
             }
             track.gain = track.gain || 1;
@@ -271,9 +286,25 @@ angular.module('octopotato')
                     return buildGraph(sample, audioContext, endNode, element, scope.truc);
                 };
 
+                element.isMute = false;
 
-                console.log("###End equalizer link");
+                var soloButton = element.find('button')[0];
+                soloButton.onclick = function () {
+                    trackMixController.toggleMuteOthers(element);
+                };
 
+                var delButton = element.find('button')[2];
+
+                delButton.onclick = function () {
+                    scope.start();
+
+                    for (var i = 0; i < scope.track.tracks.length; ++i) {
+                        if (scope.track.tracks[i] == scope.truc) {
+                            scope.track.tracks.splice(i, 1);
+                        }
+                    }
+                    scope.complete();
+                };
             }
         };
     });
