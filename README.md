@@ -20,7 +20,7 @@ Ensure now that MongoDB is running locally with the default configuration, meani
 
 You should also have an [ECMAScript 6][4] compatible version of [Node.js][3], we suggest `v5.6.0`.
 
-##### Compass // TODO to update Tom (or to remove)
+##### Compass 
 
 Finally, in order to be able to compile SASS files, you must install [Compass][5].
 
@@ -32,8 +32,8 @@ The following commands do not need to be executed in root mode, but they have to
 
 Then execute the `run_local.sh` script, it will start the backend services.
 
-// TODO Tom
-You can now launch the frontend through the `TODO COMMAND` and test the application at: [TODOlink].
+To be able to run the front end, you should clone the project in the www/ folder of any apache installation ([installation][7] for Ubuntu )
+The application will now be available at: [http://localhost:8282/musical-octopotato/clientAngular/app/#/mixes][6] and any changes done in the frontend end will automatically be rendered.
 
 To stop the backend services, run the `stop_local.sh` script.
 
@@ -43,10 +43,9 @@ You can run the command `mocha -u tdd` in each backend subdirectory (`backend/us
 
 ## Team
  * Fernando Garrigos: MP3-files upload/download service (backend) and login (frontend)
- * Ying Jiang: Frontend
+ * Ying Jiang: Angular, Design (frontend)
  * Marc Karassev: Users and Mixes services, MongoDB and testing (backend)
- * Tom Veniat: Frontend
-  // TODO who did what
+ * Tom Veniat: Angular, WebAudio (frontend)
 
 ## Links
  * [MongoDB official website][2]
@@ -60,3 +59,5 @@ You can run the command `mocha -u tdd` in each backend subdirectory (`backend/us
 [3]: https://nodejs.org/en/
 [4]: http://es6-features.org/
 [5]: http://compass-style.org/install/
+[6]: http://localhost:8282/musical-octopotato/clientAngular/app/#/mixes/
+[7]: https://doc.ubuntu-fr.org/apache2/
