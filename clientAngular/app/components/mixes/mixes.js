@@ -3,6 +3,30 @@ angular.module('octopotato')
     .controller('MixesCtrl', ['$scope', '$location', 'mixPreviews', 'mixService', function ($scope, $location, tracks, mixService) {
         $scope.mixPreviews = tracks;
 
+        $scope.like = function(mix){
+            mix.likes++;
+            mixService.updateMix(mix).then(
+                function(){
+                    console.log("like");
+                },function(){
+                    console.error("Can't like");
+                    mix.likes -= 1;
+                }
+            )
+        };
+
+        $scope.play = function(mix){
+            mix.plays++;
+            mixService.updateMix(mix).then(
+                function(){
+                    console.log("like");
+                },function(){
+                    console.error("Can't play");
+                    mix.plays -= 1;
+                }
+            )
+        };
+
         $scope.remix = function (mix) {
             mix.author = $scope.nickname;
             mixService.postMix(mix).then(

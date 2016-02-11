@@ -141,7 +141,7 @@ angular.module('octopotato')
                 };
 
                 $scope.$on('$locationChangeStart', function (event) {
-                    if (isPlaying) {
+                    if (isPlaying ) {
                         stopAll();
                     }
                 });

@@ -145,7 +145,7 @@ angular.module('octopotato')
 
         function buildGraph(sample, context, endNode, element, attrs) {
 
-            var oldGainValue, isMute;
+            var oldGainValue, isMute = false;
 
             var timeCanvasElt = element.find('canvas')[0];
             var freqCanvasElt = element.find('canvas')[0];
@@ -209,8 +209,6 @@ angular.module('octopotato')
                 }
 
                 isMute = !isMute;
-                gainNode.gain.value = newValue;
-                attrs.gain = newValue;
             };
 
             element.mute = function () {
