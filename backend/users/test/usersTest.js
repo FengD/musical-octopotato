@@ -59,15 +59,16 @@ suite("users", function() {
 					throw err;
 				}
 				assert.deepEqual(bobby, result);
+				done();
 			});
-			done();
 		});
 
 		test("should send error when recreating Bobby", function(done) {
 			users.create(users.toJSON(bobby), function(err, result) {
-				assert.ifError(err);
+				assert.notEqual(err, null);
+				assert(err.duplicate);
+				done();
 			});
-			done();
 		});
 	});
 
@@ -82,16 +83,17 @@ suite("users", function() {
 				assert.deepEqual({
 					ok: 1,
 					n: 1
-				}, result.result);
+				}, result);
+				done();
 			});
-			done();
 		});
 
 		test("should reremove Bobby with error", function(done) {
 			users.remove(bobby.uid, function(err, result) {
-				assert.ifError(err);
+				assert.notEqual(err, null);
+				assert(err.nonexistentUser);
+				done();
 			});
-			done();
 		});
 	});
 
@@ -187,7 +189,11 @@ suite("users", function() {
 		});
 	});
 
-	suiteTeardown(function() {
+	suiteTeardown(function(done) {
 		users.clean();
+		done();
+		// users.clean(function (err, result) {
+		// 	done();
+		// });
 	});
 });
