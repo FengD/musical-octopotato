@@ -77,12 +77,14 @@ class Track {
 
 class Mix {
 
-	constructor (title, author, date, coverPath, tracks) {
+	constructor (title, author, date, coverPath, tracks, plays, likes) {
 		this._title = title;
 		this._author = author;
 		this._date = date;
 		this._coverPath = coverPath;
 		this._tracks = tracks;
+		this._plays = plays;
+		this._likes = likes;
 	}
 
 	get title() { return this._title; }
@@ -100,16 +102,23 @@ class Mix {
 	get tracks() { return this._tracks; }
 	set tracks(tracks) { this._tracks = tracks; }
 
+	get plays() { return this._plays; }
+	set plays(plays) { this._plays = plays; }
+
+	get likes() { return this._likes; }
+	set likes(likes) { this._likes = likes; }
+
 	static fromJSON (json) {
 		if (!(json.title && json.author && json.date && json.coverPath && json.tracks
-			&& Array.isArray(json.tracks))) {
+			&& Array.isArray(json.tracks) && json.plays != undefined
+			&& json.likes != undefined)) {
 			var err = new Error("invalid json");
 
 			err.invalidJson = true;
 			throw err;
 		}
 		return new Mix(json.title, json.author, json.date, json.coverPath,
-			json.tracks.map(Track.fromJSON));
+			json.tracks.map(Track.fromJSON), json.plays, json.likes);
 	}
 
 	static toJSON (mix) {
@@ -133,6 +142,8 @@ class Mix {
 				json.tracks.push(Track.toJSON(mix.tracks[i]));
 			}
 		}
+		if (mix.plays != undefined) json.plays = mix.plays;
+		if (mix.likes != undefined) json.likes = mix.likes;
 		return json;
 	}
 }

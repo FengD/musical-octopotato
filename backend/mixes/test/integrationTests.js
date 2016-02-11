@@ -38,13 +38,17 @@ var superMixJson = {
 		author: "daSuperDJ",
 		date: new Date(),
 		coverPath: "/daPath",
-		tracks: [track1Json, track2Json]
+		tracks: [track1Json, track2Json],
+		plays: 2,
+		likes: 0
 }, 	otherMixJson = {
 		title: "otherMix",
 		author: "daSuperDJ",
 		date: new Date(),
 		coverPath: "/daOtherPath",
-		tracks: [track1Json, track2Json]
+		tracks: [track1Json, track2Json],
+		plays: 5,
+		likes: 1
 };
 
 suite("mixes service", function () {
@@ -111,7 +115,9 @@ suite("mixes service", function () {
 					author: "daSuperDJ",
 					date: new Date(),
 					coverPath: "/daPath",
-					tracks: [track1Json, track2Json]
+					tracks: [track1Json, track2Json],
+					plays: 8,
+					likes: 2
 				})
 				.expect(400)
 				.end(function (err, res) {
@@ -186,7 +192,9 @@ suite("mixes service", function () {
 			author: "auth1",
 			date: new Date(),
 			coverPath: "/path/path",
-			tracks: [track2Json]
+			tracks: [track2Json],
+			plays: 3,
+			likes: 0
 		};
 		var createdMixesJson = [superMixJson, otherMixJson, mix1Json],
 			superDjMixesJson = [superMixJson, otherMixJson];
@@ -295,7 +303,9 @@ suite("mixes service", function () {
 			author: "auth1",
 			date: new Date(),
 			coverPath: "/path/path",
-			tracks: [track2Json]
+			tracks: [track2Json],
+			plays: 7,
+			likes: 3
 		};
 		var updateJson = mix1Json, createdMixesJson = [mix1Json];
 

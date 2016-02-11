@@ -39,13 +39,15 @@ var track1 = new Track("daTrack", "daPath", 0, 1, 2, 3, 4, 5, 6, 7),
 
 var superDate = new Date();
 
-var superMix = new Mix("daSuperMix", "daSuperDJ", superDate, "/daPath", [track1, track2]),
+var superMix = new Mix("daSuperMix", "daSuperDJ", superDate, "/daPath", [track1, track2], 2, 0),
 	superMixJson = {
 		title: "daSuperMix",
 		author: "daSuperDJ",
 		date: superDate,
 		coverPath: "/daPath",
-		tracks: [track1Json, track2Json]
+		tracks: [track1Json, track2Json],
+		plays: 2,
+		likes: 0
 	};
 
 suite("mixes", function() {
@@ -135,7 +137,9 @@ suite("mixes", function() {
 					author: "daSuperDJ",
 					date: new Date(),
 					coverPath: "/daOtherPath",
-					tracks: [track1Json, track2Json]
+					tracks: [track1Json, track2Json],
+					plays: 5,
+					likes: 1
 				}));
 			});
 
@@ -148,7 +152,9 @@ suite("mixes", function() {
 						author: "daSuperDJ",
 						date: new Date(),
 						coverPath: "/daOtherPath",
-						tracks: [track1Json, track2Json]
+						tracks: [track1Json, track2Json],
+						plays: 5,
+						likes: 1
 					});
 				}
 				catch(e) {
@@ -247,8 +253,8 @@ suite("mixes", function() {
 
 	suite("#get()", function() {
 
-		var mix1 = new Mix("mix1", "auth1", new Date(), "/path", [track1]),
-		 	mix2 = new Mix("mix2", "auth1", new Date(), "/path", [track2]);
+		var mix1 = new Mix("mix1", "auth1", new Date(), "/path", [track1], 10, 2),
+		 	mix2 = new Mix("mix2", "auth1", new Date(), "/path", [track2], 8, 3);
 		var createdMixes = [superMix, mix1, mix2],
 			auth1Mixes = [mix1, mix2];
 
@@ -346,8 +352,8 @@ suite("mixes", function() {
 
 	suite("#replace()", function() {
 
-		var mix1 = new Mix("mix1", "auth1", new Date(), "/path", [track1]),
-		 	mix2 = new Mix("mix2", "auth1", new Date(), "/path", [track2]);
+		var mix1 = new Mix("mix1", "auth1", new Date(), "/path", [track1], 10, 2),
+		 	mix2 = new Mix("mix2", "auth1", new Date(), "/path", [track2], 8, 3);
 		var update = mix1, createdMixes = [superMix, mix1, mix2],
 			auth1Mixes = [mix1, mix2];
 
