@@ -20,7 +20,7 @@ Ensure now that MongoDB is running locally with the default configuration, meani
 
 You should also have an [ECMAScript 6][4] compatible version of [Node.js][3], we suggest `v5.6.0`.
 
-##### Compass
+##### Compass // TODO to update Tom (or to remove)
 
 Finally, in order to be able to compile SASS files, you must install [Compass][5].
 
@@ -30,14 +30,21 @@ Run the `install_local.sh` script with root privileges. This will setup all proj
 
 The following commands do not need to be executed in root mode, but they have to be all run with same privileges.
 
-Then execute the `run_local.sh` script, it will start the backend services. You can now launch the frontend through the `TODO COMMAND` and test the application at: [TODOlink].
+Then execute the `run_local.sh` script, it will start the backend services.
 
-To stop the system, run the `stop_local.sh` script.
+// TODO Tom
+You can now launch the frontend through the `TODO COMMAND` and test the application at: [TODOlink].
+
+To stop the backend services, run the `stop_local.sh` script.
+
+##### Running the tests
+
+You can run the command `mocha -u tdd` in each backend subdirectory (`backend/users`, `backend/mixes`, `backend/mp3-files`) in order to run each service related test suites.
 
 ## Team
  * Fernando Garrigos: MP3-files upload/download service (backend) and login (frontend)
  * Ying Jiang: Frontend
- * Marc Karassev: Users and Mixes services, and MongoDB configuration (backend)
+ * Marc Karassev: Users and Mixes services, MongoDB and testing (backend)
  * Tom Veniat: Frontend
   // TODO who did what
 
